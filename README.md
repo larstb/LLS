@@ -9,6 +9,7 @@
 - Maven
 - Docker
 - KeyCloak
+- Codacy
 
 ## Build&Run Backend
 - mvn clean install build bootrun
