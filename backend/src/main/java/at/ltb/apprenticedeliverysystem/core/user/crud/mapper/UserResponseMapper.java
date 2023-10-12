@@ -15,5 +15,6 @@ import java.util.List;
 public abstract class UserResponseMapper {
 
     public abstract List<UserOverviewDTO> map(List<UserEntity> source);
+
     public abstract UserDTO mapDto(UserEntity source);
 }

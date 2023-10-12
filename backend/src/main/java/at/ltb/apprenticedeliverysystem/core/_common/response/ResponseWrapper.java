@@ -8,7 +8,9 @@ import java.util.List;
 @Getter
 @Setter
 public class ResponseWrapper<T extends BaseResponse> {
+
     private List<T> content;
+
     private long totalElements;
 
     public ResponseWrapper(List<T> content, long totalElements) {
