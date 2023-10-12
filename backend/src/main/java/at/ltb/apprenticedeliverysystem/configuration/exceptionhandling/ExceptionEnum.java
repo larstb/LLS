@@ -1,4 +1,4 @@
-package at.ltb.apprenticedeliverysystem.configuration.exceptionHandling;
+package at.ltb.apprenticedeliverysystem.configuration.exceptionhandling;
 
 import at.ltb.apprenticedeliverysystem.core._common.jwt.exception.JwtClaimException;
 import at.ltb.apprenticedeliverysystem.core._common.jwt.exception.JwtExpiresException;

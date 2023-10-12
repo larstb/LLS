@@ -1,7 +1,7 @@
 package at.ltb.apprenticedeliverysystem.configuration;
 
-import at.ltb.apprenticedeliverysystem.configuration.exceptionHandling.ExceptionEnum;
-import at.ltb.apprenticedeliverysystem.configuration.exceptionHandling.ExceptionResponse;
+import at.ltb.apprenticedeliverysystem.configuration.exceptionhandling.ExceptionEnum;
+import at.ltb.apprenticedeliverysystem.configuration.exceptionhandling.ExceptionResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.access.AccessDeniedException;

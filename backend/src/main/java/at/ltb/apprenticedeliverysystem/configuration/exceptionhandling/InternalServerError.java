@@ -1,4 +1,4 @@
-package at.ltb.apprenticedeliverysystem.configuration.exceptionHandling;
+package at.ltb.apprenticedeliverysystem.configuration.exceptionhandling;
 
 public class InternalServerError extends RuntimeException {
     public InternalServerError(String message) {
