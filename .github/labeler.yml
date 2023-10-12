@@ -1,12 +1,9 @@
 backend:
-  - backend/**/*
-
+- backend/**/*
 frontend:
-  - frontend/**/*
-
+- frontend/**/*
 database:
   - '**/*.sql'
-
 config:
   - '**/*.yml'
   - '**/*.yaml'
