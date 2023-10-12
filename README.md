@@ -9,7 +9,7 @@
 - Maven
 - Docker
 - KeyCloak
-- Codacy
+- Codacy [![Codacy Badge](https://app.codacy.com/project/badge/Grade/aba4c299e4f44bfaaca9864f51c45580)](https://app.codacy.com/gh/larstb/LLS/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 ## Build&Run Backend
 - mvn clean install build bootrun
