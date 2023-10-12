@@ -25,7 +25,9 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 public class JwtTokenFilter extends OncePerRequestFilter {
 
     private final JwtDecoder jwtDecoder;
+
     private final UserCrudRepository userRepository;
+
     private final JwtProperties properties;
 
     public JwtTokenFilter(JwtDecoder jwtDecoder, UserCrudRepository userRepository, JwtProperties properties) {
@@ -35,7 +37,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException {
         final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
 
         if (isEmpty(header) || !header.startsWith("Bearer ")) {

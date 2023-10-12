@@ -3,7 +3,11 @@ package at.ltb.apprenticedeliverysystem.core.user._persistence;
 import at.ltb.apprenticedeliverysystem.core._common._persistence.AbstractCrudEntity;
 import at.ltb.apprenticedeliverysystem.core._common.role.RoleEnum;
 import jakarta.annotation.Nonnull;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 

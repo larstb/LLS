@@ -1,4 +1,4 @@
-package at.ltb.apprenticedeliverysystem.configuration.exceptionHandling;
+package at.ltb.apprenticedeliverysystem.configuration.exceptionhandling;
 
 import java.time.LocalDateTime;
 

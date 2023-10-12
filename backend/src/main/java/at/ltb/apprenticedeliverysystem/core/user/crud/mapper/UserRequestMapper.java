@@ -4,7 +4,11 @@ import at.ltb.apprenticedeliverysystem.core.user._persistence.UserEntity;
 import at.ltb.apprenticedeliverysystem.core.user.crud.configuration.UserPasswordProperties;
 import at.ltb.apprenticedeliverysystem.core.user.crud.models.UserCreateDTO;
 import at.ltb.apprenticedeliverysystem.core.user.crud.models.UserDTO;
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.Named;
+import org.mapstruct.ReportingPolicy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 

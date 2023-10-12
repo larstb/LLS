@@ -1,10 +1,14 @@
-package at.ltb.apprenticedeliverysystem.configuration.exceptionHandling;
+package at.ltb.apprenticedeliverysystem.configuration.exceptionhandling;
 
 import at.ltb.apprenticedeliverysystem.core._common.jwt.exception.JwtClaimException;
 import at.ltb.apprenticedeliverysystem.core._common.jwt.exception.JwtExpiresException;
 import at.ltb.apprenticedeliverysystem.core._common.jwt.exception.JwtTokenException;
 import at.ltb.apprenticedeliverysystem.core._common.jwt.exception.JwtUserException;
-import at.ltb.apprenticedeliverysystem.core.user.exception.*;
+import at.ltb.apprenticedeliverysystem.core.user.exception.UserEmailPatternMismatchException;
+import at.ltb.apprenticedeliverysystem.core.user.exception.UserEmailUniqueException;
+import at.ltb.apprenticedeliverysystem.core.user.exception.UserLoginException;
+import at.ltb.apprenticedeliverysystem.core.user.exception.UserPasswordPatternMismatchException;
+import at.ltb.apprenticedeliverysystem.core.user.exception.UserPhoneNumberPatternMismatchException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

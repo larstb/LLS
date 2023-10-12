@@ -15,7 +15,15 @@ import at.ltb.apprenticedeliverysystem.core.user.validator.UserEmailValidator;
 import at.ltb.apprenticedeliverysystem.core.user.validator.UserPhoneNumberValidator;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/user")
@@ -36,7 +44,8 @@ public class UserCrudApi {
     public UserCrudApi(UserPaginationRepository userPaginationRepository,
                        UserCrudRepository userCrudRepository,
                        UserResponseMapper userResponseMapper,
-                       UserRequestMapper userRequestMapper, UserPhoneNumberValidator userPhoneNumberValidator, UserEmailValidator userEmailValidator) {
+                       UserRequestMapper userRequestMapper, UserPhoneNumberValidator userPhoneNumberValidator,
+                       UserEmailValidator userEmailValidator) {
         this.userPaginationRepository = userPaginationRepository;
         this.userCrudRepository = userCrudRepository;
         this.userResponseMapper = userResponseMapper;
@@ -47,10 +56,13 @@ public class UserCrudApi {
 
     @AdminPermission
     @GetMapping(value = "/")
-    public ResponseWrapper<UserOverviewDTO> getUserOverView(@RequestParam(value = "page", required = false) Integer page,
-                                                            @RequestParam(value = "size", required = false) Integer size) {
+    public ResponseWrapper<UserOverviewDTO> getUserOverView(@RequestParam(value = "page",
+                                                                required = false) Integer page,
+                                                            @RequestParam(value = "size",
+                                                                required = false) Integer size) {
         return new ResponseWrapper<>(
-                userResponseMapper.map(userPaginationRepository.findAll(PaginationUtil.getPagination(page, size)).getContent()), userCrudRepository.count());
+                userResponseMapper.map(userPaginationRepository.findAll(
+                        PaginationUtil.getPagination(page, size)).getContent()), userCrudRepository.count());
     }
 
     @AdminPermission
