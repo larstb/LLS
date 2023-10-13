@@ -29,8 +29,9 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(ci -> new CorsConfiguration())
                 .authorizeHttpRequests(customizer -> customizer
-                    .requestMatchers("/api/auth/**").permitAll()
                     .requestMatchers("/v3/api-docs/**").permitAll()
+                    .requestMatchers("/v3/api-docs.yaml").permitAll()
+                    .requestMatchers("/favicon.ico").permitAll()
                     .requestMatchers("/api/swagger/**").permitAll()
                     .requestMatchers("/api/swagger-ui/**").permitAll()
                     .requestMatchers("/api/**").authenticated()
