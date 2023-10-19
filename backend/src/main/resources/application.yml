@@ -23,15 +23,3 @@ spring:
 springdoc:
   swagger-ui:
     path: /api/swagger
-
-###
-##### J W T   T O K E N
-###
-own:
-  security:
-    jwt:
-      secret: adkjhhuiaeuJABHGFIZW56749847894GBFDIkhgbdvhsdsuohefb6525484
-      expires-in-minutes: 60
-      issuer: lls_application
-    password:
-      initial_password: new_user_2023_
