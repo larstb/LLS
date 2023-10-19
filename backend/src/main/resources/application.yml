@@ -16,6 +16,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9005/realms/lls_dev
 
 ###
 ##### S W A G G E R   U I
@@ -23,3 +28,12 @@ spring:
 springdoc:
   swagger-ui:
     path: /api/swagger
+
+###
+##### S W A G G E R   U I
+###
+own:
+  jwt:
+    auth:
+      converter:
+        resource-client: backend

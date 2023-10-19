@@ -1,5 +1,6 @@
 package at.ltb.apprenticedeliverysystem.configuration;
 
+import at.ltb.apprenticedeliverysystem.configuration.security.JwtAuthConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,12 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 @EnableMethodSecurity(jsr250Enabled = true)
 public class WebSecurityConfig {
 
+    private final JwtAuthConverter jwtAuthConverter;
+
+    public WebSecurityConfig(JwtAuthConverter jwtAuthConverter) {
+        this.jwtAuthConverter = jwtAuthConverter;
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
@@ -29,6 +36,11 @@ public class WebSecurityConfig {
                     .requestMatchers("/api/swagger-ui/**").permitAll()
                     .requestMatchers("/api/**").authenticated()
                     .anyRequest().denyAll()
+                )
+                .oauth2ResourceServer(oauth2 -> oauth2
+                        .jwt(jwt -> jwt
+                                .jwtAuthenticationConverter(jwtAuthConverter)
+                        )
                 )
                 .sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(customizer -> customizer.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))

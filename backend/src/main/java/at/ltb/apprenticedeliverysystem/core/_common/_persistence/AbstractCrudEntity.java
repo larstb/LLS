@@ -28,12 +28,12 @@ public abstract class AbstractCrudEntity extends AbstractBaseEntity {
     @LastModifiedDate
     private LocalDateTime modifiedDate;
 
-    @Column(name = "created_by", updatable = false)
+    @Column(name = "created_by", updatable = false, columnDefinition = "CHAR(36)")
     @CreatedBy
-    private Long createdBy;
+    private String createdBy;
 
-    @Column(name = "modified_by")
+    @Column(name = "modified_by", columnDefinition = "CHAR(36)")
     @LastModifiedBy
-    private Long modifiedBy;
+    private String modifiedBy;
 
 }

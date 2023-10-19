@@ -41,4 +41,11 @@ public class UserEntity extends AbstractCrudEntity {
 
     @Column(name = "keycloak_reference", columnDefinition = "CHAR(36)")
     private String keycloakReference;
+
+    @Column(name = "email", columnDefinition = "CHAR(400)")
+    private String email;
+
+    @Nonnull
+    @Column(name = "is_blocked", nullable = false)
+    private Boolean isBlocked = false;
 }
