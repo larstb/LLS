@@ -9,8 +9,6 @@ info:
 servers:
 - url: http://localhost:8080
   description: Generated server url
-security:
-- Bearer Authentication: []
 paths:
   /api/user/:
     get:
