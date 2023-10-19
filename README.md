@@ -25,6 +25,10 @@
 
 ## Keycloak Build Command (nur DEV!)
 - docker run -d --restart=always --name keycloak -p 9005:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:latest start-dev
+- https://www.baeldung.com/postman-keycloak-endpoints
+- https://codewithbisky.com/spring-boot-integration-blogs/ep10.html
+- Config Endpoint (GET): http://localhost:9005/realms/lls-dev/.well-known/openid-configuration
+- Token Endpoint (POST): http://localhost:9005/realms/lls-dev/protocol/openid-connect/token
 
 ## Swagger API
 - Swagger UI is reachable under localhost:8080/api/swagger

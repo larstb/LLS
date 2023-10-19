@@ -1,5 +1,6 @@
 package at.ltb.apprenticedeliverysystem.configuration;
 
+import at.ltb.apprenticedeliverysystem.core._common.auth.AuthUserHelper;
 import jakarta.annotation.Nonnull;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
@@ -9,11 +10,17 @@ import java.util.Optional;
 
 @Configuration
 @EnableJpaAuditing
-public class AuditAwareConfig implements AuditorAware<Long> {
+public class AuditAwareConfig implements AuditorAware<String> {
+
+    private final AuthUserHelper authUserHelper;
+
+    public AuditAwareConfig(AuthUserHelper authUserHelper) {
+        this.authUserHelper = authUserHelper;
+    }
 
     @Nonnull
     @Override
-    public Optional<Long> getCurrentAuditor() {
-        return Optional.of(-1L);
+    public Optional<String> getCurrentAuditor() {
+        return Optional.of(authUserHelper.getCurrentUser());
     }
 }
