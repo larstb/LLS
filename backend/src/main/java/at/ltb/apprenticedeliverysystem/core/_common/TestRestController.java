@@ -1,8 +1,9 @@
 package at.ltb.apprenticedeliverysystem.core._common;
 
+import at.ltb.apprenticedeliverysystem.configuration.permission.AdminPermission;
+import at.ltb.apprenticedeliverysystem.configuration.permission.ModeratorPermission;
 import at.ltb.apprenticedeliverysystem.core._common.auth.AuthUserHelper;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,11 +28,15 @@ public class TestRestController {
         return someHeroes;
     }
 
-    @GetMapping("/{id}")
-    public String hero(@PathVariable("id") String name) {
-        return someHeroes.stream()
-                .filter(h -> h.equals(name))
-                .findFirst()
-                .orElse(null);
+    @GetMapping("admin")
+    @AdminPermission
+    public List<String> admin() {
+        return someHeroes;
+    }
+
+    @GetMapping("mod/")
+    @ModeratorPermission
+    public List<String> mod() {
+        return someHeroes;
     }
 }

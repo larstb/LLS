@@ -24,6 +24,6 @@ public class AuthUserHelper {
         } catch (Exception e) {
             throw new JwtClaimException("could not parse token");
         }
-        return jwtAuthConverter.getPrincipalClaimName(t);
+        return jwtAuthConverter.getPrincipalId(t);
     }
 }

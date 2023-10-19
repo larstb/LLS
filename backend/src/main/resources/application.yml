@@ -20,7 +20,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:9005/realms/lls-dev
+          issuer-uri: http://localhost:9005/realms/lls_dev
 
 ###
 ##### S W A G G E R   U I
@@ -36,4 +36,4 @@ own:
   jwt:
     auth:
       converter:
-        resource-id: 6TgDuvVJHv85Qgbk5i7SJ4wPTYWnXyqk
+        resource-client: backend
