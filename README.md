@@ -23,6 +23,9 @@
 ## Local DB (PostgreSQL)
 - https://www.baeldung.com/ops/postgresql-docker-setup
 
+## Keycloak Build Command (nur DEV!)
+- docker run --name keycloak -p 9005:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:latest start-dev -d
+
 ## Swagger API
 - Swagger UI is reachable under localhost:8080/api/swagger
 - OpenAPI Yaml File is downloadable under localhost:8080/v3/api-docs.yaml
