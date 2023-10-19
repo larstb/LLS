@@ -1,14 +1,5 @@
 package at.ltb.apprenticedeliverysystem.configuration.exceptionhandling;
 
-import at.ltb.apprenticedeliverysystem.core._common.jwt.exception.JwtClaimException;
-import at.ltb.apprenticedeliverysystem.core._common.jwt.exception.JwtExpiresException;
-import at.ltb.apprenticedeliverysystem.core._common.jwt.exception.JwtTokenException;
-import at.ltb.apprenticedeliverysystem.core._common.jwt.exception.JwtUserException;
-import at.ltb.apprenticedeliverysystem.core.user.exception.UserEmailPatternMismatchException;
-import at.ltb.apprenticedeliverysystem.core.user.exception.UserEmailUniqueException;
-import at.ltb.apprenticedeliverysystem.core.user.exception.UserLoginException;
-import at.ltb.apprenticedeliverysystem.core.user.exception.UserPasswordPatternMismatchException;
-import at.ltb.apprenticedeliverysystem.core.user.exception.UserPhoneNumberPatternMismatchException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -17,35 +8,7 @@ import java.util.Arrays;
 
 @Getter
 public enum ExceptionEnum {
-
-    USER_EMAIL_NOT_UNIQUE(UserEmailUniqueException.class,
-            "USER_EMAIL_NOT_UNIQUE",
-            HttpStatus.BAD_REQUEST),
-    USER_EMAIL_PATTERN_MISMATCH(UserEmailPatternMismatchException.class,
-            "USER_EMAIL_PATTERN_MISMATCH",
-            HttpStatus.BAD_REQUEST),
-    USER_LOGIN(UserLoginException.class,
-            "USER_LOGIN_EXCEPTION",
-            HttpStatus.FORBIDDEN),
-    USER_PHONE_NUMBER_PATTERN_MISMATCH(UserPhoneNumberPatternMismatchException.class,
-            "USER_PHONE_NUMBER_PATTERN_MISMATCH",
-            HttpStatus.BAD_REQUEST),
-    USER_PASSWORD_PATTERN_MISMATCH(UserPasswordPatternMismatchException.class,
-            "USER_PASSWORD_PATTERN_MISMATCH",
-            HttpStatus.BAD_REQUEST),
-    JWT_USER(JwtUserException.class,
-            "JWT_USER",
-            HttpStatus.UNAUTHORIZED),
-    JWT_TOKEN(JwtTokenException.class,
-            "JWT_TOKEN",
-            HttpStatus.UNAUTHORIZED),
-    JWT_EXPIRED(JwtExpiresException.class,
-            "JWT_EXPIRED",
-            HttpStatus.UNAUTHORIZED),
-    JWT_CLAIM(JwtClaimException.class,
-            "JWT_CLAIM",
-            HttpStatus.UNAUTHORIZED),
-    UNAUTHORIZED_WRONG_ROLE(JwtClaimException.class,
+    UNAUTHORIZED_WRONG_ROLE(Object.class,
             "UNAUTHORIZED_WRONG_ROLE",
             HttpStatus.UNAUTHORIZED),
     ENTITY_NOT_FOUND(EntityNotFoundException.class,
