@@ -44,4 +44,8 @@ public class UserEntity extends AbstractCrudEntity {
 
     @Column(name = "email", columnDefinition = "CHAR(400)")
     private String email;
+
+    @Nonnull
+    @Column(name = "is_blocked", nullable = false)
+    private Boolean isBlocked = false;
 }
