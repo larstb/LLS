@@ -4,16 +4,17 @@ import at.ltb.apprenticedeliverysystem.core._common.auth.exception.JwtClaimExcep
 import jakarta.persistence.EntityNotFoundException;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 
 import java.util.Arrays;
 
 @Getter
 public enum ExceptionEnum {
+    UNAUTHORIZED(AccessDeniedException.class,
+            "Unauthorized",
+            HttpStatus.UNAUTHORIZED),
     JWT_CLAIM_EXCEPTION(JwtClaimException.class,
             "JWT_CLAIM_EXCEPTION",
-            HttpStatus.UNAUTHORIZED),
-    UNAUTHORIZED_WRONG_ROLE(Object.class,
-            "UNAUTHORIZED_WRONG_ROLE",
             HttpStatus.UNAUTHORIZED),
     ENTITY_NOT_FOUND(EntityNotFoundException.class,
             "ENTITY_NOT_FOUND",

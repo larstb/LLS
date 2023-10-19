@@ -27,7 +27,7 @@ public class ExceptionHandling {
     @ExceptionHandler(AccessDeniedException.class)
     public @ResponseBody ExceptionResponse handleAccessDeniedException(final Exception exception, final HttpServletRequest request,
                                                            final HttpServletResponse response) {
-        ExceptionEnum exceptionResponse = ExceptionEnum.UNAUTHORIZED_WRONG_ROLE;
+        ExceptionEnum exceptionResponse = ExceptionEnum.UNAUTHORIZED;
         response.setStatus(exceptionResponse.getHttpStatus().value());
 
         return new ExceptionResponse(exceptionResponse.getCode(), request.getRequestURI(),
