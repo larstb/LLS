@@ -10,18 +10,11 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(jsr250Enabled = true)
 public class WebSecurityConfig {
-
-    private final JwtTokenFilter jwtTokenFilter;
-
-    public WebSecurityConfig(JwtTokenFilter jwtTokenFilter) {
-        this.jwtTokenFilter = jwtTokenFilter;
-    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -39,7 +32,6 @@ public class WebSecurityConfig {
                 )
                 .sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(customizer -> customizer.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
-                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 }

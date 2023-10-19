@@ -30,7 +30,7 @@ public class CurrentUserService {
 
     private Optional<UserEntity> getCurrentUserOptional() {
         Long userId = getCurrentUserIdFromSecurity();
-        return userId == -1L ? Optional.empty() : userRepository.findActiveUserById(userId);
+        return userId == -1L ? Optional.empty() : Optional.empty();
     }
 
 }

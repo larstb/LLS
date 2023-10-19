@@ -1,12 +1,9 @@
 package at.ltb.apprenticedeliverysystem.core.user._persistence;
 
 import at.ltb.apprenticedeliverysystem.core._common._persistence.AbstractCrudEntity;
-import at.ltb.apprenticedeliverysystem.core._common.role.RoleEnum;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,21 +30,8 @@ public class UserEntity extends AbstractCrudEntity {
     private String phoneNumber;
 
     @Nonnull
-    @Column(name = "email", nullable = false, unique = true)
-    private String email;
-
-    @Nonnull
-    @Column(name = "password", nullable = false)
-    private String password;
-
-    @Nonnull
     @Column(name = "location", nullable = false, length = 150)
     private String location;
-
-    @Nonnull
-    @Column(name = "role", nullable = false, columnDefinition = "CHAR(10)")
-    @Enumerated(value = EnumType.STRING)
-    private RoleEnum role = RoleEnum.USER;
 
     @Column(name = "iban", columnDefinition = "CHAR(20)")
     private String iban;
@@ -55,7 +39,6 @@ public class UserEntity extends AbstractCrudEntity {
     @Column(name = "paypal_link", columnDefinition = "NCLOB")
     private String paypalLink;
 
-    @Nonnull
-    @Column(name = "is_active", nullable = false)
-    private Boolean isActive = false;
+    @Column(name = "keycloak_reference", columnDefinition = "CHAR(36)")
+    private String keycloakReference;
 }

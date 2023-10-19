@@ -22,25 +22,22 @@ CREATE TABLE LLS_CATEGORY
 
 CREATE TABLE LLS_USER
 (
-    ID              BIGSERIAL not null,
-    VERSION         INTEGER not null,
-    CREATED_AT      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CREATED_BY      BIGINT,
-    MODIFIED_AT     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    MODIFIED_BY     BIGINT,
-    FIRSTNAME       VARCHAR(255) not null,
-    LASTNAME        VARCHAR(255) not null,
-    STATUS          TEXT,
-    PHONE_NUMBER    VARCHAR(30) not null,
-    EMAIL           VARCHAR(255) not null,
-    PASSWORD        TEXT not null,
-    LOCATION        VARCHAR(150),
-    ROLE            VARCHAR(10) not null,
-    IBAN            VARCHAR(20),
-    PAYPAL_LINK     TEXT,
-    IS_ACTIVE       BOOLEAN not null,
+    ID                  BIGSERIAL not null,
+    VERSION             INTEGER not null,
+    CREATED_AT          TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CREATED_BY          BIGINT,
+    MODIFIED_AT         TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    MODIFIED_BY         BIGINT,
+    FIRSTNAME           VARCHAR(255) not null,
+    LASTNAME            VARCHAR(255) not null,
+    STATUS              TEXT,
+    PHONE_NUMBER        VARCHAR(30) not null,
+    LOCATION            VARCHAR(150),
+    IBAN                VARCHAR(20),
+    PAYPAL_LINK         TEXT,
+    KEYCLOAK_REFERENCE  VARCHAR(20),
     PRIMARY KEY (ID),
-    CONSTRAINT UK_LLS_USER_UNIQUE_EMAIL UNIQUE (EMAIL)
+    CONSTRAINT UK_LLS_USER_UNIQUE_KEYCLOAK_REFERENCE UNIQUE (KEYCLOAK_REFERENCE)
 );
 
 

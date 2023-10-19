@@ -39,8 +39,3 @@
 - Zufällige zweite Person auslosen
 - Umfragen
 - Default Bestellungen
-
-# MERKEN
-- https://medium.com/upstate-interactive/create-a-login-feature-with-ngrx-in-6-steps-8691395bcda7
-- https://mherman.org/blog/authentication-in-angular-with-ngrx/
-- https://shzhangji.com/blog/2023/01/15/restful-api-authentication-with-spring-security/

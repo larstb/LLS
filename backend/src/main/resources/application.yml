@@ -7,7 +7,7 @@ spring:
     username: lls_dev
     password: lls_dev
   flyway:
-    locations: classpath:flyway/schema/common
+    locations: classpath:common
   jpa:
     show-sql: false
     hibernate:
