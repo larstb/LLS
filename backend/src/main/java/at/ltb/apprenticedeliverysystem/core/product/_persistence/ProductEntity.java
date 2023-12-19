@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,18 +20,22 @@ import lombok.Setter;
 public class ProductEntity extends AbstractCrudEntity {
 
     @Nonnull
+    @NotBlank
     @Column(name = "p_name", nullable = false)
     private String name;
 
     @Nonnull
+    @NotBlank
     @Column(name = "producer", nullable = false)
     private String producer;
 
     @Nonnull
+    @NotBlank
     @Column(name = "quantity", nullable = false, columnDefinition = "CHAR(20)")
     private String quantity;
 
     @Nonnull
+    @NotBlank
     @Column(name = "price", nullable = false, columnDefinition = "NUMERIC(10,2)")
     private Double price;
 

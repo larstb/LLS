@@ -26,6 +26,10 @@ public class OrderItemEntity extends AbstractCrudEntity {
     private String note;
 
     @Nonnull
-    @Column(name = "price", nullable = false, columnDefinition = "NUMERIC(10,2)")
-    private Double price;
+    @Column(name = "ordered_quantity", nullable = false, updatable = false)
+    private Integer orderedQuantity = 1;
+
+    @Nonnull
+    @Column(name = "old_product_price", nullable = false, updatable = false, columnDefinition = "NUMERIC(10,2)")
+    private Double oldProductPrice;
 }

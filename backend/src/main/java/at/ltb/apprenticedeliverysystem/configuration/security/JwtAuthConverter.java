@@ -18,7 +18,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
-public class JwtAuthConverter implements Converter<Jwt, AbstractAuthenticationToken> {
+public class JwtAuthConverter
+        implements Converter<Jwt, AbstractAuthenticationToken> {
 
     @Value("${own.jwt.auth.converter.resource-client}")
     private String resourceClient;
