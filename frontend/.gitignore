@@ -9,6 +9,8 @@
 # Node
 /node_modules
 /node
+/src/app/shared/.openapi-generator*
+/src/app/shared/model*
 npm-debug.log
 yarn-error.log
 
