@@ -32,7 +32,8 @@ public class UserService {
 
     private final KeyCloakService keyCloakService;
 
-    public UserService(UserQueryDSLRepository userQueryDSLRepository, UserCrudRepository userCrudRepository, UserMapper userMapper, KeyCloakService keyCloakService) {
+    public UserService(UserQueryDSLRepository userQueryDSLRepository, UserCrudRepository userCrudRepository,
+                       UserMapper userMapper, KeyCloakService keyCloakService) {
         this.userQueryDSLRepository = userQueryDSLRepository;
         this.userCrudRepository = userCrudRepository;
         this.userMapper = userMapper;
@@ -41,7 +42,8 @@ public class UserService {
 
     public ResponseWrapper<UserOverviewDTO> loadAllUsers(Integer page, Integer pageSize,
                                                          Optional<String> searchTerm) {
-        QueryDslOverviewResponse<UserEntity> response = userQueryDSLRepository.loadUsers(searchTerm, PaginationUtil.getPagination(page, pageSize));
+        QueryDslOverviewResponse<UserEntity> response = userQueryDSLRepository
+                .loadUsers(searchTerm, PaginationUtil.getPagination(page, pageSize));
         return new ResponseWrapper<>(userMapper.mapUserEntityToOverview(response.getContent()),
                 response.getTotalElements());
     }

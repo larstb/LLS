@@ -7,12 +7,15 @@ import at.ltb.apprenticedeliverysystem.core.user.dto.CreateUserDTO;
 import at.ltb.apprenticedeliverysystem.core.user.dto.UpdateUserDTO;
 import at.ltb.apprenticedeliverysystem.core.user.dto.UserDetailDTO;
 import at.ltb.apprenticedeliverysystem.core.user.dto.UserOverviewDTO;
-import org.keycloak.representations.idm.UserRepresentation;
-import org.mapstruct.*;
+import org.mapstruct.AfterMapping;
+import org.mapstruct.InjectionStrategy;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 
 import javax.inject.Inject;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring",
         injectionStrategy = InjectionStrategy.CONSTRUCTOR,
