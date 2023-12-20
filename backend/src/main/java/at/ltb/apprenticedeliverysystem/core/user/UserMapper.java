@@ -35,6 +35,9 @@ public abstract class UserMapper {
     @Mapping(target = "id", source = "uuid")
     public abstract UserDetailDTO mapUserEntityToDetail(UserEntity user);
 
+    @Mapping(target = "roles", ignore = true)
+    public abstract LoggedInUserDTO mapUserEntityToLoggedInUser(UserEntity user);
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "uuid", ignore = true)
     @Mapping(target = "version", ignore = true)

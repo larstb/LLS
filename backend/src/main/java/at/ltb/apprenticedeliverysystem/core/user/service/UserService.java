@@ -5,6 +5,7 @@ import at.ltb.apprenticedeliverysystem.core._common.exception.CustomEntityNotFou
 import at.ltb.apprenticedeliverysystem.core._common.response.QueryDslOverviewResponse;
 import at.ltb.apprenticedeliverysystem.core._common.pagination.PaginationUtil;
 import at.ltb.apprenticedeliverysystem.core._common.response.ResponseWrapper;
+import at.ltb.apprenticedeliverysystem.core._common.role.RoleEnum;
 import at.ltb.apprenticedeliverysystem.core.keycloak.KeyCloakService;
 import at.ltb.apprenticedeliverysystem.core.user.UserMapper;
 import at.ltb.apprenticedeliverysystem.core.user._persistence.UserCrudRepository;
@@ -65,6 +66,21 @@ public class UserService {
 
         logger.info("UserEntity was found!");
         return userMapper.mapUserEntityToDetailPortal(foundedEntity);
+    }
+
+    public LoggedInUserDTO loadUserShortInfosForLoggedInUser() {
+        UserEntity foundedEntity = userQueryDSLRepository.loadUserByKeyCloakReference(authUserHelper.getCurrentUser());
+
+        if(Objects.isNull(foundedEntity)) {
+            logger.error("LoggedInUser not found: " + authUserHelper.getCurrentUser());
+            throw new CustomEntityNotFoundException(UserEntity.class.getSimpleName() + " not found");
+        }
+
+        logger.info("LoggedInUser was found!");
+        LoggedInUserDTO loggedInUser = userMapper.mapUserEntityToLoggedInUser(foundedEntity);
+        loggedInUser.setRoles(RoleEnum.findListByKeyCloakName(
+                keyCloakService.loadGroupNamesByKeyCloakId(authUserHelper.getCurrentUser())));
+        return loggedInUser;
     }
 
     public UserDetailDTO loadUserForLoggedInUser() {

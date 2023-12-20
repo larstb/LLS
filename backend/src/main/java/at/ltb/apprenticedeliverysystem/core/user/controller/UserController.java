@@ -1,5 +1,6 @@
 package at.ltb.apprenticedeliverysystem.core.user.controller;
 
+import at.ltb.apprenticedeliverysystem.core.user.dto.LoggedInUserDTO;
 import at.ltb.apprenticedeliverysystem.core.user.dto.UpdateUserDTO;
 import at.ltb.apprenticedeliverysystem.core.user.dto.UserDetailDTO;
 import at.ltb.apprenticedeliverysystem.core.user.service.UserService;
@@ -21,6 +22,12 @@ public class UserController {
         this.userService = userService;
     }
 
+
+    @GetMapping(value = "/current-user", produces = "application/json")
+    public LoggedInUserDTO loadLoggedInUser() {
+        logger.info("API loadLoggedInUser was called!");
+        return userService.loadUserShortInfosForLoggedInUser();
+    }
 
     @GetMapping(value = "/", produces = "application/json")
     public UserDetailDTO loadUser() {
