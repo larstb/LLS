@@ -37,3 +37,11 @@ own:
     auth:
       converter:
         resource-client: backend
+  keycloak:
+    realm: lls_dev
+    server-url: http://localhost:9005
+    username: Backend_Admin_Client
+    password: Backend_Admin_Client_2023_!
+    client-secret: n6NgTPxrVcayScO18bD6bfuVAzs4PRQX
+    default:
+      password: LLS_DEV_PASSWORT_2023_

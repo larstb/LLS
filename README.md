@@ -36,6 +36,7 @@
 - it is configured in application.yml
 
 ## TO-DOs
+- SSL
 - JPA Auditing testen
 - CRUD für alle Entitäten
 - Profilbild
