@@ -1,8 +1,11 @@
 package at.ltb.apprenticedeliverysystem.core.user.dto;
 
 import at.ltb.apprenticedeliverysystem.core._common.request.BaseRequest;
+import at.ltb.apprenticedeliverysystem.core._common.role.RoleEnum;
 
-public record UpdateUserDTO(
+import java.util.List;
+
+public record UpdateUserPortalDTO(
         String id,
         Integer version,
         String firstname,
@@ -12,5 +15,7 @@ public record UpdateUserDTO(
         String location,
         String iban,
         String paypalLink,
-        String email) implements BaseRequest {
+        String email,
+        Boolean enabled,
+        List<RoleEnum> roles) implements BaseRequest {
 }

@@ -3,8 +3,9 @@ package at.ltb.apprenticedeliverysystem.core.keycloak;
 import at.ltb.apprenticedeliverysystem.core._common.role.RoleEnum;
 import at.ltb.apprenticedeliverysystem.core.keycloak.exception.KeyCloakConfigException;
 import at.ltb.apprenticedeliverysystem.core.user._persistence.UserEntity;
-import at.ltb.apprenticedeliverysystem.core.user.dto.CreateUserDTO;
+import at.ltb.apprenticedeliverysystem.core.user.dto.CreateUserPortalDTO;
 import at.ltb.apprenticedeliverysystem.core.user.dto.UpdateUserDTO;
+import at.ltb.apprenticedeliverysystem.core.user.dto.UpdateUserPortalDTO;
 import jakarta.ws.rs.core.Response;
 import org.keycloak.OAuth2Constants;
 import org.keycloak.admin.client.CreatedResponseUtil;
@@ -75,7 +76,7 @@ public class KeyCloakService {
                 .collect(Collectors.toList());
     }
 
-    public String createKeyCloakUser(CreateUserDTO user) {
+    public String createKeyCloakUser(CreateUserPortalDTO user) {
         logger.info("CreateKeyCloakUser is called");
         UserRepresentation userRepresentation = mapUserRepresentation(user.email(), user.enabled());
         UsersResource usersResource = build().realm(realm).users();
@@ -92,8 +93,8 @@ public class KeyCloakService {
         return userIdKeyCloak;
     }
 
-    public void updateKeyCloakUser(UpdateUserDTO user, UserEntity savedUser) {
-        logger.info("UpdateKeyCloakUser is called");
+    public void updateKeyCloakUserPortal(UpdateUserPortalDTO user, UserEntity savedUser) {
+        logger.info("UpdateKeyCloakUserPortal is called");
         UsersResource usersResource = build().realm(realm).users();
         UserRepresentation foundedUser = usersResource.get(savedUser.getKeycloakReference()).toRepresentation();
         List<String> foundedGroups = this.loadGroupIdsByKeyCloakId(savedUser.getKeycloakReference());
@@ -108,6 +109,17 @@ public class KeyCloakService {
             foundedGroups.forEach(val -> usersResource.get(savedUser.getKeycloakReference()).leaveGroup(val));
             this.updateRoles(user.roles(), usersResource.get(savedUser.getKeycloakReference()));
         }
+    }
+
+    public void updateKeyCloakUser(UpdateUserDTO user, UserEntity savedUser) {
+        logger.info("UpdateKeyCloakUser is called");
+        UsersResource usersResource = build().realm(realm).users();
+        UserRepresentation foundedUser = usersResource.get(savedUser.getKeycloakReference()).toRepresentation();
+
+        foundedUser.setUsername(user.email());
+        foundedUser.setEmail(user.email());
+        foundedUser.setEmailVerified(true);
+        usersResource.get(savedUser.getKeycloakReference()).update(foundedUser);
     }
 
     private Keycloak build() {
