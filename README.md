@@ -20,6 +20,10 @@
 ## Build Frontend
 - ng serve --open
 
+## Backend Infos
+- Port: 9002
+- SSL: active
+
 ## Local DB (PostgreSQL)
 - https://www.baeldung.com/ops/postgresql-docker-setup
 
@@ -36,7 +40,6 @@
 - it is configured in application.yml
 
 ## TO-DOs
-- SSL
 - JPA Auditing testen
 - CRUD für alle Entitäten
 - Profilbild

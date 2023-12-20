@@ -45,3 +45,15 @@ own:
     client-secret: n6NgTPxrVcayScO18bD6bfuVAzs4PRQX
     default:
       password: LLS_DEV_PASSWORT_2023_
+
+###
+##### S S L
+###
+server:
+  ssl:
+    key-store: classpath:lls_dev.p12
+    key-store-password: lls_dev_password
+    key-store-type: pkcs12
+    key-alias: lls_dev
+    key-password: lls_dev_password
+  port: 9002

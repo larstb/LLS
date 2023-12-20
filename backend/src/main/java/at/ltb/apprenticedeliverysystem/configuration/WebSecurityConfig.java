@@ -28,6 +28,7 @@ public class WebSecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(ci -> new CorsConfiguration())
+                .requiresChannel(customizer -> customizer.anyRequest().requiresSecure())
                 .authorizeHttpRequests(customizer -> customizer
                     .requestMatchers("/v3/api-docs/**").permitAll()
                     .requestMatchers("/v3/api-docs.yaml").permitAll()
