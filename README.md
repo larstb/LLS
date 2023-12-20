@@ -35,8 +35,8 @@
 - Token Endpoint (POST): http://localhost:9005/realms/lls-dev/protocol/openid-connect/token
 
 ## Swagger API
-- Swagger UI is reachable under localhost:8080/api/swagger
-- OpenAPI Yaml File is downloadable under localhost:8080/v3/api-docs.yaml
+- Swagger UI is reachable under https://localhost:9002/api/swagger
+- OpenAPI Yaml File is downloadable under https://localhost:9002/v3/api-docs.yaml
 - it is configured in application.yml
 
 ## TO-DOs

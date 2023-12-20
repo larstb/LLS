@@ -7,7 +7,7 @@ info:
     email: lars.bilek@gmx.at
   version: "1.0"
 servers:
-- url: http://localhost:8080
+- url: https://localhost:9002
   description: Generated server url
 security:
 - Bearer Authentication: []
@@ -15,8 +15,37 @@ paths:
   /api/user/:
     get:
       tags:
-      - user-crud-api
-      operationId: getUserOverView
+      - user-controller
+      operationId: loadUser
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetailDTO'
+    put:
+      tags:
+      - user-controller
+      operationId: updateUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserDTO'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetailDTO'
+  /api/portal/user/:
+    get:
+      tags:
+      - user-portal-controller
+      operationId: loadAllUsers
       parameters:
       - name: page
         in: query
@@ -24,100 +53,98 @@ paths:
         schema:
           type: integer
           format: int32
-      - name: size
+      - name: pageSize
         in: query
         required: false
         schema:
           type: integer
           format: int32
+      - name: searchTerm
+        in: query
+        required: false
+        schema:
+          type: string
       responses:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
-                $ref: '#/components/schemas/ResponseWrapperUserOverviewDTO'
+                $ref: '#/components/schemas/ResponseWrapperUserOverviewPortalDTO'
     put:
       tags:
-      - user-crud-api
-      operationId: updateUser
+      - user-portal-controller
+      operationId: updateUser_1
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserDTO'
+              $ref: '#/components/schemas/UpdateUserPortalDTO'
         required: true
       responses:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
-                $ref: '#/components/schemas/UserDTO'
+                $ref: '#/components/schemas/UserDetailPortalDTO'
     post:
       tags:
-      - user-crud-api
+      - user-portal-controller
       operationId: createUser
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserCreateDTO'
+              $ref: '#/components/schemas/CreateUserPortalDTO'
         required: true
       responses:
-        "201":
-          description: Created
+        "200":
+          description: OK
           content:
-            '*/*':
+            application/json:
               schema:
-                $ref: '#/components/schemas/UserDTO'
-  /api/user/{id}:
+                $ref: '#/components/schemas/UserDetailPortalDTO'
+  /api/user/current-user:
     get:
       tags:
-      - user-crud-api
-      operationId: getUser
+      - user-controller
+      operationId: loadLoggedInUser
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoggedInUserDTO'
+  /api/portal/user/{id}:
+    get:
+      tags:
+      - user-portal-controller
+      operationId: loadUserById
       parameters:
       - name: id
         in: path
         required: true
         schema:
-          type: integer
-          format: int64
+          type: string
       responses:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
-                $ref: '#/components/schemas/UserDTO'
-  /api/user/current:
-    get:
-      tags:
-      - auth-user-api
-      operationId: getCurrentAuthUser
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/AuthenticatedUserResponse'
+                $ref: '#/components/schemas/UserDetailPortalDTO'
 components:
   schemas:
-    UserDTO:
-      required:
-      - email
-      - firstname
-      - id
-      - isActive
-      - lastname
-      - phoneNumber
-      - role
+    UpdateUserDTO:
       type: object
       properties:
         id:
+          type: string
+        version:
           type: integer
-          format: int64
+          format: int32
         firstname:
           type: string
         lastname:
@@ -126,28 +153,22 @@ components:
           type: string
         phoneNumber:
           type: string
-        email:
-          type: string
         location:
-          type: string
-        role:
           type: string
         iban:
           type: string
         paypalLink:
           type: string
-        isActive:
-          type: boolean
-    UserCreateDTO:
-      required:
-      - email
-      - firstname
-      - lastname
-      - paypalLink
-      - phoneNumber
-      - role
+        email:
+          type: string
+    UserDetailDTO:
       type: object
       properties:
+        id:
+          type: string
+        version:
+          type: integer
+          format: int32
         firstname:
           type: string
         lastname:
@@ -156,55 +177,147 @@ components:
           type: string
         phoneNumber:
           type: string
-        email:
-          type: string
         location:
-          type: string
-        role:
           type: string
         iban:
           type: string
         paypalLink:
           type: string
-        isActive:
-          type: boolean
-    AuthenticatedUserResponse:
+        email:
+          type: string
+    UpdateUserPortalDTO:
       type: object
       properties:
+        id:
+          type: string
+        version:
+          type: integer
+          format: int32
         firstname:
           type: string
         lastname:
           type: string
-        role:
+        status:
+          type: string
+        phoneNumber:
+          type: string
+        location:
+          type: string
+        iban:
+          type: string
+        paypalLink:
+          type: string
+        email:
+          type: string
+        enabled:
+          type: boolean
+        roles:
           type: array
           items:
             type: string
-    ResponseWrapperUserOverviewDTO:
+            enum:
+            - ADMIN
+            - MOD
+            - USER
+    UserDetailPortalDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        version:
+          type: integer
+          format: int32
+        firstname:
+          type: string
+        lastname:
+          type: string
+        status:
+          type: string
+        phoneNumber:
+          type: string
+        location:
+          type: string
+        iban:
+          type: string
+        paypalLink:
+          type: string
+        email:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+            enum:
+            - ADMIN
+            - MOD
+            - USER
+        enabled:
+          type: boolean
+    CreateUserPortalDTO:
+      type: object
+      properties:
+        firstname:
+          type: string
+        status:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+        location:
+          type: string
+        iban:
+          type: string
+        paypalLink:
+          type: string
+        enabled:
+          type: boolean
+        roles:
+          type: array
+          items:
+            type: string
+            enum:
+            - ADMIN
+            - MOD
+            - USER
+    LoggedInUserDTO:
+      type: object
+      properties:
+        firstname:
+          type: string
+        lastname:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+            enum:
+            - ADMIN
+            - MOD
+            - USER
+    ResponseWrapperUserOverviewPortalDTO:
       type: object
       properties:
         content:
           type: array
           items:
-            $ref: '#/components/schemas/UserOverviewDTO'
+            $ref: '#/components/schemas/UserOverviewPortalDTO'
         totalElements:
           type: integer
           format: int64
-    UserOverviewDTO:
+    UserOverviewPortalDTO:
       type: object
       properties:
         id:
-          type: integer
-          format: int64
+          type: string
         firstname:
           type: string
         lastname:
           type: string
         email:
           type: string
-        role:
-          type: string
-        isActive:
-          type: boolean
   securitySchemes:
     Bearer Authentication:
       type: http
