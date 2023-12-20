@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.4</version>
+        <version>3.2.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -14,12 +14,18 @@
     <name>backend</name>
     <description>backend</description>
     <packaging>jar</packaging>
-    <version>2023.10-SNAPSHOT</version>
+    <version>2023.12-SNAPSHOT</version>
 
     <properties>
-        <mapstruct.version>1.5.5.Final</mapstruct.version>
-        <spring.version>3.1.4</spring.version>
+        <mapstruct.version>1.6.0.Beta1</mapstruct.version>
+        <spring.version>3.2.0</spring.version>
         <lombock.version>1.18.30</lombock.version>
+        <query-dsl.version>5.0.0</query-dsl.version>
+        <springdoc.version>2.3.0</springdoc.version>
+        <spring-security-test.version>6.2.1</spring-security-test.version>
+        <key-cloack-admin-client.version>23.0.3</key-cloack-admin-client.version>
+        <flyway.version>9.22.3</flyway.version> <!-- DON'T UPDATE -->
+        <postgre-jdbc.version>42.6.0</postgre-jdbc.version> <!-- DON'T UPDATE -->
         <java.version>17</java.version>
     </properties>
 
@@ -29,11 +35,31 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
             <version>${spring.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
             <version>${spring.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -50,12 +76,12 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
-            <version>9.22.3</version>
+            <version>${flyway.version}</version>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.6.0</version>
+            <version>${postgre-jdbc.version}</version>
             <scope>runtime</scope>
         </dependency>
 
@@ -76,27 +102,27 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.2.0</version>
+            <version>${springdoc.version}</version>
         </dependency>
 
         <!-- oAuth2 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
-            <version>3.1.4</version>
+            <version>${spring.version}</version>
         </dependency>
 
         <!-- Query DSL -->
         <dependency>
             <groupId>com.querydsl</groupId>
             <artifactId>querydsl-jpa</artifactId>
-            <version>5.0.0</version>
+            <version>${query-dsl.version}</version>
             <classifier>jakarta</classifier>
         </dependency>
         <dependency>
             <groupId>com.querydsl</groupId>
             <artifactId>querydsl-apt</artifactId>
-            <version>5.0.0</version>
+            <version>${query-dsl.version}</version>
             <scope>provided</scope>
             <classifier>jakarta</classifier>
         </dependency>
@@ -105,13 +131,20 @@
         <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-admin-client</artifactId>
-            <version>23.0.3</version>
+            <version>${key-cloack-admin-client.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>commons-logging</groupId>
                     <artifactId>commons-logging</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+            <version>${spring.version}</version>
         </dependency>
 
         <!-- TEST -->
@@ -124,7 +157,7 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
-            <version>6.1.4</version>
+            <version>${spring-security-test.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -7,6 +7,8 @@ import at.ltb.apprenticedeliverysystem.core.user.dto.UpdateUserDTO;
 import at.ltb.apprenticedeliverysystem.core.user.dto.UserDetailDTO;
 import at.ltb.apprenticedeliverysystem.core.user.dto.UserOverviewDTO;
 import at.ltb.apprenticedeliverysystem.core.user.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +27,8 @@ import java.util.Optional;
 @ModeratorOrAdminPermission
 public class UserController {
 
+    private final Logger logger = LoggerFactory.getLogger(UserController.class);
+
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -35,23 +39,27 @@ public class UserController {
     public ResponseWrapper<UserOverviewDTO> loadAllUsers(@RequestParam(value = "page", required = false) Integer page,
                                                          @RequestParam(value = "pageSize", required = false) Integer pageSize,
                                                          @RequestParam(value = "searchTerm", required = false) Optional<String> searchTerm) {
+        logger.info("API loadAllUsers was called!");
         return userService.loadAllUsers(page, pageSize, searchTerm);
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")
     public UserDetailDTO loadUserById(@PathVariable("id") String id) {
+        logger.info("API loadUserById was called!");
         return userService.loadUserById(id);
     }
 
     @PostMapping(value = "/", produces = "application/json")
     @Transactional
     public UserDetailDTO createUser(@RequestBody CreateUserDTO request) {
+        logger.info("API createUser was called!");
         return userService.createUser(request);
     }
 
     @PutMapping(value = "/", produces = "application/json")
     @Transactional
-    public UserDetailDTO createUser(@RequestBody UpdateUserDTO request) {
+    public UserDetailDTO updateUser(@RequestBody UpdateUserDTO request) {
+        logger.info("API updateUser was called!");
         return userService.updateUser(request);
     }
 }

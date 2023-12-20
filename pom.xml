@@ -5,14 +5,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.4</version>
+        <version>3.2.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <packaging>pom</packaging>
     <groupId>at.ltb</groupId>
     <artifactId>lls</artifactId>
-    <version>2023.10-SNAPSHOT</version>
+    <version>2023.12-SNAPSHOT</version>
 
     <modules>
         <module>backend</module>

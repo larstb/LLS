@@ -14,6 +14,9 @@ import at.ltb.apprenticedeliverysystem.core.user.dto.UpdateUserDTO;
 import at.ltb.apprenticedeliverysystem.core.user.dto.UserDetailDTO;
 import at.ltb.apprenticedeliverysystem.core.user.dto.UserOverviewDTO;
 import at.ltb.apprenticedeliverysystem.core.user.exception.UserEmailNotUniqueException;
+import at.ltb.apprenticedeliverysystem.core.user.exception.UserUpdateException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +26,8 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 public class UserService {
+
+    private final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     private final UserQueryDSLRepository userQueryDSLRepository;
 
@@ -44,6 +49,7 @@ public class UserService {
                                                          Optional<String> searchTerm) {
         QueryDslOverviewResponse<UserEntity> response = userQueryDSLRepository
                 .loadUsers(searchTerm, PaginationUtil.getPagination(page, pageSize));
+        logger.info("loadAllUsers: count: " + response.getTotalElements());
         return new ResponseWrapper<>(userMapper.mapUserEntityToOverview(response.getContent()),
                 response.getTotalElements());
     }
@@ -52,29 +58,42 @@ public class UserService {
         UserEntity foundedEntity = userQueryDSLRepository.loadUserByUuid(uuid);
 
         if(Objects.isNull(foundedEntity)) {
+            logger.error("UserEntity not found: " + uuid);
             throw new CustomEntityNotFoundException(UserEntity.class.getSimpleName() + " not found");
         }
 
+        logger.info("UserEntity was found!");
         return userMapper.mapUserEntityToDetail(foundedEntity);
     }
 
     @Transactional
     public UserDetailDTO createUser(CreateUserDTO request) {
         if(Objects.nonNull(userQueryDSLRepository.loadUserByEmail(request.email()))) {
+            logger.error("UserEntity with duplicated email: " + request.email());
             throw new UserEmailNotUniqueException("user email already found");
         }
         UserEntity userToCreate = userMapper.mapCreateUserToEntity(request);
+        logger.info("UserEntity:Create KeyCloakService is called!");
         userToCreate.setKeycloakReference(keyCloakService.createKeyCloakUser(request));
+        logger.info("UserEntity:Create Save is called!");
         userCrudRepository.save(userToCreate);
+        logger.info("UserEntity:Create successfully!");
         return userMapper.mapUserEntityToDetail(userToCreate);
     }
 
     @Transactional
     public UserDetailDTO updateUser(UpdateUserDTO request) {
+        if(Objects.isNull(request.iban())) {
+            logger.error("UserEntity with no id updated");
+            throw new UserUpdateException("id is emtpy");
+        }
         UserEntity userToUpdate = userQueryDSLRepository.loadUserByUuid(request.id());
         userToUpdate = userMapper.mapUpdateUserToEntity(request, userToUpdate);
+        logger.info("UserEntity:Update KeyCloakService is called!");
         keyCloakService.updateKeyCloakUser(request, userToUpdate);
+        logger.info("UserEntity:Update Update is called!");
         userCrudRepository.save(userToUpdate);
+        logger.info("UserEntity:Update successfully!");
         return userMapper.mapUserEntityToDetail(userToUpdate);
     }
 

@@ -15,6 +15,8 @@ import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.GroupRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +25,8 @@ import java.util.stream.Collectors;
 
 @Component
 public class KeyCloakService {
+
+    private final Logger logger = LoggerFactory.getLogger(KeyCloakService.class);
 
     @Value("${own.jwt.auth.converter.resource-client}")
     private String resourceClient;
@@ -46,11 +50,13 @@ public class KeyCloakService {
     private String defaultPassword;
 
     public boolean loadEnabledByKeyCloakId(String keyCloakReference) {
+        logger.info("LoadEnabledByKeyCloakId is called");
         UsersResource usersResource = build().realm(realm).users();
         return usersResource.get(keyCloakReference).toRepresentation().isEnabled();
     }
 
     public List<String> loadGroupNamesByKeyCloakId(String keyCloakReference) {
+        logger.info("loadGroupNamesByKeyCloakId is called");
         UsersResource usersResource = build().realm(realm).users();
         return usersResource.get(keyCloakReference)
                 .groups()
@@ -60,6 +66,7 @@ public class KeyCloakService {
     }
 
     public List<String> loadGroupIdsByKeyCloakId(String keyCloakReference) {
+        logger.info("LoadGroupIdsByKeyCloakId is called");
         UsersResource usersResource = build().realm(realm).users();
         return usersResource.get(keyCloakReference)
                 .groups()
@@ -69,6 +76,7 @@ public class KeyCloakService {
     }
 
     public String createKeyCloakUser(CreateUserDTO user) {
+        logger.info("CreateKeyCloakUser is called");
         UserRepresentation userRepresentation = mapUserRepresentation(user.email(), user.enabled());
         UsersResource usersResource = build().realm(realm).users();
         CredentialRepresentation credentialRepresentation = mapCredentialRepresentation(user.firstname());
@@ -85,6 +93,7 @@ public class KeyCloakService {
     }
 
     public void updateKeyCloakUser(UpdateUserDTO user, UserEntity savedUser) {
+        logger.info("UpdateKeyCloakUser is called");
         UsersResource usersResource = build().realm(realm).users();
         UserRepresentation foundedUser = usersResource.get(savedUser.getKeycloakReference()).toRepresentation();
         List<String> foundedGroups = this.loadGroupIdsByKeyCloakId(savedUser.getKeycloakReference());
@@ -114,6 +123,7 @@ public class KeyCloakService {
                     .clientSecret(clientSecret)
                     .build();
         } catch (Exception e) {
+            logger.error("KeyCloakConfig throws exception!");
             throw new KeyCloakConfigException("not able to configure keycloak");
         }
         return keycloak;
