@@ -3,25 +3,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-parent</artifactId>
-      <version>3.2.0</version>
-      <relativePath/> <!-- lookup parent from repository -->
+      <groupId>at.ltb</groupId>
+      <artifactId>lls</artifactId>
+      <version>2023.12-SNAPSHOT</version>
+      <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>at.ltb</groupId>
     <artifactId>frontend</artifactId>
-    <name>frontend</name>
-    <description>frontend</description>
+    <name>LLS Frontend</name>
     <packaging>jar</packaging>
     <version>2023.12-SNAPSHOT</version>
 
     <build>
       <plugins>
-        <plugin>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-maven-plugin</artifactId>
-        </plugin>
         <plugin>
           <groupId>com.github.eirslett</groupId>
           <artifactId>frontend-maven-plugin</artifactId>
@@ -54,19 +48,9 @@
               </goals>
               <phase>generate-resources</phase>
               <configuration>
-                <arguments>build</arguments>
+                <arguments>run build</arguments>
               </configuration>
             </execution>
-<!--            <execution>-->
-<!--              <id>npm-test</id>-->
-<!--              <goals>-->
-<!--                <goal>npm</goal>-->
-<!--              </goals>-->
-<!--              <configuration>-->
-<!--                <arguments>run-script test</arguments>-->
-<!--              </configuration>-->
-<!--              <phase>test</phase>-->
-<!--            </execution>-->
           </executions>
         </plugin>
       </plugins>
