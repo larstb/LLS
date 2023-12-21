@@ -33,7 +33,7 @@
         <plugin>
           <groupId>org.openapitools</groupId>
           <artifactId>openapi-generator-maven-plugin</artifactId>
-          <version>6.6.0</version>
+          <version>7.1.0</version>
           <executions>
             <execution>
               <goals>
@@ -43,7 +43,6 @@
                 <inputSpec>${pom.basedir}/openapi.yaml</inputSpec>
                 <generatorName>typescript-angular</generatorName>
                 <output>src/app/shared</output>
-                <skipValidateSpec>true</skipValidateSpec>
                 <generateSupportingFiles>false</generateSupportingFiles>
                 <generateApis>false</generateApis>
               </configuration>

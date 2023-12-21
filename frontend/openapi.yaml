@@ -10,7 +10,10 @@ servers:
 - url: https://localhost:9002
   description: Generated server url
 security:
-- Bearer Authentication: []
+- bearerAuth: []
+tags:
+- name: UserPortal
+  description: UserPortal Management
 paths:
   /api/user/:
     get:
@@ -44,7 +47,9 @@ paths:
   /api/portal/user/:
     get:
       tags:
-      - user-portal-controller
+      - UserPortal
+      description: load All Users with Permission Admin or Mod - you can use Pagination
+        and Filtering
       operationId: loadAllUsers
       parameters:
       - name: page
@@ -73,7 +78,7 @@ paths:
                 $ref: '#/components/schemas/ResponseWrapperUserOverviewPortalDTO'
     put:
       tags:
-      - user-portal-controller
+      - UserPortal
       operationId: updateUser_1
       requestBody:
         content:
@@ -90,7 +95,7 @@ paths:
                 $ref: '#/components/schemas/UserDetailPortalDTO'
     post:
       tags:
-      - user-portal-controller
+      - UserPortal
       operationId: createUser
       requestBody:
         content:
@@ -120,7 +125,7 @@ paths:
   /api/portal/user/{id}:
     get:
       tags:
-      - user-portal-controller
+      - UserPortal
       operationId: loadUserById
       parameters:
       - name: id
@@ -138,11 +143,18 @@ paths:
 components:
   schemas:
     UpdateUserDTO:
+      required:
+      - email
+      - firstname
+      - id
+      - lastname
+      - version
       type: object
       properties:
         id:
           type: string
         version:
+          minimum: 0
           type: integer
           format: int32
         firstname:
@@ -186,11 +198,18 @@ components:
         email:
           type: string
     UpdateUserPortalDTO:
+      required:
+      - email
+      - enabled
+      - firstname
+      - id
+      - lastname
       type: object
       properties:
         id:
           type: string
         version:
+          minimum: 0
           type: integer
           format: int32
         firstname:
@@ -212,6 +231,8 @@ components:
         enabled:
           type: boolean
         roles:
+          maxItems: 2147483647
+          minItems: 1
           type: array
           items:
             type: string
@@ -254,6 +275,11 @@ components:
         enabled:
           type: boolean
     CreateUserPortalDTO:
+      required:
+      - email
+      - enabled
+      - firstname
+      - lastname
       type: object
       properties:
         firstname:
@@ -275,6 +301,8 @@ components:
         enabled:
           type: boolean
         roles:
+          maxItems: 2147483647
+          minItems: 1
           type: array
           items:
             type: string
@@ -319,7 +347,7 @@ components:
         email:
           type: string
   securitySchemes:
-    Bearer Authentication:
+    bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
