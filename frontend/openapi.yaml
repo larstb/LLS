@@ -12,13 +12,16 @@ servers:
 security:
 - bearerAuth: []
 tags:
-- name: UserPortal
-  description: UserPortal Management
+- name: UserResource
+  description: Apis for the logged in user
+- name: AdminModUserManagementResource
+  description: Apis to manage user / Only for Admin and Mod
 paths:
   /api/user/:
     get:
       tags:
-      - user-controller
+      - UserResource
+      description: load logged in user
       operationId: loadUser
       responses:
         "200":
@@ -29,7 +32,8 @@ paths:
                 $ref: '#/components/schemas/UserDetailDTO'
     put:
       tags:
-      - user-controller
+      - UserResource
+      description: update the current logged in user
       operationId: updateUser
       requestBody:
         content:
@@ -47,9 +51,8 @@ paths:
   /api/portal/user/:
     get:
       tags:
-      - UserPortal
-      description: load All Users with Permission Admin or Mod - you can use Pagination
-        and Filtering
+      - AdminModUserManagementResource
+      description: load all users with pagination and filter
       operationId: loadAllUsers
       parameters:
       - name: page
@@ -75,16 +78,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ResponseWrapperUserOverviewPortalDTO'
+                $ref: '#/components/schemas/ResponseWrapperUserOverviewDTO'
     put:
       tags:
-      - UserPortal
+      - AdminModUserManagementResource
+      description: update user
       operationId: updateUser_1
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateUserPortalDTO'
+              $ref: '#/components/schemas/UpdatePortalUserDTO'
         required: true
       responses:
         "200":
@@ -92,16 +96,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserDetailPortalDTO'
+                $ref: '#/components/schemas/UserDetailDTO'
     post:
       tags:
-      - UserPortal
+      - AdminModUserManagementResource
+      description: create new user
       operationId: createUser
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateUserPortalDTO'
+              $ref: '#/components/schemas/CreateUserDTO'
         required: true
       responses:
         "200":
@@ -109,23 +114,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserDetailPortalDTO'
+                $ref: '#/components/schemas/UserDetailDTO'
   /api/user/current-user:
     get:
       tags:
-      - user-controller
-      operationId: loadLoggedInUser
+      - UserResource
+      description: load portal user (short info)
+      operationId: loadPortalUser
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/LoggedInUserDTO'
+                $ref: '#/components/schemas/PortalUserDTO'
   /api/portal/user/{id}:
     get:
       tags:
-      - UserPortal
+      - AdminModUserManagementResource
+      description: load user by id
       operationId: loadUserById
       parameters:
       - name: id
@@ -139,7 +146,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserDetailPortalDTO'
+                $ref: '#/components/schemas/UserDetailDTO'
 components:
   schemas:
     UpdateUserDTO:
@@ -197,7 +204,17 @@ components:
           type: string
         email:
           type: string
-    UpdateUserPortalDTO:
+        roles:
+          type: array
+          items:
+            type: string
+            enum:
+            - ADMIN
+            - MOD
+            - USER
+        enabled:
+          type: boolean
+    UpdatePortalUserDTO:
       required:
       - email
       - enabled
@@ -240,41 +257,7 @@ components:
             - ADMIN
             - MOD
             - USER
-    UserDetailPortalDTO:
-      type: object
-      properties:
-        id:
-          type: string
-        version:
-          type: integer
-          format: int32
-        firstname:
-          type: string
-        lastname:
-          type: string
-        status:
-          type: string
-        phoneNumber:
-          type: string
-        location:
-          type: string
-        iban:
-          type: string
-        paypalLink:
-          type: string
-        email:
-          type: string
-        roles:
-          type: array
-          items:
-            type: string
-            enum:
-            - ADMIN
-            - MOD
-            - USER
-        enabled:
-          type: boolean
-    CreateUserPortalDTO:
+    CreateUserDTO:
       required:
       - email
       - enabled
@@ -310,7 +293,7 @@ components:
             - ADMIN
             - MOD
             - USER
-    LoggedInUserDTO:
+    PortalUserDTO:
       type: object
       properties:
         firstname:
@@ -325,17 +308,17 @@ components:
             - ADMIN
             - MOD
             - USER
-    ResponseWrapperUserOverviewPortalDTO:
+    ResponseWrapperUserOverviewDTO:
       type: object
       properties:
         content:
           type: array
           items:
-            $ref: '#/components/schemas/UserOverviewPortalDTO'
+            $ref: '#/components/schemas/UserOverviewDTO'
         totalElements:
           type: integer
           format: int64
-    UserOverviewPortalDTO:
+    UserOverviewDTO:
       type: object
       properties:
         id:
