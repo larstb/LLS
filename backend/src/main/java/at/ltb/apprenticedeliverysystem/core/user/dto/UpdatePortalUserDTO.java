@@ -9,7 +9,7 @@ import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
-public record UpdateUserPortalDTO(
+public record UpdatePortalUserDTO(
         @NotBlank String id,
         @Min(0) Integer version,
         @NotBlank String firstname,

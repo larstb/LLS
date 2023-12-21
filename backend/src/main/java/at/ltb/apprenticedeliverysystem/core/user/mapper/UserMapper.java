@@ -1,15 +1,10 @@
-package at.ltb.apprenticedeliverysystem.core.user;
+package at.ltb.apprenticedeliverysystem.core.user.mapper;
 
 import at.ltb.apprenticedeliverysystem.core._common.role.RoleEnum;
 import at.ltb.apprenticedeliverysystem.core.keycloak.KeyCloakService;
 import at.ltb.apprenticedeliverysystem.core.user._persistence.UserEntity;
-import at.ltb.apprenticedeliverysystem.core.user.dto.CreateUserPortalDTO;
-import at.ltb.apprenticedeliverysystem.core.user.dto.LoggedInUserDTO;
-import at.ltb.apprenticedeliverysystem.core.user.dto.UpdateUserDTO;
-import at.ltb.apprenticedeliverysystem.core.user.dto.UpdateUserPortalDTO;
-import at.ltb.apprenticedeliverysystem.core.user.dto.UserDetailDTO;
-import at.ltb.apprenticedeliverysystem.core.user.dto.UserDetailPortalDTO;
-import at.ltb.apprenticedeliverysystem.core.user.dto.UserOverviewPortalDTO;
+import at.ltb.apprenticedeliverysystem.core.user.dto.*;
+import at.ltb.apprenticedeliverysystem.core.user.dto.PortalUserDTO;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
@@ -29,20 +24,22 @@ public abstract class UserMapper {
     private KeyCloakService keyCloakService;
 
     @Mapping(target = "id", source = "uuid")
-    public abstract UserOverviewPortalDTO mapUserEntityToOverviewPortal(UserEntity user);
+    public abstract UserOverviewDTO mapUserEntityToOverview(UserEntity user);
 
-    public abstract List<UserOverviewPortalDTO> mapUserEntityToOverviewPortal(List<UserEntity> user);
+    public abstract List<UserOverviewDTO> mapUserEntityToOverview(List<UserEntity> user);
 
     @Mapping(target = "roles", ignore = true)
     @Mapping(target = "enabled", ignore = true)
     @Mapping(target = "id", source = "uuid")
-    public abstract UserDetailPortalDTO mapUserEntityToDetailPortal(UserEntity user);
-
-    @Mapping(target = "id", source = "uuid")
     public abstract UserDetailDTO mapUserEntityToDetail(UserEntity user);
 
+    @Mapping(target = "id", source = "uuid")
     @Mapping(target = "roles", ignore = true)
-    public abstract LoggedInUserDTO mapUserEntityToLoggedInUser(UserEntity user);
+    @Mapping(target = "enabled", ignore = true)
+    public abstract UserDetailDTO mapUserEntityToDetailForUser(UserEntity user);
+
+    @Mapping(target = "roles", ignore = true)
+    public abstract PortalUserDTO mapUserEntityToPortalUser(UserEntity user);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "uuid", ignore = true)
@@ -52,7 +49,7 @@ public abstract class UserMapper {
     @Mapping(target = "createdBy", ignore = true)
     @Mapping(target = "modifiedBy", ignore = true)
     @Mapping(target = "keycloakReference", ignore = true)
-    public abstract UserEntity mapCreateUserToEntityPortal(CreateUserPortalDTO user);
+    public abstract UserEntity mapCreateUserToEntity(CreateUserDTO user);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "uuid", ignore = true)
@@ -61,7 +58,7 @@ public abstract class UserMapper {
     @Mapping(target = "createdBy", ignore = true)
     @Mapping(target = "modifiedBy", ignore = true)
     @Mapping(target = "keycloakReference", ignore = true)
-    public abstract UserEntity mapUpdateUserToEntityPortal(UpdateUserPortalDTO user, @MappingTarget UserEntity target);
+    public abstract UserEntity mapUpdateUserToEntity(UpdatePortalUserDTO user, @MappingTarget UserEntity target);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "uuid", ignore = true)
@@ -70,10 +67,10 @@ public abstract class UserMapper {
     @Mapping(target = "createdBy", ignore = true)
     @Mapping(target = "modifiedBy", ignore = true)
     @Mapping(target = "keycloakReference", ignore = true)
-    public abstract UserEntity mapUpdateUserToEntity(UpdateUserDTO user, @MappingTarget UserEntity target);
+    public abstract UserEntity mapUpdateUserToEntityForUser(UpdateUserDTO user, @MappingTarget UserEntity target);
 
     @AfterMapping
-    public void afterMappingMapUserEntityToDetailPortal(UserEntity source, @MappingTarget UserDetailPortalDTO target) {
+    public void afterMappingMapUserEntityToDetailPortal(UserEntity source, @MappingTarget UserDetailDTO target) {
         target.setEnabled(keyCloakService.loadEnabledByKeyCloakId(source.getKeycloakReference()));
         target.setRoles(RoleEnum.findListByKeyCloakName(keyCloakService.loadGroupNamesByKeyCloakId(source.getKeycloakReference())));
     }

@@ -3,9 +3,9 @@ package at.ltb.apprenticedeliverysystem.core.keycloak;
 import at.ltb.apprenticedeliverysystem.core._common.role.RoleEnum;
 import at.ltb.apprenticedeliverysystem.core.keycloak.exception.KeyCloakConfigException;
 import at.ltb.apprenticedeliverysystem.core.user._persistence.UserEntity;
-import at.ltb.apprenticedeliverysystem.core.user.dto.CreateUserPortalDTO;
+import at.ltb.apprenticedeliverysystem.core.user.dto.CreateUserDTO;
+import at.ltb.apprenticedeliverysystem.core.user.dto.UpdatePortalUserDTO;
 import at.ltb.apprenticedeliverysystem.core.user.dto.UpdateUserDTO;
-import at.ltb.apprenticedeliverysystem.core.user.dto.UpdateUserPortalDTO;
 import jakarta.ws.rs.core.Response;
 import org.keycloak.OAuth2Constants;
 import org.keycloak.admin.client.CreatedResponseUtil;
@@ -76,7 +76,7 @@ public class KeyCloakService {
                 .collect(Collectors.toList());
     }
 
-    public String createKeyCloakUser(CreateUserPortalDTO user) {
+    public String createKeyCloakUser(CreateUserDTO user) {
         logger.info("CreateKeyCloakUser is called");
         UserRepresentation userRepresentation = mapUserRepresentation(user.email(), user.enabled());
         UsersResource usersResource = build().realm(realm).users();
@@ -93,7 +93,7 @@ public class KeyCloakService {
         return userIdKeyCloak;
     }
 
-    public void updateKeyCloakUserPortal(UpdateUserPortalDTO user, UserEntity savedUser) {
+    public void updateKeyCloakUserPortal(UpdatePortalUserDTO user, UserEntity savedUser) {
         logger.info("UpdateKeyCloakUserPortal is called");
         UsersResource usersResource = build().realm(realm).users();
         UserRepresentation foundedUser = usersResource.get(savedUser.getKeycloakReference()).toRepresentation();

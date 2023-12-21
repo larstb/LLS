@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoggedInUserDTO {
+public class PortalUserDTO {
 
     private String firstname;
 
