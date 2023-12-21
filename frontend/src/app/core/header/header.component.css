@@ -1,0 +1,12 @@
+.header-container {
+  width: 98%;
+  background: var(--black-accent);
+  display: flex;
+  height: 4rem;
+  align-items: center;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+}

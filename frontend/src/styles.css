@@ -1,10 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
 
+:root {
+  --black: #000000;
+  --black-accent: #191c24;
+  --primary: #c4325d;
+  --green: green;
+  --text-color: #ffffff;
+}
+
 html, body {
   height: 100%;
+  background: var(--black);
+  color: var(--text-color);
 }
 
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mdc-button__label {
+  font-family: Roboto, "Helvetica Neue", sans-serif !important;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.ml-auto {
+  margin-left: auto;
 }

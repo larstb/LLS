@@ -1,0 +1,12 @@
+.icon-big {
+  font-size: 35px;
+  margin-right: 1rem;
+}
+
+.title {
+  align-items: center;
+  display: flex;
+  font-size: 18px;
+  margin-right: 1rem;
+  letter-spacing: 3px;
+}
