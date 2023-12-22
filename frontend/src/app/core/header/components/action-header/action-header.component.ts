@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-action-header',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class ActionHeaderComponent {
 
+  constructor(private toastrService: ToastrService) {
+  }
+
+  public showNotImplemented(): void {
+    this.toastrService.warning("this function is currently not implemented!", "NOT IMPLEMENTED")
+  }
 }

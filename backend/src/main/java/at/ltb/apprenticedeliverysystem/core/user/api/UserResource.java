@@ -21,7 +21,7 @@ public interface UserResource {
     UserDetailDTO loadUser();
 
     @Operation(description = "update the current logged in user")
-    @PutMapping(value = "/", produces = "application/json")
+    @PutMapping(value = "/", produces = "application/json", consumes = "application/json")
     UserDetailDTO updateUser(@RequestBody UpdateUserDTO request);
 
 }

@@ -10,3 +10,10 @@
   margin-right: 1rem;
   letter-spacing: 3px;
 }
+
+.logo-container {
+  display: flex;
+  @media (max-width: 1000px) {
+    display: none !important;
+  }
+}

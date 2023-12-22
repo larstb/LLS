@@ -1,0 +1,7 @@
+.button-container {
+  margin-right: 2.5rem;
+
+  @media (max-width: 1000px) {
+    display: none !important;
+  }
+}

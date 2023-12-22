@@ -58,3 +58,15 @@ server:
     key-alias: lls_dev
     key-password: lls_dev_password
   port: 9002
+
+###
+##### L O G G  I N G
+###
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          servlet:
+            handler:
+              HandlerMappingIntrospector: ERROR

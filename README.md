@@ -5,7 +5,7 @@
 
 ## Technologies:
 - Java (17) - Spring (3.2.0)
-- Angular (16)
+- Angular (17)
 - Maven
 - Docker
 - KeyCloak

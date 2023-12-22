@@ -1,7 +1,24 @@
 <div class="header-container">
+  <div class="burgerMenu">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
   <app-logo-header></app-logo-header>
   <app-action-header class="ml-auto"></app-action-header>
-  <app-user-header></app-user-header>
-  <app-management-header *ngIf="false"></app-management-header>
+  <app-user-header *ngIf="hasUserRole$ | async"></app-user-header>
+  <app-management-header *ngIf="(hasAdminRole$ | async) || (hasModRole$ | async)"></app-management-header>
   <app-profile-header></app-profile-header>
 </div>
+<mat-sidenav-container>
+  <mat-sidenav mode="over" #sidenav>
+      <button mat-button (click)="sidenav.close()" [routerLink]="''" color="primary"><mat-icon>home</mat-icon> Dashboard</button>
+      <button mat-button (click)="sidenav.close()" [routerLink]="['management', 'dashboard']" color="primary"><mat-icon>apps</mat-icon> Management</button>
+      <button mat-raised-button class="green bigButton" (click)="showNotImplemented(); sidenav.close()">
+        <mat-icon>add</mat-icon> Neue Bestellung erstellen
+      </button>
+      <button mat-button color="primary lastButton" (click)="showNotImplemented(); sidenav.close()">
+        {{(portalUser$ | async)?.firstname}} {{(portalUser$ | async)?.lastname}}
+      </button>
+  </mat-sidenav>
+</mat-sidenav-container>

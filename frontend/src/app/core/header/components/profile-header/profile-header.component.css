@@ -1,7 +1,18 @@
+.profile-container {
+  display: flex !important;
+  align-items: center;
+  padding-right: 2rem;
+  margin-left: 3rem;
+
+  @media (max-width: 499px) {
+    display: none !important;
+  }
+}
+
 .img-container {
   height: 2.5rem;
   width: 2.5rem;
-  border-radius: 50%;
+  border-radius: 50px;
   overflow: hidden;
   display: inline-block;
 }
@@ -12,18 +23,6 @@
   object-fit: cover;
 }
 
-.name-container {
-  display: flex;
-  align-items: center;
-  padding-right: 2rem;
-  margin-left: 3rem;
-}
-
-.material-symbols-outlined {
-  position: relative;
-  top: 6px;
-}
-
-.mdc-button__label #text {
-  top: -5px !important;
+.button-container {
+  margin-left: 0.5rem;
 }

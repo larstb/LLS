@@ -1,6 +1,9 @@
-<div class="name-container">
+<div class="profile-container">
   <span class="img-container">
     <img alt="user icon" src="assets/user.jpg"/>
   </span>
-  <button mat-button matSuffix color="primary">Lars-Thorsten Bilek <mat-icon>expand_more</mat-icon></button>
+  <button mat-button matSuffix color="primary button-container" (click)="showNotImplemented()">
+    {{(portalUser$ | async)?.firstname}} {{(portalUser$ | async)?.lastname}}
+    <mat-icon>expand_more</mat-icon>
+  </button>
 </div>

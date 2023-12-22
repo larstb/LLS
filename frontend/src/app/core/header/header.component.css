@@ -10,3 +10,31 @@
   top: 0;
   z-index: 10;
 }
+
+.burgerMenu {
+  display: none !important;
+  @media (max-width: 1000px) {
+    display: grid !important;
+  }
+}
+
+.mat-sidenav {
+  z-index: 10;
+  width: 15rem;
+}
+
+.mat-mdc-button {
+  width: 100% !important;
+}
+
+.mat-drawer-container {
+  position: unset !important;
+}
+
+.lastButton {
+  margin-top: 5rem;
+}
+
+.bigButton {
+  height: 3rem;
+}
