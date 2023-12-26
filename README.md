@@ -42,6 +42,9 @@
 - OpenAPI Yaml File is downloadable under https://localhost:9002/v3/api-docs.yaml
 - it is configured in application.yml
 
+## Angular Good Links
+- https://blog.angular-university.io/angular-material-data-table/
+
 ## TO-DOs
 - CRUD für alle Entitäten
 - Profilbild

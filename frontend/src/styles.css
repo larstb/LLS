@@ -35,3 +35,11 @@ body {
 .green {
   background: var(--green) !important;
 }
+
+mat-table {
+  background: var(--black-accent) !important;
+}
+
+mat-paginator {
+  background: var(--black-accent) !important;
+}

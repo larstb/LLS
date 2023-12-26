@@ -1,0 +1,31 @@
+<mat-table #table [dataSource]="userOverviewDatasource">
+
+  <!-- ID Column -->
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+    <mat-cell *matCellDef="let row" >{{row.id}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="firstname">
+    <mat-header-cell *matHeaderCellDef>Vorname</mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row.firstname}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="lastname">
+    <mat-header-cell *matHeaderCellDef>Nachname</mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row.lastname}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="email">
+    <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row.email}}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<mat-paginator #paginator
+               [length]="userOverviewDatasource.response?.totalElements"
+               [pageSizeOptions]="[10, 15, 25, 100]">
+</mat-paginator>

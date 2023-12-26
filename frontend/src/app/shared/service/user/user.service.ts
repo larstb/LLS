@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
-import {PortalUserDTO} from "../model/portalUserDTO";
+import {PortalUserDTO} from "../../model/portalUserDTO";
 import {HttpClient} from "@angular/common/http";
-import {UserDetailDTO} from "../model/userDetailDTO";
-import {UpdateUserDTO} from "../model/updateUserDTO";
+import {UserDetailDTO} from "../../model/userDetailDTO";
+import {UpdateUserDTO} from "../../model/updateUserDTO";
 
 @Injectable({
   providedIn: 'root'

@@ -5,15 +5,23 @@ import {ManagementDashboardComponent} from "./management-dashboard/management-da
 import {
   ManagementDashboardContainerComponent
 } from "./management-dashboard/management-dashboard-container/management-dashboard-container.component";
+import {UserOverviewComponent} from "./user/user-overview/user-overview.component";
+import {
+  UserOverviewTableComponent
+} from "./user/user-overview/components/user-overview-table/user-overview-table.component";
+import {NgIf} from "@angular/common";
 
 @NgModule({
   imports: [
     SharedModule,
     ManagementRoutingModule,
+    NgIf,
   ],
   declarations: [
     ManagementDashboardComponent,
-    ManagementDashboardContainerComponent
+    ManagementDashboardContainerComponent,
+    UserOverviewComponent,
+    UserOverviewTableComponent
   ],
 })
 export class ManagementModule {}

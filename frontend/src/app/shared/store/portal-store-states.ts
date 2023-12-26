@@ -2,7 +2,7 @@ import {PortalUserDTO} from "../model/portalUserDTO";
 import {Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {PortalStoreActions} from "./portal-actions";
-import {UserService} from "../service/user.service";
+import {UserService} from "../service/user/user.service";
 import {map} from "rxjs/operators";
 
 export interface PortalStoreModel {
