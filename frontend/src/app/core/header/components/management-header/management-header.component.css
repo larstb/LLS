@@ -1,6 +1,7 @@
 .management-container {
-  /*display: grid !important;*/
-  /*@media (max-width: 1000px) {*/
-  /*  display: none !important;*/
-  /*}*/
+  display: grid !important;
+
+  @media (max-width: 1000px) {
+    display: none !important;
+  }
 }
