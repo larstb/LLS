@@ -10,6 +10,7 @@ import {CommonModule} from "@angular/common";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClientModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
+import {PortalDashboardComponent} from "./portal/portal-dashboard/portal-dashboard.component";
 
 export function initializeKeycloak(
   keycloak: KeycloakService
@@ -48,7 +49,8 @@ export function initializeKeycloak(
     }),
   ],
   declarations: [
-    AppComponent
+    AppComponent,
+    PortalDashboardComponent
   ],
   providers: [
     {
