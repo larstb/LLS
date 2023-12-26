@@ -1,4 +1,4 @@
-<mat-table #table [dataSource]="userOverviewDatasource">
+<mat-table #table [dataSource]="datasource">
 
   <!-- ID Column -->
   <ng-container matColumnDef="id">
@@ -26,6 +26,6 @@
 </mat-table>
 
 <mat-paginator #paginator
-               [length]="userOverviewDatasource.response?.totalElements"
+               [length]="datasource.response?.totalElements"
                [pageSizeOptions]="[10, 15, 25, 100]">
 </mat-paginator>

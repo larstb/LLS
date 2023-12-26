@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {UserOverviewTableDataSourceService} from "./service/user-overview-table-data-source.service";
 
 @Component({
   selector: 'app-user-overview',
@@ -7,7 +8,7 @@ import { Component } from '@angular/core';
 })
 export class UserOverviewComponent {
 
-  constructor() {
+  constructor(public datasource: UserOverviewTableDataSourceService) {
   }
 
 }

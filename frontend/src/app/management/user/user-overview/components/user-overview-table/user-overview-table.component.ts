@@ -1,6 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {UserOverviewTableDataSourceService} from "../../service/user-overview-table-data-source.service";
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from "@angular/material/paginator";
+import {
+  AbstractMatDataSourceService
+} from "../../../../../shared/service/abstract-material-datasource/abstract-mat-data-source.service";
+import {UserOverviewDTO} from "../../../../../shared/model/userOverviewDTO";
 
 @Component({
   selector: 'app-user-overview-table',
@@ -12,13 +15,16 @@ export class UserOverviewTableComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true})
   public matPaginator!: MatPaginator;
 
+  @Input()
+  public datasource!: AbstractMatDataSourceService<UserOverviewDTO>;
+
   public displayedColumns = ['id', 'firstname', 'lastname', 'email'];
 
-  constructor(public userOverviewDatasource: UserOverviewTableDataSourceService) {
+  constructor() {
   }
 
   ngOnInit(): void {
-    this.userOverviewDatasource.paginator = this.matPaginator;
+    this.datasource.paginator = this.matPaginator;
   }
 
 }

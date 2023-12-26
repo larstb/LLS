@@ -43,3 +43,7 @@ mat-table {
 mat-paginator {
   background: var(--black-accent) !important;
 }
+
+.mdc-text-field--filled {
+  background: var(--black-accent) !important;
+}
