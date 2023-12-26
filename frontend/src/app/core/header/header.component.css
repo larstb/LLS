@@ -12,16 +12,17 @@
 }
 
 .burger-menu {
-  display: none !important;
+  display: none;
 
   @media (max-width: 1000px) {
-    display: grid !important;
+    display: block;
   }
 }
 
 .mat-sidenav {
   z-index: 10;
   width: 15rem;
+  left: 0;
 }
 
 .mat-mdc-button {

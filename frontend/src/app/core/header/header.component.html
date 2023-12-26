@@ -10,10 +10,11 @@
   <app-management-header *ngIf="(hasAdminRole$ | async) || (hasModRole$ | async)"></app-management-header>
   <app-profile-header></app-profile-header>
 </div>
+
 <mat-sidenav-container>
   <mat-sidenav mode="over" #sidenav>
       <button mat-button (click)="sidenav.close()" [routerLink]="''" color="primary"><mat-icon>home</mat-icon> Dashboard</button>
-      <button mat-button (click)="sidenav.close()" [routerLink]="['management', 'dashboard']" color="primary"><mat-icon>apps</mat-icon> Management</button>
+      <button *ngIf="(hasAdminRole$ | async) || (hasModRole$ | async)" mat-button (click)="sidenav.close()" [routerLink]="['management', 'dashboard']" color="primary"><mat-icon>apps</mat-icon> Management</button>
       <button mat-raised-button class="green big-button" (click)="showNotImplemented(); sidenav.close()">
         <mat-icon>add</mat-icon> Neue Bestellung erstellen
       </button>
