@@ -1,5 +1,5 @@
 <div class="header-container">
-  <div class="burgerMenu">
+  <div class="burger-menu">
     <button mat-icon-button (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
@@ -14,10 +14,10 @@
   <mat-sidenav mode="over" #sidenav>
       <button mat-button (click)="sidenav.close()" [routerLink]="''" color="primary"><mat-icon>home</mat-icon> Dashboard</button>
       <button mat-button (click)="sidenav.close()" [routerLink]="['management', 'dashboard']" color="primary"><mat-icon>apps</mat-icon> Management</button>
-      <button mat-raised-button class="green bigButton" (click)="showNotImplemented(); sidenav.close()">
+      <button mat-raised-button class="green big-button" (click)="showNotImplemented(); sidenav.close()">
         <mat-icon>add</mat-icon> Neue Bestellung erstellen
       </button>
-      <button mat-button color="primary lastButton" (click)="showNotImplemented(); sidenav.close()">
+      <button mat-button color="primary last-button" (click)="showNotImplemented(); sidenav.close()">
         {{(portalUser$ | async)?.firstname}} {{(portalUser$ | async)?.lastname}}
       </button>
   </mat-sidenav>

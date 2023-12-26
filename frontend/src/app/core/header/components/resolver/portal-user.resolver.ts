@@ -5,7 +5,7 @@ import {PortalStoreActions} from "../../../../shared/store/portal-actions";
 import LoadPortalUser = PortalStoreActions.LoadPortalUser;
 import {map} from "rxjs/operators";
 
-export const portalUserResolver: ResolveFn<boolean> = (route, state) => {
+export const portalUserResolver: ResolveFn<boolean> = () => {
   const store = inject(Store)
   return store.dispatch(new LoadPortalUser()).pipe(map(user => !!user));
 };

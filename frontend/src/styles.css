@@ -1,12 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
 :root {
-  --black: #000000;
+  --black: #000;
   --black-accent: #191c24;
   --primary: #c4325d;
   --green: #62d35d;
-  --text-color: #ffffff;
-  --white: #ffffff;
+  --text-color: #fff;
+  --white: #fff;
 }
 
 html, body {
