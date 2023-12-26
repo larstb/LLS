@@ -18,7 +18,7 @@ export class UserOverviewTableComponent implements OnInit {
   @Input()
   public datasource!: AbstractMatDataSourceService<UserOverviewDTO>;
 
-  public displayedColumns = ['id', 'firstname', 'lastname', 'email'];
+  public displayedColumns = ['id', 'firstname', 'lastname', 'email', 'actions'];
 
   constructor() {
   }

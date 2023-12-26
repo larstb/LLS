@@ -56,3 +56,4 @@
 - Umfragen
 - Default Bestellungen
 - Remove Google Api Calls for Font and Icons
+- MatTable Responsive

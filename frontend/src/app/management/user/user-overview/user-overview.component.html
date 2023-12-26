@@ -1,2 +1,9 @@
-<app-search-term-filter [datasource]="datasource"></app-search-term-filter>
+<div class="d-flex">
+  <app-search-term-filter [datasource]="datasource"></app-search-term-filter>
+  <div class="button-container w-100">
+    <button mat-raised-button class="green" (click)="showNotImplemented()">
+      <mat-icon>add</mat-icon> User erstellen
+    </button>
+  </div>
+</div>
 <app-user-overview-table [datasource]="datasource"></app-user-overview-table>

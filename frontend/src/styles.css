@@ -1,5 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
-
+/*
+####################################### C U S T O M  S T Y L E S #############################################
+*/
 :root {
   --black: #000;
   --black-accent: #191c24;
@@ -20,10 +21,6 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.mdc-button__label {
-  font-family: Roboto, "Helvetica Neue", sans-serif !important;
-}
-
 .d-flex {
   display: flex;
 }
@@ -34,6 +31,28 @@ body {
 
 .green {
   background: var(--green) !important;
+}
+
+.no-a {
+  color: var(--white);
+}
+
+.no-a-container {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 1rem;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+/*
+####################################### M A T E R I A L  S T Y L E S #############################################
+*/
+
+.mdc-button__label {
+  font-family: Roboto, "Helvetica Neue", sans-serif !important;
 }
 
 mat-table {
