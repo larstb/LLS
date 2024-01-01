@@ -16,6 +16,8 @@ tags:
   description: Apis for the logged in user
 - name: AdminModUserManagementResource
   description: Apis to manage user / Only for Admin and Mod
+- name: AdminModCategoryManagementResource
+  description: Apis to manage categories / Only for Admin and Mod
 paths:
   /api/user/:
     get:
@@ -115,6 +117,73 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserDetailDTO'
+  /api/portal/category/:
+    get:
+      tags:
+      - AdminModCategoryManagementResource
+      description: load all categories with pagination and filter
+      operationId: loadAllCategories
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: pageSize
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: searchTerm
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseWrapperCategoryOverviewDTO'
+    put:
+      tags:
+      - AdminModCategoryManagementResource
+      description: update category
+      operationId: updateCategory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCategoryDTO'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDetailDTO'
+    post:
+      tags:
+      - AdminModCategoryManagementResource
+      description: create new category
+      operationId: createCategory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCategoryDTO'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDetailDTO'
   /api/user/current-user:
     get:
       tags:
@@ -147,6 +216,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserDetailDTO'
+  /api/portal/category/{id}:
+    get:
+      tags:
+      - AdminModCategoryManagementResource
+      description: load category by id
+      operationId: loadCategoryById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDetailDTO'
 components:
   schemas:
     UpdateUserDTO:
@@ -257,6 +345,30 @@ components:
             - ADMIN
             - MOD
             - USER
+    UpdateCategoryDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        version:
+          type: integer
+          format: int32
+        name:
+          type: string
+        description:
+          type: string
+    CategoryDetailDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        version:
+          type: integer
+          format: int32
+        name:
+          type: string
+        description:
+          type: string
     CreateUserDTO:
       required:
       - email
@@ -293,6 +405,13 @@ components:
             - ADMIN
             - MOD
             - USER
+    CreateCategoryDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
     PortalUserDTO:
       type: object
       properties:
@@ -329,6 +448,25 @@ components:
           type: string
         email:
           type: string
+    CategoryOverviewDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+    ResponseWrapperCategoryOverviewDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryOverviewDTO'
+        totalElements:
+          type: integer
+          format: int64
   securitySchemes:
     bearerAuth:
       type: http
