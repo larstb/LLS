@@ -1,0 +1,31 @@
+.container {
+  width: 20rem;
+  height: 15rem;
+  background: var(--black-accent);
+  display: block;
+}
+
+.container:hover {
+  transform: scale(1.1);
+  transition: 1s ease;
+}
+
+.title {
+  font-size: x-large;
+}
+
+.title-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 1.5rem;
+}
+
+.icon {
+  font-size: 120px;
+}
+
+.icon-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 1.5rem;
+}

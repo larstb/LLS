@@ -1,0 +1,20 @@
+.material-symbols-outlined {
+  font-size: 35px;
+  margin-right: 1rem;
+}
+
+.title {
+  align-items: center;
+  display: flex;
+  font-size: 18px;
+  margin-right: 1rem;
+  letter-spacing: 3px;
+}
+
+.logo-container {
+  display: flex;
+
+  @media (max-width: 1000px) {
+    display: none !important;
+  }
+}

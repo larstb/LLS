@@ -18,7 +18,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
-public class JwtAuthConverter implements Converter<Jwt, AbstractAuthenticationToken> {
+public class JwtAuthConverter
+        implements Converter<Jwt, AbstractAuthenticationToken> {
 
     @Value("${own.jwt.auth.converter.resource-client}")
     private String resourceClient;
@@ -38,7 +39,7 @@ public class JwtAuthConverter implements Converter<Jwt, AbstractAuthenticationTo
         Map<String, Object> mapRoles;
         List<String> roles;
 
-        if(!resourceAccess.containsKey(resourceClient) || !Objects.equals(resourceClient, jwt.getClaim("azp"))) {
+        if(!resourceAccess.containsKey(resourceClient)) {
             throw new JwtClaimException("can not read jwt");
         }
 

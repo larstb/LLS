@@ -15,9 +15,9 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI openAPI() {
         return new OpenAPI().addSecurityItem(new SecurityRequirement().
-                        addList("Bearer Authentication"))
+                        addList("bearerAuth"))
                 .components(new Components().addSecuritySchemes
-                        ("Bearer Authentication", createAPIKeyScheme()))
+                        ("bearerAuth", createAPIKeyScheme()))
                 .info(new Info().title("REST API LLS")
                         .description("LLS - Lehrlings Liefer System | Apprentice Delivery System")
                         .version("1.0").contact(new Contact().name("Lars-Thorsten Bilek")

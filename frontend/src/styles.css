@@ -1,0 +1,90 @@
+/*
+####################################### C U S T O M  S T Y L E S #############################################
+*/
+:root {
+  --black: #000;
+  --black-accent: #191c24;
+  --primary: #c4325d;
+  --green: #62d35d;
+  --text-color: #fff;
+  --white: #fff;
+}
+
+html, body {
+  min-height: 95%;
+  background: var(--black);
+  color: var(--text-color);
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+.green {
+  background: var(--green) !important;
+}
+
+.no-a {
+  color: var(--white);
+}
+
+.no-a-container {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 1rem;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.overlay {
+  position: absolute !important;
+  right: 0;
+  width: 35rem;
+  height: 100%;
+
+  mat-dialog-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: auto;
+  }
+
+  mat-dialog-content {
+    max-height: unset;
+  }
+}
+
+/*
+####################################### M A T E R I A L  S T Y L E S #############################################
+*/
+
+.mdc-button__label {
+  font-family: Roboto, "Helvetica Neue", sans-serif !important;
+}
+
+mat-table {
+  background: var(--black-accent) !important;
+}
+
+mat-paginator {
+  background: var(--black-accent) !important;
+}
+
+.mdc-text-field--filled {
+  background: var(--black-accent) !important;
+}
+
+.mat-mdc-dialog-actions {
+  justify-content: space-between !important;
+}

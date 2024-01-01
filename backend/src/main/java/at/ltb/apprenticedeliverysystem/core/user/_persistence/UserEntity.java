@@ -5,6 +5,8 @@ import jakarta.annotation.Nonnull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,25 +17,25 @@ import lombok.Setter;
 public class UserEntity extends AbstractCrudEntity {
 
     @Nonnull
+    @NotBlank
     @Column(name = "firstname", nullable = false)
     private String firstname;
 
     @Nonnull
+    @NotBlank
     @Column(name = "lastname", nullable = false)
     private String lastname;
 
     @Column(name = "status", columnDefinition = "NCLOB")
     private String status;
 
-    @Nonnull
-    @Column(name = "phone_number", nullable = false, columnDefinition = "CHAR(30)")
+    @Column(name = "phone_number", columnDefinition = "CHAR(60)")
     private String phoneNumber;
 
-    @Nonnull
-    @Column(name = "location", nullable = false, length = 150)
+    @Column(name = "location", length = 150)
     private String location;
 
-    @Column(name = "iban", columnDefinition = "CHAR(20)")
+    @Column(name = "iban", columnDefinition = "CHAR(40)")
     private String iban;
 
     @Column(name = "paypal_link", columnDefinition = "NCLOB")
@@ -42,10 +44,8 @@ public class UserEntity extends AbstractCrudEntity {
     @Column(name = "keycloak_reference", columnDefinition = "CHAR(36)")
     private String keycloakReference;
 
-    @Column(name = "email", columnDefinition = "CHAR(400)")
+    @NotNull
+    @NotBlank
+    @Column(name = "email")
     private String email;
-
-    @Nonnull
-    @Column(name = "is_blocked", nullable = false)
-    private Boolean isBlocked = false;
 }

@@ -1,0 +1,97 @@
+<h2 mat-dialog-title *ngIf="user.id">User '{{user.firstname}}' bearbeiten</h2>
+<h2 mat-dialog-title *ngIf="!user.id">User {{user.firstname}} anlegen</h2>
+
+<mat-dialog-content>
+  <form *ngIf="fg" [formGroup]="fg">
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>Vorname</mat-label>
+      <input matInput placeholder="Vorname" formControlName="firstname">
+      <mat-error *ngIf="fg.get('firstname')?.hasError('required') && (fg.get('firstname')?.dirty || fg.get('firstname')?.touched)">
+        Vorname ist ein Pflichtfeld!
+      </mat-error>
+      <mat-error *ngIf="fg.get('firstname')?.hasError('minlength') && (fg.get('firstname')?.dirty || fg.get('firstname')?.touched)">
+        Vorname ist zu kurz!
+      </mat-error>
+      <mat-error *ngIf="fg.get('firstname')?.hasError('maxlength') && (fg.get('firstname')?.dirty || fg.get('firstname')?.touched)">
+        Vorname ist zu lang!
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>Nachname</mat-label>
+      <input matInput placeholder="Nachname" formControlName="lastname">
+      <mat-error *ngIf="fg.get('lastname')?.hasError('required') && (fg.get('lastname')?.dirty || fg.get('lastname')?.touched)">
+        Nachname ist ein Pflichtfeld!
+      </mat-error>
+      <mat-error *ngIf="fg.get('lastname')?.hasError('minlength') && (fg.get('lastname')?.dirty || fg.get('lastname')?.touched)">
+        Nachname ist zu kurz!
+      </mat-error>
+      <mat-error *ngIf="fg.get('lastname')?.hasError('maxlength') && (fg.get('lastname')?.dirty || fg.get('lastname')?.touched)">
+        Nachname ist zu lang!
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="Email" formControlName="email">
+      <mat-error *ngIf="fg.get('email')?.hasError('required') && (fg.get('email')?.dirty || fg.get('email')?.touched)">
+        Email ist ein Pflichtfeld!
+      </mat-error>
+      <mat-error *ngIf="fg.get('email')?.hasError('email') && (fg.get('email')?.dirty || fg.get('email')?.touched)">
+        Email entspricht nicht dem gültigen Format!
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>Status</mat-label>
+      <input matInput placeholder="Status" formControlName="status">
+      <mat-error *ngIf="fg.get('status')?.hasError('maxlength') && (fg.get('status')?.dirty || fg.get('status')?.touched)">
+        Status ist zu lang!
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>Arbeitsplatz</mat-label>
+      <input matInput placeholder="Arbeitsplatz" formControlName="location">
+      <mat-error *ngIf="fg.get('location')?.hasError('maxlength') && (fg.get('location')?.dirty || fg.get('location')?.touched)">
+        Arbeitsplatz ist zu lang!
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>Telefonnummer</mat-label>
+      <input matInput placeholder="Telefonnummer" formControlName="phoneNumber">
+      <mat-error *ngIf="fg.get('phoneNumber')?.hasError('maxlength') && (fg.get('phoneNumber')?.dirty || fg.get('phoneNumber')?.touched)">
+        Telefonnummer ist zu lang!
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>IBAN</mat-label>
+      <input matInput placeholder="IBAN" formControlName="iban">
+      <mat-error *ngIf="fg.get('iban')?.hasError('iban') && (fg.get('iban')?.dirty || fg.get('iban')?.touched)">
+        IBAN entspricht nicht dem gültigen Format!
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>Paypal Link</mat-label>
+      <input matInput placeholder="Paypal Link" formControlName="paypalLink">
+      <mat-error *ngIf="fg.get('paypalLink')?.hasError('minlength') && (fg.get('paypalLink')?.dirty || fg.get('paypalLink')?.touched)">
+        Paypal Link ist zu kurz!
+      </mat-error>
+      <mat-error *ngIf="fg.get('paypalLink')?.hasError('maxlength') && (fg.get('paypalLink')?.dirty || fg.get('paypalLink')?.touched)">
+        Paypal Link ist zu lang!
+      </mat-error>
+    </mat-form-field>
+    <mat-slide-toggle formControlName="enabled">User aktiviert</mat-slide-toggle>
+    <h4 class="mt-2">Rollen:</h4>
+    <mat-checkbox [checked]="selectedRoles.includes('ADMIN')"
+                  (change)="changeRole('ADMIN', $event)"
+                  [value]="'ADMIN'">Administrator</mat-checkbox>
+    <mat-checkbox [checked]="selectedRoles.includes('MOD')"
+                  (change)="changeRole('MOD', $event)"
+                  [value]="'MOD'">Moderator</mat-checkbox>
+    <mat-checkbox [checked]="selectedRoles.includes('USER')"
+                  (change)="changeRole('USER', $event)"
+                  [value]="'USER'">User</mat-checkbox>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Abbrechen</button>
+  <button mat-button [disabled]="fg?.invalid" color="primary" (click)="save()">Speichern</button>
+</mat-dialog-actions>

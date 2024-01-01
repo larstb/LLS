@@ -1,0 +1,336 @@
+openapi: 3.0.1
+info:
+  title: REST API LLS
+  description: LLS - Lehrlings Liefer System | Apprentice Delivery System
+  contact:
+    name: Lars-Thorsten Bilek
+    email: lars.bilek@gmx.at
+  version: "1.0"
+servers:
+- url: https://localhost:9002
+  description: Generated server url
+security:
+- bearerAuth: []
+tags:
+- name: UserResource
+  description: Apis for the logged in user
+- name: AdminModUserManagementResource
+  description: Apis to manage user / Only for Admin and Mod
+paths:
+  /api/user/:
+    get:
+      tags:
+      - UserResource
+      description: load logged in user
+      operationId: loadUser
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetailDTO'
+    put:
+      tags:
+      - UserResource
+      description: update the current logged in user
+      operationId: updateUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserDTO'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetailDTO'
+  /api/portal/user/:
+    get:
+      tags:
+      - AdminModUserManagementResource
+      description: load all users with pagination and filter
+      operationId: loadAllUsers
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: pageSize
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: searchTerm
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseWrapperUserOverviewDTO'
+    put:
+      tags:
+      - AdminModUserManagementResource
+      description: update user
+      operationId: updateUser_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePortalUserDTO'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetailDTO'
+    post:
+      tags:
+      - AdminModUserManagementResource
+      description: create new user
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserDTO'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetailDTO'
+  /api/user/current-user:
+    get:
+      tags:
+      - UserResource
+      description: load portal user (short info)
+      operationId: loadPortalUser
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PortalUserDTO'
+  /api/portal/user/{id}:
+    get:
+      tags:
+      - AdminModUserManagementResource
+      description: load user by id
+      operationId: loadUserById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetailDTO'
+components:
+  schemas:
+    UpdateUserDTO:
+      required:
+      - email
+      - firstname
+      - id
+      - lastname
+      - version
+      type: object
+      properties:
+        id:
+          type: string
+        version:
+          minimum: 0
+          type: integer
+          format: int32
+        firstname:
+          type: string
+        lastname:
+          type: string
+        status:
+          type: string
+        phoneNumber:
+          type: string
+        location:
+          type: string
+        iban:
+          type: string
+        paypalLink:
+          type: string
+        email:
+          type: string
+    UserDetailDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        version:
+          type: integer
+          format: int32
+        firstname:
+          type: string
+        lastname:
+          type: string
+        status:
+          type: string
+        phoneNumber:
+          type: string
+        location:
+          type: string
+        iban:
+          type: string
+        paypalLink:
+          type: string
+        email:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+            enum:
+            - ADMIN
+            - MOD
+            - USER
+        enabled:
+          type: boolean
+    UpdatePortalUserDTO:
+      required:
+      - email
+      - enabled
+      - firstname
+      - id
+      - lastname
+      type: object
+      properties:
+        id:
+          type: string
+        version:
+          minimum: 0
+          type: integer
+          format: int32
+        firstname:
+          type: string
+        lastname:
+          type: string
+        status:
+          type: string
+        phoneNumber:
+          type: string
+        location:
+          type: string
+        iban:
+          type: string
+        paypalLink:
+          type: string
+        email:
+          type: string
+        enabled:
+          type: boolean
+        roles:
+          maxItems: 2147483647
+          minItems: 1
+          type: array
+          items:
+            type: string
+            enum:
+            - ADMIN
+            - MOD
+            - USER
+    CreateUserDTO:
+      required:
+      - email
+      - enabled
+      - firstname
+      - lastname
+      type: object
+      properties:
+        firstname:
+          type: string
+        status:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+        location:
+          type: string
+        iban:
+          type: string
+        paypalLink:
+          type: string
+        enabled:
+          type: boolean
+        roles:
+          maxItems: 2147483647
+          minItems: 1
+          type: array
+          items:
+            type: string
+            enum:
+            - ADMIN
+            - MOD
+            - USER
+    PortalUserDTO:
+      type: object
+      properties:
+        firstname:
+          type: string
+        lastname:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+            enum:
+            - ADMIN
+            - MOD
+            - USER
+    ResponseWrapperUserOverviewDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserOverviewDTO'
+        totalElements:
+          type: integer
+          format: int64
+    UserOverviewDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

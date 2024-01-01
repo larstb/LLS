@@ -2,6 +2,7 @@ package at.ltb.apprenticedeliverysystem.core.order._persistence;
 
 import at.ltb.apprenticedeliverysystem.core._common._persistence.AbstractCrudEntity;
 import at.ltb.apprenticedeliverysystem.core._common.paymenttype.PaymentTypeEnum;
+import at.ltb.apprenticedeliverysystem.core.groceryworkingday._persistence.GroceryWorkingDayEntity;
 import at.ltb.apprenticedeliverysystem.core.orderitem._persistence.OrderItemEntity;
 import at.ltb.apprenticedeliverysystem.core.user._persistence.UserEntity;
 import jakarta.annotation.Nonnull;
@@ -46,4 +47,8 @@ public class OrderEntity extends AbstractCrudEntity {
     @Column(name = "payment_type", columnDefinition = "CHAR(15)")
     @Enumerated(value = EnumType.STRING)
     private PaymentTypeEnum paymentType;
+
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "grocery_working_day_id", referencedColumnName = "id")
+    private GroceryWorkingDayEntity groceryWorkingDay;
 }

@@ -1,0 +1,7 @@
+.management-container {
+  display: flex !important;
+
+  @media (max-width: 1000px) {
+    display: none !important;
+  }
+}
