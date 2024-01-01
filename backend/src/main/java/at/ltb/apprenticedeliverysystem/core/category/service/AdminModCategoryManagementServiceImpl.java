@@ -43,6 +43,7 @@ public class AdminModCategoryManagementServiceImpl implements AdminModCategoryMa
         this.categoryMapper = categoryMapper;
     }
 
+    @Override
     public ResponseWrapper<CategoryOverviewDTO> loadAllCategories(Integer page, Integer pageSize,
                                                                   Optional<String> searchTerm) {
         QueryDslOverviewResponse<CategoryEntity> response = categoryQueryDSLRepository
@@ -52,6 +53,7 @@ public class AdminModCategoryManagementServiceImpl implements AdminModCategoryMa
                 response.getTotalElements());
     }
 
+    @Override
     public CategoryDetailDTO loadCategoryById(String uuid) {
         CategoryEntity foundedEntity = categoryQueryDSLRepository.loadCategoryByUuid(uuid);
 
@@ -64,6 +66,7 @@ public class AdminModCategoryManagementServiceImpl implements AdminModCategoryMa
         return categoryMapper.mapCategoryEntityToDetail(foundedEntity);
     }
 
+    @Override
     @Transactional
     public CategoryDetailDTO createCategory(CreateCategoryDTO request) {
         if(Objects.nonNull(categoryQueryDSLRepository.loadCategoryByName(request.name()))) {
@@ -77,6 +80,7 @@ public class AdminModCategoryManagementServiceImpl implements AdminModCategoryMa
         return categoryMapper.mapCategoryEntityToDetail(userToCreate);
     }
 
+    @Override
     @Transactional
     public CategoryDetailDTO updateCategory(UpdateCategoryDTO request) {
         if(Objects.isNull(request.id())) {
@@ -84,6 +88,10 @@ public class AdminModCategoryManagementServiceImpl implements AdminModCategoryMa
             throw new CategoryUpdateException("id is emtpy");
         }
         CategoryEntity categoryToUpdate = categoryQueryDSLRepository.loadCategoryByUuid(request.id());
+        if(Objects.isNull(categoryToUpdate)) {
+            logger.error("CategoryEntity not found");
+            throw new CategoryUpdateException("category not found with id: " + request.id());
+        }
         categoryToUpdate = categoryMapper.mapUpdateCategoryToEntity(request, categoryToUpdate);
         logger.info("CategoryEntity:Update Update is called!");
         categoryCrudRepository.save(categoryToUpdate);

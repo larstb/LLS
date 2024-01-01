@@ -89,6 +89,10 @@ public class AdminModUserManagementServiceImpl implements AdminModUserManagement
             throw new UserUpdateException("id is emtpy");
         }
         UserEntity userToUpdate = userQueryDSLRepository.loadUserByUuid(request.id());
+        if(Objects.isNull(userToUpdate)) {
+            logger.error("UserEntity not found");
+            throw new UserUpdateException("UserEntity with id not found: " + request.id());
+        }
         userToUpdate = userMapper.mapUpdateUserToEntity(request, userToUpdate);
         logger.info("UserEntity:Update KeyCloakService is called!");
         keyCloakService.updateKeyCloakUserPortal(request, userToUpdate);
