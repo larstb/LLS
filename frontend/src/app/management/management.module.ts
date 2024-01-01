@@ -5,35 +5,23 @@ import {ManagementDashboardComponent} from "./management-dashboard/management-da
 import {
   ManagementDashboardContainerComponent
 } from "./management-dashboard/management-dashboard-container/management-dashboard-container.component";
-import {UserOverviewComponent} from "./user/user-overview/user-overview.component";
-import {
-  UserOverviewTableComponent
-} from "./user/user-overview/components/user-overview-table/user-overview-table.component";
 import {CommonModule} from "@angular/common";
-import {UserDetailDialogComponent} from "./user/user-detail-dialog/user-detail-dialog.component";
 import {AngularIbanModule} from "angular-iban";
-import {CategoryOverviewComponent} from "./category/category-overview/category-overview.component";
-import {CategoryDetailDialogComponent} from "./category/category-detail-dialog/category-detail-dialog.component";
-import {
-  CategoryOverviewTableComponent
-} from "./category/category-overview/component/category-overview-table/category-overview-table.component";
+import {CategoryModule} from "./category/category.module";
+import {UserRoutingModule} from "./user/user-routing.module";
 
 @NgModule({
   imports: [
     SharedModule,
     CommonModule,
     ManagementRoutingModule,
-    AngularIbanModule
+    AngularIbanModule,
+    CategoryModule,
+    UserRoutingModule
   ],
   declarations: [
     ManagementDashboardComponent,
     ManagementDashboardContainerComponent,
-    UserOverviewComponent,
-    UserOverviewTableComponent,
-    UserDetailDialogComponent,
-    CategoryOverviewComponent,
-    CategoryOverviewTableComponent,
-    CategoryDetailDialogComponent
   ],
 })
 export class ManagementModule {}
