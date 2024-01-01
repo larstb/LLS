@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {authGuard} from "./shared/guard/auth.guard";
+import {authGuard} from "./shared/guard/auth/auth.guard";
 import {portalUserResolver} from "./core/header/components/resolver/portal-user.resolver";
 import {PortalDashboardComponent} from "./portal/portal-dashboard/portal-dashboard.component";
+import {adminModGuard} from "./shared/guard/admin-mod/admin-mod.guard";
 
 const routes: Routes = [
   {
@@ -14,7 +15,7 @@ const routes: Routes = [
   {
     path: 'management',
     loadChildren: () => import('./management/management.module').then(m => m.ManagementModule),
-    canActivate: [authGuard],
+    canActivate: [authGuard, adminModGuard],
     resolve: [portalUserResolver],
   },
   {
