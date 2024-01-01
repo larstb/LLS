@@ -1,0 +1,9 @@
+<div class="d-flex">
+  <app-search-term-filter [datasource]="datasource"></app-search-term-filter>
+  <div class="button-container w-100">
+    <button mat-raised-button class="green" (click)="openCreateDialog()">
+      <mat-icon>add</mat-icon> Kategorie erstellen
+    </button>
+  </div>
+</div>
+<app-category-overview-table [datasource]="datasource"></app-category-overview-table>

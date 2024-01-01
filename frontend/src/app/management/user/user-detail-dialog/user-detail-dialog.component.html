@@ -1,5 +1,5 @@
 <h2 mat-dialog-title *ngIf="user.id">User '{{user.firstname}}' bearbeiten</h2>
-<h2 mat-dialog-title *ngIf="!user.id">User {{user.firstname}} anlegen</h2>
+<h2 mat-dialog-title *ngIf="!user.id">User anlegen</h2>
 
 <mat-dialog-content>
   <form *ngIf="fg" [formGroup]="fg">

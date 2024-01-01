@@ -12,6 +12,11 @@ import {
 import {CommonModule} from "@angular/common";
 import {UserDetailDialogComponent} from "./user/user-detail-dialog/user-detail-dialog.component";
 import {AngularIbanModule} from "angular-iban";
+import {CategoryOverviewComponent} from "./category/category-overview/category-overview.component";
+import {CategoryDetailDialogComponent} from "./category/category-detail-dialog/category-detail-dialog.component";
+import {
+  CategoryOverviewTableComponent
+} from "./category/category-overview/component/category-overview-table/category-overview-table.component";
 
 @NgModule({
   imports: [
@@ -25,7 +30,10 @@ import {AngularIbanModule} from "angular-iban";
     ManagementDashboardContainerComponent,
     UserOverviewComponent,
     UserOverviewTableComponent,
-    UserDetailDialogComponent
+    UserDetailDialogComponent,
+    CategoryOverviewComponent,
+    CategoryOverviewTableComponent,
+    CategoryDetailDialogComponent
   ],
 })
 export class ManagementModule {}

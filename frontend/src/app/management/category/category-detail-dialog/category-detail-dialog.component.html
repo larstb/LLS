@@ -1,0 +1,35 @@
+<h2 mat-dialog-title *ngIf="category.id">Kategorie '{{category.name}}' bearbeiten</h2>
+<h2 mat-dialog-title *ngIf="!category.id">Kategorie anlegen</h2>
+
+<mat-dialog-content>
+  <form *ngIf="fg" [formGroup]="fg">
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Name" formControlName="name">
+      <mat-error *ngIf="fg.get('name')?.hasError('required') && (fg.get('name')?.dirty || fg.get('name')?.touched)">
+        Name ist ein Pflichtfeld!
+      </mat-error>
+      <mat-error *ngIf="fg.get('name')?.hasError('minlength') && (fg.get('name')?.dirty || fg.get('name')?.touched)">
+        Name ist zu kurz!
+      </mat-error>
+      <mat-error *ngIf="fg.get('name')?.hasError('maxlength') && (fg.get('name')?.dirty || fg.get('name')?.touched)">
+        Name ist zu lang!
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>Beschreibung</mat-label>
+      <textarea matInput placeholder="Beschreibung" formControlName="description" rows="3"></textarea>
+      <mat-error *ngIf="fg.get('description')?.hasError('minlength') && (fg.get('description')?.dirty || fg.get('description')?.touched)">
+        Beschreibung ist zu kurz!
+      </mat-error>
+      <mat-error *ngIf="fg.get('description')?.hasError('maxlength') && (fg.get('description')?.dirty || fg.get('description')?.touched)">
+        Beschreibung ist zu lang!
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Abbrechen</button>
+  <button mat-button [disabled]="fg?.invalid" color="primary" (click)="save()">Speichern</button>
+</mat-dialog-actions>
