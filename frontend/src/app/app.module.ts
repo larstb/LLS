@@ -12,6 +12,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
 import {PortalDashboardComponent} from "./portal/portal-dashboard/portal-dashboard.component";
 import localePt from '@angular/common/locales/pt';
+import {LOCAL_STORAGE_ENGINE, NgxsStoragePluginModule} from "@ngxs/storage-plugin";
 
 export function initializeKeycloak(
   keycloak: KeycloakService
@@ -50,6 +51,14 @@ registerLocaleData(localePt, 'de-De');
     KeycloakAngularModule,
     NgxsModule.forRoot([PortalStoreState], {
       developmentMode: true,
+    }),
+    NgxsStoragePluginModule.forRoot({
+      key: [
+        {
+          key: PortalStoreState,
+          engine: LOCAL_STORAGE_ENGINE
+        }
+      ]
     }),
   ],
   declarations: [
