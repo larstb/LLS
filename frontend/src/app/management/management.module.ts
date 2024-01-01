@@ -9,19 +9,23 @@ import {UserOverviewComponent} from "./user/user-overview/user-overview.componen
 import {
   UserOverviewTableComponent
 } from "./user/user-overview/components/user-overview-table/user-overview-table.component";
-import {NgIf} from "@angular/common";
+import {CommonModule} from "@angular/common";
+import {UserDetailDialogComponent} from "./user/user-detail-dialog/user-detail-dialog.component";
+import {AngularIbanModule} from "angular-iban";
 
 @NgModule({
   imports: [
     SharedModule,
+    CommonModule,
     ManagementRoutingModule,
-    NgIf,
+    AngularIbanModule
   ],
   declarations: [
     ManagementDashboardComponent,
     ManagementDashboardContainerComponent,
     UserOverviewComponent,
-    UserOverviewTableComponent
+    UserOverviewTableComponent,
+    UserDetailDialogComponent
   ],
 })
 export class ManagementModule {}

@@ -15,6 +15,7 @@ export abstract class AbstractMatDataSourceService<T> extends DataSource<T>{
   private _paginator?: MatPaginator;
   private _page: number = 0;
   private _pageSize: number = 10;
+  private _filter: any;
 
   protected constructor() {
     super();
@@ -45,7 +46,8 @@ export abstract class AbstractMatDataSourceService<T> extends DataSource<T>{
   }
 
   load(filter?: any) {
-    const queryParams = {...this.prepareRequest(filter), page: this._page, pageSize: this._pageSize};
+    this._filter = filter ? filter : this._filter;
+    const queryParams = {...this.prepareRequest(this._filter), page: this._page, pageSize: this._pageSize};
     this._loadingSubject.next(true);
     this.filter$(queryParams)
     .pipe(

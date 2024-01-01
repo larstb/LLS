@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import {UserOverviewTableDataSourceService} from "./service/user-overview-table-data-source.service";
-import {ToastrService} from "ngx-toastr";
+import {firstValueFrom} from "rxjs";
+import {UserDetailDialogComponent} from "../user-detail-dialog/user-detail-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {CreateUserDTO} from "../../../shared/model/createUserDTO";
 
 @Component({
   selector: 'app-user-overview',
@@ -9,11 +12,19 @@ import {ToastrService} from "ngx-toastr";
 })
 export class UserOverviewComponent {
 
-  constructor(public datasource: UserOverviewTableDataSourceService, public toastrService: ToastrService) {
+  constructor(public datasource: UserOverviewTableDataSourceService,
+              private matDialog: MatDialog) {
   }
 
-  public showNotImplemented(): void {
-    this.toastrService.warning("this function is currently not implemented!", "NOT IMPLEMENTED")
+  public openCreateDialog(): void {
+    firstValueFrom(this.matDialog.open(UserDetailDialogComponent, {
+      data: {} as CreateUserDTO,
+      panelClass: 'overlay',
+      autoFocus: false,
+    }).afterClosed()).then((res) => {
+      if(res) {
+        this.datasource.load();
+      }
+    });
   }
-
 }

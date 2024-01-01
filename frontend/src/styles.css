@@ -47,6 +47,24 @@ body {
   width: 100%;
 }
 
+.overlay {
+  position: absolute !important;
+  right: 0;
+  width: 35rem;
+  height: 100%;
+
+  mat-dialog-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: auto;
+  }
+
+  mat-dialog-content {
+    max-height: unset;
+  }
+}
+
 /*
 ####################################### M A T E R I A L  S T Y L E S #############################################
 */
@@ -65,4 +83,8 @@ mat-paginator {
 
 .mdc-text-field--filled {
   background: var(--black-accent) !important;
+}
+
+.mat-mdc-dialog-actions {
+  justify-content: space-between !important;
 }

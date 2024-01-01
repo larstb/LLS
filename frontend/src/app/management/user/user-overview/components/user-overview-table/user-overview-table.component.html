@@ -24,9 +24,7 @@
   <ng-container matColumnDef="actions">
     <mat-header-cell *matHeaderCellDef></mat-header-cell>
     <mat-cell class="no-a-container" *matCellDef="let row">
-      <a class="no-a">
-        <span class="material-symbols-outlined">edit</span>
-      </a>
+      <button (click)="openDetailDialog(row)" mat-icon-button><mat-icon>edit</mat-icon></button>
     </mat-cell>
   </ng-container>
 

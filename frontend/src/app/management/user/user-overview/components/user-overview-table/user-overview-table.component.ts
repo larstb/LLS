@@ -4,6 +4,10 @@ import {
   AbstractMatDataSourceService
 } from "../../../../../shared/service/abstract-material-datasource/abstract-mat-data-source.service";
 import {UserOverviewDTO} from "../../../../../shared/model/userOverviewDTO";
+import {MatDialog} from "@angular/material/dialog";
+import {UserDetailDialogComponent} from "../../../user-detail-dialog/user-detail-dialog.component";
+import {UserManagementService} from "../../../../../shared/service/user-management/user-management.service";
+import {firstValueFrom} from "rxjs";
 
 @Component({
   selector: 'app-user-overview-table',
@@ -20,11 +24,25 @@ export class UserOverviewTableComponent implements OnInit {
 
   public displayedColumns = ['id', 'firstname', 'lastname', 'email', 'actions'];
 
-  constructor() {
+  constructor(private matDialog: MatDialog, private userManagementService: UserManagementService) {
   }
 
   ngOnInit(): void {
     this.datasource.paginator = this.matPaginator;
+  }
+
+  public openDetailDialog(user: UserOverviewDTO): void {
+    firstValueFrom(this.userManagementService.loadUserById(user.id)).then((result) => {
+      firstValueFrom(this.matDialog.open(UserDetailDialogComponent, {
+        data: result,
+        panelClass: 'overlay',
+        autoFocus: false,
+      }).afterClosed()).then((res) => {
+        if(res) {
+          this.datasource.load();
+        }
+      });
+    });
   }
 
 }
