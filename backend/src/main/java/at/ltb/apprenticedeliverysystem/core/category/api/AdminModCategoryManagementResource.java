@@ -26,7 +26,8 @@ public interface AdminModCategoryManagementResource {
 
     @Operation(description = "load all categories with filter")
     @GetMapping(value = "/all", produces = "application/json")
-    ResponseWrapper<CategoryOverviewDTO> loadAllCategoriesWithoutPagination(@RequestParam(value = "searchTerm", required = false) Optional<String> searchTerm);
+    ResponseWrapper<CategoryOverviewDTO> loadAllCategoriesWithoutPagination(
+            @RequestParam(value = "searchTerm", required = false) Optional<String> searchTerm);
 
     @Operation(description = "load category by id")
     @GetMapping(value = "/{id}", produces = "application/json")
