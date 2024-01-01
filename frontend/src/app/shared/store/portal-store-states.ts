@@ -4,21 +4,26 @@ import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {PortalStoreActions} from "./portal-actions";
 import {UserService} from "../service/user/user.service";
 import {map} from "rxjs/operators";
+import {CategoryOverviewDTO} from "../model/categoryOverviewDTO";
+import {CategoryManagementService} from "../service/category-management/category-management.service";
+import LoadAllCategoriesForProduct = PortalStoreActions.LoadAllCategoriesForProduct;
 
 export interface PortalStoreModel {
   portalUser: PortalUserDTO | null;
+  categories: CategoryOverviewDTO[] | null;
 }
 
 @State<PortalStoreModel>({
   name: 'portalStore',
   defaults: {
     portalUser: null,
+    categories: []
   },
 })
 @Injectable()
 export class PortalStoreState {
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private categoryManagementService: CategoryManagementService) {
   }
 
   @Selector()
@@ -41,8 +46,19 @@ export class PortalStoreState {
     return !!state.portalUser?.roles?.includes('USER');
   }
 
+  @Selector()
+  public static categories(state: PortalStoreModel): CategoryOverviewDTO[] | null {
+    return state.categories;
+  }
+
   @Action(PortalStoreActions.LoadPortalUser)
   public loadPortalUser(ctx: StateContext<PortalStoreModel>) {
     return this.userService.loadLoggedInUser().pipe(map((portalUser) => ctx.patchState({portalUser})));
+  }
+
+  @Action(PortalStoreActions.LoadAllCategoriesForProduct)
+  public loadAllCategoriesForProduct(ctx: StateContext<PortalStoreModel>, action: LoadAllCategoriesForProduct) {
+    return this.categoryManagementService.loadAllCategories(false, action.queryParams)
+      .pipe(map((categories) => ctx.patchState({categories: categories.content})));
   }
 }

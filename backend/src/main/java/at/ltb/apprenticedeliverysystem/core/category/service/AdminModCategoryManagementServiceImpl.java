@@ -54,6 +54,15 @@ public class AdminModCategoryManagementServiceImpl implements AdminModCategoryMa
     }
 
     @Override
+    public ResponseWrapper<CategoryOverviewDTO> loadAllCategoriesWithoutPagination(Optional<String> searchTerm) {
+        QueryDslOverviewResponse<CategoryEntity> response = categoryQueryDSLRepository
+                .loadCategoryWithoutPagination(searchTerm);
+        logger.info("loadAllCategories without pagination: count: " + response.getTotalElements());
+        return new ResponseWrapper<>(categoryMapper.mapCategoryEntityToOverview(response.getContent()),
+                response.getTotalElements());
+    }
+
+    @Override
     public CategoryDetailDTO loadCategoryById(String uuid) {
         CategoryEntity foundedEntity = categoryQueryDSLRepository.loadCategoryByUuid(uuid);
 

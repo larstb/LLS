@@ -32,6 +32,16 @@ public class CategoryQueryDSLRepository {
                 .fetch(), buildFactory().selectFrom(qCategory).fetchCount());
     }
 
+    public QueryDslOverviewResponse<CategoryEntity> loadCategoryWithoutPagination(Optional<String> searchTerm) {
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        searchTerm.ifPresent(value ->
+                booleanBuilder.and(qCategory.name.containsIgnoreCase(value))
+                        .or(qCategory.description.containsIgnoreCase(value)));
+        return new QueryDslOverviewResponse<>(buildFactory().selectFrom(qCategory)
+                .where(booleanBuilder)
+                .fetch(), buildFactory().selectFrom(qCategory).fetchCount());
+    }
+
     public CategoryEntity loadCategoryByUuid(String uuid) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         booleanBuilder.and(qCategory.uuid.eq(uuid));

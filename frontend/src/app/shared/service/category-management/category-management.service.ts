@@ -16,8 +16,8 @@ export class CategoryManagementService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public loadAllCategories(queryParams?: any | undefined): Observable<ResponseWrapper<CategoryOverviewDTO>> {
-    return this.httpClient.get<ResponseWrapper<CategoryOverviewDTO>>(this._baseUrl, {params: queryParams});
+  public loadAllCategories(withPagination?: boolean, queryParams?: any | undefined): Observable<ResponseWrapper<CategoryOverviewDTO>> {
+    return this.httpClient.get<ResponseWrapper<CategoryOverviewDTO>>(this._baseUrl + (withPagination ? '' : 'all'), {params: queryParams});
   }
 
   public loadCategoryById(id: string | undefined): Observable<CategoryDetailDTO> {

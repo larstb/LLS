@@ -33,6 +33,10 @@ export abstract class AbstractMatDataSourceService<T> extends DataSource<T>{
     this.load();
   }
 
+  public set filter(filter: any) {
+    this._filter = filter;
+  }
+
   public get response(): ResponseWrapper<T> | undefined {
     return this._response;
   }

@@ -1,4 +1,4 @@
 <mat-form-field class="input-field" appearance="fill">
   <mat-label>Suchfeld</mat-label>
-  <input matInput placeholder="Suchfeld" name="searchTerm" [(ngModel)]="filter.searchTerm" (ngModelChange)="datasource.load(filter)">
+  <input matInput placeholder="Suchfeld" name="searchTerm" [(ngModel)]="filter.searchTerm" (ngModelChange)="filterChange.emit(filter)">
 </mat-form-field>

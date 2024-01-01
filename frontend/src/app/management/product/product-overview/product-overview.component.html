@@ -1,0 +1,10 @@
+<div class="d-flex">
+  <app-search-term-filter (filterChange)="mergeFilter($event); datasource.load(filter)"></app-search-term-filter>
+  <app-product-overview-filter (filterChange)="mergeFilter($event); datasource.load(filter)"></app-product-overview-filter>
+  <div class="ml-auto">
+    <button mat-raised-button class="green" (click)="openCreateDialog()">
+      <mat-icon>add</mat-icon> Produkt erstellen
+    </button>
+  </div>
+</div>
+<app-product-overview-table [datasource]="datasource"></app-product-overview-table>

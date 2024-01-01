@@ -13,6 +13,8 @@ public interface AdminModCategoryManagementService {
     ResponseWrapper<CategoryOverviewDTO> loadAllCategories(Integer page, Integer pageSize,
                                                            Optional<String> searchTerm);
 
+    ResponseWrapper<CategoryOverviewDTO> loadAllCategoriesWithoutPagination(Optional<String> searchTerm);
+
     CategoryDetailDTO loadCategoryById(String uuid);
 
     CategoryDetailDTO createCategory(CreateCategoryDTO request);

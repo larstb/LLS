@@ -35,7 +35,6 @@ public class ProductEntity extends AbstractCrudEntity {
     private String quantity;
 
     @Nonnull
-    @NotBlank
     @Column(name = "price", nullable = false, columnDefinition = "NUMERIC(10,2)")
     private Double price;
 

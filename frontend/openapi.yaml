@@ -338,6 +338,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CategoryDetailDTO'
+  /api/portal/category/all:
+    get:
+      tags:
+      - AdminModCategoryManagementResource
+      description: load all categories with filter
+      operationId: loadAllCategoriesWithoutPagination
+      parameters:
+      - name: searchTerm
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseWrapperCategoryOverviewDTO'
 components:
   schemas:
     UpdateUserDTO:
