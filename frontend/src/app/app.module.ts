@@ -14,22 +14,31 @@ import {PortalDashboardComponent} from "./portal/portal-dashboard/portal-dashboa
 import localePt from '@angular/common/locales/pt';
 import {LOCAL_STORAGE_ENGINE, NgxsStoragePluginModule} from "@ngxs/storage-plugin";
 
-export function initializeKeycloak(
-  keycloak: KeycloakService
-) {
-  return () =>
-    keycloak.init({
-      config: {
-        url: 'http://localhost:9005',
-        realm: 'lls_dev',
-        clientId: 'frontend',
-      },
-      bearerPrefix: 'Bearer',
-      enableBearerInterceptor: true,
-      initOptions: {
-        checkLoginIframe: false,
+export function initializeKeycloak(keycloak: KeycloakService) {
+  return () => {
+    return new Promise<void>(async (resolve, reject) => {
+      try {
+        await keycloak.init({
+          config: {
+            url: 'http://localhost:9005',
+            realm: 'lls_dev',
+            clientId: 'frontend',
+          },
+          bearerPrefix: 'Bearer',
+          enableBearerInterceptor: true,
+          initOptions: {
+            onLoad: 'login-required',
+            checkLoginIframe: false,
+          }
+        });
+        const keycloakAuth = keycloak.getKeycloakInstance();
+        keycloakAuth.onTokenExpired = () => keycloak.updateToken();
+        resolve();
+      } catch (error) {
+        reject(error);
       }
     });
+  };
 }
 
 // Register the localization
