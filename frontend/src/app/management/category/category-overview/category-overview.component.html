@@ -1,6 +1,6 @@
 <div class="d-flex">
-  <app-search-term-filter [datasource]="datasource"></app-search-term-filter>
-  <div class="button-container w-100">
+  <app-search-term-filter (filterChange)="datasource.load($event)"></app-search-term-filter>
+  <div class="ml-auto">
     <button mat-raised-button class="green" (click)="openCreateDialog()">
       <mat-icon>add</mat-icon> Kategorie erstellen
     </button>

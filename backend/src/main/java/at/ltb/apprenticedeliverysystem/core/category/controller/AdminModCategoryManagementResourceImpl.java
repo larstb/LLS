@@ -37,6 +37,12 @@ public class AdminModCategoryManagementResourceImpl implements AdminModCategoryM
     }
 
     @Override
+    public ResponseWrapper<CategoryOverviewDTO> loadAllCategoriesWithoutPagination(Optional<String> searchTerm) {
+        logger.info("API loadAllCategoriesWithoutPagination was called!");
+        return adminModUserManagementService.loadAllCategoriesWithoutPagination(searchTerm);
+    }
+
+    @Override
     public CategoryDetailDTO loadCategoryById(String id) {
         logger.info("API loadCategoryById was called!");
         return adminModUserManagementService.loadCategoryById(id);

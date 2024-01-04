@@ -1,0 +1,5 @@
+.green {
+  .material-symbols-outlined {
+    color: var(--green) !important;
+  }
+}

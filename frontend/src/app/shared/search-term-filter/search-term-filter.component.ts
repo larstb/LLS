@@ -1,6 +1,5 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {SearchTermFilter} from "../shared-model/filter/searchtermFilter";
-import {AbstractMatDataSourceService} from "../service/abstract-material-datasource/abstract-mat-data-source.service";
 
 @Component({
   selector: 'app-search-term-filter',
@@ -10,8 +9,8 @@ import {AbstractMatDataSourceService} from "../service/abstract-material-datasou
 export class SearchTermFilterComponent {
 
   @Input()
-  public filter: SearchTermFilter = {searchTerm: '' };
+  public filter: SearchTermFilter = { searchTerm: '' } as SearchTermFilter;
 
-  @Input()
-  public datasource!: AbstractMatDataSourceService<any>;
+  @Output()
+  public filterChange: EventEmitter<SearchTermFilter> = new EventEmitter<SearchTermFilter>();
 }

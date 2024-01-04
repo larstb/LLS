@@ -1,0 +1,68 @@
+<h2 mat-dialog-title *ngIf="product.id">Produkt '{{product.name}}' bearbeiten</h2>
+<h2 mat-dialog-title *ngIf="!product.id">Produkt anlegen</h2>
+
+<mat-dialog-content>
+  <form *ngIf="fg" [formGroup]="fg">
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Name" formControlName="name">
+      <mat-error *ngIf="fg.get('name')?.hasError('required') && (fg.get('name')?.dirty || fg.get('name')?.touched)">
+        Name ist ein Pflichtfeld!
+      </mat-error>
+      <mat-error *ngIf="fg.get('name')?.hasError('minlength') && (fg.get('name')?.dirty || fg.get('name')?.touched)">
+        Name ist zu kurz!
+      </mat-error>
+      <mat-error *ngIf="fg.get('name')?.hasError('maxlength') && (fg.get('name')?.dirty || fg.get('name')?.touched)">
+        Name ist zu lang!
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>Hersteller</mat-label>
+      <input matInput placeholder="Hersteller" formControlName="producer">
+      <mat-error *ngIf="fg.get('producer')?.hasError('required') && (fg.get('producer')?.dirty || fg.get('producer')?.touched)">
+        Hersteller ist ein Pflichtfeld!
+      </mat-error>
+      <mat-error *ngIf="fg.get('producer')?.hasError('minlength') && (fg.get('producer')?.dirty || fg.get('producer')?.touched)">
+        Hersteller ist zu kurz!
+      </mat-error>
+      <mat-error *ngIf="fg.get('producer')?.hasError('maxlength') && (fg.get('producer')?.dirty || fg.get('producer')?.touched)">
+        Hersteller ist zu lang!
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>Verpackung</mat-label>
+      <input matInput placeholder="Verpackung" formControlName="quantity">
+      <mat-error *ngIf="fg.get('quantity')?.hasError('required') && (fg.get('quantity')?.dirty || fg.get('quantity')?.touched)">
+        Verpackung ist ein Pflichtfeld!
+      </mat-error>
+      <mat-error *ngIf="fg.get('quantity')?.hasError('maxlength') && (fg.get('quantity')?.dirty || fg.get('quantity')?.touched)">
+        Verpackung ist zu lang!
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>Preis</mat-label>
+      <input type="number" matInput placeholder="Preis" formControlName="price">
+      <mat-error *ngIf="fg.get('price')?.hasError('required') && (fg.get('price')?.dirty || fg.get('price')?.touched)">
+        Preis ist ein Pflichtfeld!
+      </mat-error>
+      <mat-error *ngIf="fg.get('price')?.hasError('min') && (fg.get('price')?.dirty || fg.get('price')?.touched)">
+        Der Preis kann nicht unter 0 € betragen!
+      </mat-error>
+    </mat-form-field>
+    <mat-slide-toggle class="w-100 slider" formControlName="isActive">Produkt aktiviert</mat-slide-toggle>
+    <mat-slide-toggle class="w-100 slider" formControlName="isChecked">Produkt überprüft</mat-slide-toggle>
+    <mat-form-field class="w-100">
+      <mat-label>Kategorie</mat-label>
+      <mat-select formControlName="categoryId">
+        @for (category of (categories$ | async); track category.id) {
+          <mat-option [value]="category.id">{{category.name}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Abbrechen</button>
+  <button mat-button [disabled]="fg?.invalid" color="primary" (click)="save()">Speichern</button>
+</mat-dialog-actions>

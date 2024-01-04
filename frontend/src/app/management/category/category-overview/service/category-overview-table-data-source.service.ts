@@ -18,6 +18,6 @@ export class CategoryOverviewTableDataSourceService  extends AbstractMatDataSour
   }
 
   filter$(queryParams: any): Observable<ResponseWrapper<UserOverviewDTO>> {
-    return this.categoryManagementService.loadAllCategories(queryParams);
+    return this.categoryManagementService.loadAllCategories(true, queryParams);
   }
 }

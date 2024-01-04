@@ -82,6 +82,10 @@ public class UserServiceImpl implements UserService {
             throw new UserUpdateException("id is empty");
         }
         UserEntity userToUpdate = userQueryDSLRepository.loadUserByUuid(request.id());
+        if(Objects.isNull(userToUpdate)) {
+            logger.error("UserEntity loggedIn user not found");
+            throw new UserUpdateException("UserEntity not found for id " + request.id());
+        }
         if(!userToUpdate.getKeycloakReference().equals(authUserHelper.getCurrentUser())) {
             logger.error("UserEntity is not loggedIn user");
             throw new UserUpdateException("UserEntity is not loggedIn user");
