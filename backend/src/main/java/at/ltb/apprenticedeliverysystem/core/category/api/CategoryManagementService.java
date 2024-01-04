@@ -7,7 +7,7 @@ import at.ltb.apprenticedeliverysystem.core.category.dto.UpdateCategoryDTO;
 
 import java.util.Optional;
 
-public interface AdminModCategoryManagementService {
+public interface CategoryManagementService {
 
     ResponseWrapper<CategoryDetailDTO> loadAllCategories(Integer page, Integer pageSize,
                                                            Optional<String> searchTerm);

@@ -9,7 +9,7 @@ import at.ltb.apprenticedeliverysystem.core.category._persistence.CategoryQueryD
 import at.ltb.apprenticedeliverysystem.core.product._persistence.ProductCrudRepository;
 import at.ltb.apprenticedeliverysystem.core.product._persistence.ProductEntity;
 import at.ltb.apprenticedeliverysystem.core.product._persistence.ProductQueryDSLRepository;
-import at.ltb.apprenticedeliverysystem.core.product.api.AdminModProductManagementService;
+import at.ltb.apprenticedeliverysystem.core.product.api.ProductManagementService;
 import at.ltb.apprenticedeliverysystem.core.product.dto.CreateProductDTO;
 import at.ltb.apprenticedeliverysystem.core.product.dto.ProductDetailDTO;
 import at.ltb.apprenticedeliverysystem.core.product.dto.ProductOverviewDTO;
@@ -28,9 +28,9 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-public class AdminModProductManagementServiceImpl implements AdminModProductManagementService {
+public class ProductManagementServiceImpl implements ProductManagementService {
 
-    private final Logger logger = LoggerFactory.getLogger(AdminModProductManagementServiceImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(ProductManagementServiceImpl.class);
 
     private final ProductQueryDSLRepository productQueryDSLRepository;
 
@@ -40,9 +40,9 @@ public class AdminModProductManagementServiceImpl implements AdminModProductMana
 
     private final ProductMapper productMapper;
 
-    public AdminModProductManagementServiceImpl(ProductQueryDSLRepository productQueryDSLRepository,
-                                                CategoryQueryDSLRepository categoryQueryDSLRepository,
-                                                ProductCrudRepository productCrudRepository, ProductMapper productMapper) {
+    public ProductManagementServiceImpl(ProductQueryDSLRepository productQueryDSLRepository,
+                                        CategoryQueryDSLRepository categoryQueryDSLRepository,
+                                        ProductCrudRepository productCrudRepository, ProductMapper productMapper) {
         this.productQueryDSLRepository = productQueryDSLRepository;
         this.categoryQueryDSLRepository = categoryQueryDSLRepository;
         this.productCrudRepository = productCrudRepository;

@@ -6,7 +6,7 @@ import at.ltb.apprenticedeliverysystem.core._common.response.ResponseWrapper;
 import at.ltb.apprenticedeliverysystem.core.groceryworkingday._persistence.GroceryWorkingDayCrudRepository;
 import at.ltb.apprenticedeliverysystem.core.groceryworkingday._persistence.GroceryWorkingDayEntity;
 import at.ltb.apprenticedeliverysystem.core.groceryworkingday._persistence.GroceryWorkingDayQueryDSLRepository;
-import at.ltb.apprenticedeliverysystem.core.groceryworkingday.api.AdminModGroceryWorkingDayManagementService;
+import at.ltb.apprenticedeliverysystem.core.groceryworkingday.api.GroceryWorkingDayManagementService;
 import at.ltb.apprenticedeliverysystem.core.groceryworkingday.dto.CreateGroceryWorkingDayDTO;
 import at.ltb.apprenticedeliverysystem.core.groceryworkingday.dto.GroceryWorkingDayDetailDTO;
 import at.ltb.apprenticedeliverysystem.core.groceryworkingday.dto.UpdateGroceryWorkingDayDTO;
@@ -27,9 +27,9 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-public class AdminModGroceryWorkingDayManagementServiceImpl implements AdminModGroceryWorkingDayManagementService {
+public class GroceryWorkingDayManagementServiceImpl implements GroceryWorkingDayManagementService {
 
-    private final Logger logger = LoggerFactory.getLogger(AdminModGroceryWorkingDayManagementServiceImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(GroceryWorkingDayManagementServiceImpl.class);
 
     private final GroceryWorkingDayQueryDSLRepository groceryWorkingDayQueryDSLRepository;
 
@@ -39,9 +39,9 @@ public class AdminModGroceryWorkingDayManagementServiceImpl implements AdminModG
 
     private final UserQueryDSLRepository userQueryDSLRepository;
 
-    public AdminModGroceryWorkingDayManagementServiceImpl(GroceryWorkingDayQueryDSLRepository groceryWorkingDayQueryDSLRepository,
-                                                          GroceryWorkingDayCrudRepository groceryWorkingDayCrudRepository,
-                                                          GroceryWorkingDayMapper groceryWorkingDayMapper, UserQueryDSLRepository userQueryDSLRepository) {
+    public GroceryWorkingDayManagementServiceImpl(GroceryWorkingDayQueryDSLRepository groceryWorkingDayQueryDSLRepository,
+                                                  GroceryWorkingDayCrudRepository groceryWorkingDayCrudRepository,
+                                                  GroceryWorkingDayMapper groceryWorkingDayMapper, UserQueryDSLRepository userQueryDSLRepository) {
         this.groceryWorkingDayQueryDSLRepository = groceryWorkingDayQueryDSLRepository;
         this.groceryWorkingDayCrudRepository = groceryWorkingDayCrudRepository;
         this.groceryWorkingDayMapper = groceryWorkingDayMapper;

@@ -9,7 +9,7 @@ import at.ltb.apprenticedeliverysystem.core.user.mapper.UserMapper;
 import at.ltb.apprenticedeliverysystem.core.user._persistence.UserCrudRepository;
 import at.ltb.apprenticedeliverysystem.core.user._persistence.UserEntity;
 import at.ltb.apprenticedeliverysystem.core.user._persistence.UserQueryDSLRepository;
-import at.ltb.apprenticedeliverysystem.core.user.api.AdminModUserManagementService;
+import at.ltb.apprenticedeliverysystem.core.user.api.UserManagementService;
 import at.ltb.apprenticedeliverysystem.core.user.dto.CreateUserDTO;
 import at.ltb.apprenticedeliverysystem.core.user.dto.UpdatePortalUserDTO;
 import at.ltb.apprenticedeliverysystem.core.user.dto.UserDetailDTO;
@@ -26,9 +26,9 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-public class AdminModUserManagementServiceImpl implements AdminModUserManagementService {
+public class UserManagementServiceImpl implements UserManagementService {
 
-    private final Logger logger = LoggerFactory.getLogger(AdminModUserManagementServiceImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(UserManagementServiceImpl.class);
 
     private final UserQueryDSLRepository userQueryDSLRepository;
 
@@ -38,8 +38,8 @@ public class AdminModUserManagementServiceImpl implements AdminModUserManagement
 
     private final KeyCloakService keyCloakService;
 
-    public AdminModUserManagementServiceImpl(UserQueryDSLRepository userQueryDSLRepository, UserCrudRepository userCrudRepository,
-                                             UserMapper userMapper, KeyCloakService keyCloakService) {
+    public UserManagementServiceImpl(UserQueryDSLRepository userQueryDSLRepository, UserCrudRepository userCrudRepository,
+                                     UserMapper userMapper, KeyCloakService keyCloakService) {
         this.userQueryDSLRepository = userQueryDSLRepository;
         this.userCrudRepository = userCrudRepository;
         this.userMapper = userMapper;

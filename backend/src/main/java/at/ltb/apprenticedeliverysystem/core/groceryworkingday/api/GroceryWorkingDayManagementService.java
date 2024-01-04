@@ -8,7 +8,7 @@ import at.ltb.apprenticedeliverysystem.core.groceryworkingday.dto.UpdateGroceryW
 import java.time.LocalDate;
 import java.util.Optional;
 
-public interface AdminModGroceryWorkingDayManagementService {
+public interface GroceryWorkingDayManagementService {
 
     ResponseWrapper<GroceryWorkingDayDetailDTO> loadAllGroceryWorkingDays(Integer page, Integer pageSize,
                                                                           Optional<String> goingUserId,

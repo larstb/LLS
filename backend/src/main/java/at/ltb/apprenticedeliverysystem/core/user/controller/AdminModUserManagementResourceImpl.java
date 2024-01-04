@@ -3,7 +3,7 @@ package at.ltb.apprenticedeliverysystem.core.user.controller;
 import at.ltb.apprenticedeliverysystem.configuration.permission.ModeratorOrAdminPermission;
 import at.ltb.apprenticedeliverysystem.core._common.response.ResponseWrapper;
 import at.ltb.apprenticedeliverysystem.core.user.api.AdminModUserManagementResource;
-import at.ltb.apprenticedeliverysystem.core.user.api.AdminModUserManagementService;
+import at.ltb.apprenticedeliverysystem.core.user.api.UserManagementService;
 import at.ltb.apprenticedeliverysystem.core.user.dto.CreateUserDTO;
 import at.ltb.apprenticedeliverysystem.core.user.dto.UpdatePortalUserDTO;
 import at.ltb.apprenticedeliverysystem.core.user.dto.UserDetailDTO;
@@ -24,35 +24,35 @@ public class AdminModUserManagementResourceImpl implements AdminModUserManagemen
 
     private final Logger logger = LoggerFactory.getLogger(AdminModUserManagementResourceImpl.class);
 
-    private final AdminModUserManagementService adminModUserManagementService;
+    private final UserManagementService userManagementService;
 
-    public AdminModUserManagementResourceImpl(AdminModUserManagementService adminModUserManagementService) {
-        this.adminModUserManagementService = adminModUserManagementService;
+    public AdminModUserManagementResourceImpl(UserManagementService userManagementService) {
+        this.userManagementService = userManagementService;
     }
 
     @Override
     public ResponseWrapper<UserOverviewDTO> loadAllUsers(Integer page, Integer pageSize, Optional<String> searchTerm) {
         logger.info("API loadAllUsers was called!");
-        return adminModUserManagementService.loadAllUsers(page, pageSize, searchTerm);
+        return userManagementService.loadAllUsers(page, pageSize, searchTerm);
     }
 
     @Override
     public UserDetailDTO loadUserById(String id) {
         logger.info("API loadUserById was called!");
-        return adminModUserManagementService.loadUserById(id);
+        return userManagementService.loadUserById(id);
     }
 
     @Override
     @Transactional
     public UserDetailDTO createUser(CreateUserDTO request) {
         logger.info("API createUser was called!");
-        return adminModUserManagementService.createUser(request);
+        return userManagementService.createUser(request);
     }
 
     @Override
     @Transactional
     public UserDetailDTO updateUser(UpdatePortalUserDTO request) {
         logger.info("API updateUser was called!");
-        return adminModUserManagementService.updateUserPortal(request);
+        return userManagementService.updateUserPortal(request);
     }
 }

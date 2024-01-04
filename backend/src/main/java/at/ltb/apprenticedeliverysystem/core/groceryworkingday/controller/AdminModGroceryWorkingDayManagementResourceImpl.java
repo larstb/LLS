@@ -3,7 +3,7 @@ package at.ltb.apprenticedeliverysystem.core.groceryworkingday.controller;
 import at.ltb.apprenticedeliverysystem.configuration.permission.ModeratorOrAdminPermission;
 import at.ltb.apprenticedeliverysystem.core._common.response.ResponseWrapper;
 import at.ltb.apprenticedeliverysystem.core.groceryworkingday.api.AdminModGroceryWorkingDayManagementResource;
-import at.ltb.apprenticedeliverysystem.core.groceryworkingday.api.AdminModGroceryWorkingDayManagementService;
+import at.ltb.apprenticedeliverysystem.core.groceryworkingday.api.GroceryWorkingDayManagementService;
 import at.ltb.apprenticedeliverysystem.core.groceryworkingday.dto.CreateGroceryWorkingDayDTO;
 import at.ltb.apprenticedeliverysystem.core.groceryworkingday.dto.GroceryWorkingDayDetailDTO;
 import at.ltb.apprenticedeliverysystem.core.groceryworkingday.dto.UpdateGroceryWorkingDayDTO;
@@ -24,11 +24,11 @@ public class AdminModGroceryWorkingDayManagementResourceImpl implements AdminMod
 
     private final Logger logger = LoggerFactory.getLogger(AdminModGroceryWorkingDayManagementResourceImpl.class);
 
-    private final AdminModGroceryWorkingDayManagementService adminModGroceryWorkingDayManagementService;
+    private final GroceryWorkingDayManagementService groceryWorkingDayManagementService;
 
     public AdminModGroceryWorkingDayManagementResourceImpl(
-            AdminModGroceryWorkingDayManagementService adminModGroceryWorkingDayManagementService) {
-        this.adminModGroceryWorkingDayManagementService = adminModGroceryWorkingDayManagementService;
+            GroceryWorkingDayManagementService groceryWorkingDayManagementService) {
+        this.groceryWorkingDayManagementService = groceryWorkingDayManagementService;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class AdminModGroceryWorkingDayManagementResourceImpl implements AdminMod
                                                                                  Optional<String> payingUserId,
                                                                                  Optional<LocalDate> date) {
         logger.info("API loadAllGroceryWorkingDays was called!");
-        return adminModGroceryWorkingDayManagementService
+        return groceryWorkingDayManagementService
                 .loadAllGroceryWorkingDays(page, pageSize, goingUserId, payingUserId, date);
     }
 
@@ -45,13 +45,13 @@ public class AdminModGroceryWorkingDayManagementResourceImpl implements AdminMod
     @Transactional
     public GroceryWorkingDayDetailDTO createGroceryWorkingDay(CreateGroceryWorkingDayDTO request) {
         logger.info("API createGroceryWorkingDay was called!");
-        return adminModGroceryWorkingDayManagementService.createGroceryWorkingDay(request);
+        return groceryWorkingDayManagementService.createGroceryWorkingDay(request);
     }
 
     @Override
     @Transactional
     public GroceryWorkingDayDetailDTO updateGroceryWorkingDay(UpdateGroceryWorkingDayDTO request) {
         logger.info("API updateGroceryWorkingDay was called!");
-        return adminModGroceryWorkingDayManagementService.updateGroceryWorkingDay(request);
+        return groceryWorkingDayManagementService.updateGroceryWorkingDay(request);
     }
 }

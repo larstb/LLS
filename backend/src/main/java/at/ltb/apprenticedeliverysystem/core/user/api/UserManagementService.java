@@ -8,7 +8,7 @@ import at.ltb.apprenticedeliverysystem.core.user.dto.UserOverviewDTO;
 
 import java.util.Optional;
 
-public interface AdminModUserManagementService {
+public interface UserManagementService {
     ResponseWrapper<UserOverviewDTO> loadAllUsers(Integer page, Integer pageSize,
                                                   Optional<String> searchTerm);
 

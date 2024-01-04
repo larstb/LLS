@@ -7,7 +7,7 @@ import at.ltb.apprenticedeliverysystem.core._common.response.ResponseWrapper;
 import at.ltb.apprenticedeliverysystem.core.category._persistence.CategoryCrudRepository;
 import at.ltb.apprenticedeliverysystem.core.category._persistence.CategoryEntity;
 import at.ltb.apprenticedeliverysystem.core.category._persistence.CategoryQueryDSLRepository;
-import at.ltb.apprenticedeliverysystem.core.category.api.AdminModCategoryManagementService;
+import at.ltb.apprenticedeliverysystem.core.category.api.CategoryManagementService;
 import at.ltb.apprenticedeliverysystem.core.category.dto.CategoryDetailDTO;
 import at.ltb.apprenticedeliverysystem.core.category.dto.CreateCategoryDTO;
 import at.ltb.apprenticedeliverysystem.core.category.dto.UpdateCategoryDTO;
@@ -24,9 +24,9 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-public class AdminModCategoryManagementServiceImpl implements AdminModCategoryManagementService {
+public class CategoryManagementServiceImpl implements CategoryManagementService {
 
-    private final Logger logger = LoggerFactory.getLogger(AdminModCategoryManagementServiceImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(CategoryManagementServiceImpl.class);
 
     private final CategoryQueryDSLRepository categoryQueryDSLRepository;
 
@@ -34,9 +34,9 @@ public class AdminModCategoryManagementServiceImpl implements AdminModCategoryMa
 
     private final CategoryMapper categoryMapper;
 
-    public AdminModCategoryManagementServiceImpl(CategoryQueryDSLRepository categoryQueryDSLRepository,
-                                                 CategoryCrudRepository categoryCrudRepository,
-                                                 CategoryMapper categoryMapper) {
+    public CategoryManagementServiceImpl(CategoryQueryDSLRepository categoryQueryDSLRepository,
+                                         CategoryCrudRepository categoryCrudRepository,
+                                         CategoryMapper categoryMapper) {
         this.categoryQueryDSLRepository = categoryQueryDSLRepository;
         this.categoryCrudRepository = categoryCrudRepository;
         this.categoryMapper = categoryMapper;
