@@ -2,7 +2,6 @@ package at.ltb.apprenticedeliverysystem.core.category.mapper;
 
 import at.ltb.apprenticedeliverysystem.core.category._persistence.CategoryEntity;
 import at.ltb.apprenticedeliverysystem.core.category.dto.CategoryDetailDTO;
-import at.ltb.apprenticedeliverysystem.core.category.dto.CategoryOverviewDTO;
 import at.ltb.apprenticedeliverysystem.core.category.dto.CreateCategoryDTO;
 import at.ltb.apprenticedeliverysystem.core.category.dto.UpdateCategoryDTO;
 import org.mapstruct.InjectionStrategy;
@@ -19,12 +18,9 @@ import java.util.List;
 public abstract class CategoryMapper {
 
     @Mapping(target = "id", source = "uuid")
-    public abstract CategoryOverviewDTO mapCategoryEntityToOverview(CategoryEntity category);
-
-    public abstract List<CategoryOverviewDTO> mapCategoryEntityToOverview(List<CategoryEntity> category);
-
-    @Mapping(target = "id", source = "uuid")
     public abstract CategoryDetailDTO mapCategoryEntityToDetail(CategoryEntity category);
+
+    public abstract List<CategoryDetailDTO> mapCategoryEntityToDetail(List<CategoryEntity> categories);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "uuid", ignore = true)

@@ -2,7 +2,6 @@ package at.ltb.apprenticedeliverysystem.core.category.api;
 
 import at.ltb.apprenticedeliverysystem.core._common.response.ResponseWrapper;
 import at.ltb.apprenticedeliverysystem.core.category.dto.CategoryDetailDTO;
-import at.ltb.apprenticedeliverysystem.core.category.dto.CategoryOverviewDTO;
 import at.ltb.apprenticedeliverysystem.core.category.dto.CreateCategoryDTO;
 import at.ltb.apprenticedeliverysystem.core.category.dto.UpdateCategoryDTO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,13 +19,13 @@ import java.util.Optional;
 public interface AdminModCategoryManagementResource {
     @Operation(description = "load all categories with pagination and filter")
     @GetMapping(value = "/", produces = "application/json")
-    ResponseWrapper<CategoryOverviewDTO> loadAllCategories(@RequestParam(value = "page", required = false) Integer page,
+    ResponseWrapper<CategoryDetailDTO> loadAllCategories(@RequestParam(value = "page", required = false) Integer page,
                                                            @RequestParam(value = "pageSize", required = false) Integer pageSize,
                                                            @RequestParam(value = "searchTerm", required = false) Optional<String> searchTerm);
 
     @Operation(description = "load all categories with filter")
     @GetMapping(value = "/all", produces = "application/json")
-    ResponseWrapper<CategoryOverviewDTO> loadAllCategoriesWithoutPagination(
+    ResponseWrapper<CategoryDetailDTO> loadAllCategoriesWithoutPagination(
             @RequestParam(value = "searchTerm", required = false) Optional<String> searchTerm);
 
     @Operation(description = "load category by id")

@@ -5,7 +5,6 @@ import at.ltb.apprenticedeliverysystem.core._common.response.ResponseWrapper;
 import at.ltb.apprenticedeliverysystem.core.category.api.AdminModCategoryManagementResource;
 import at.ltb.apprenticedeliverysystem.core.category.api.AdminModCategoryManagementService;
 import at.ltb.apprenticedeliverysystem.core.category.dto.CategoryDetailDTO;
-import at.ltb.apprenticedeliverysystem.core.category.dto.CategoryOverviewDTO;
 import at.ltb.apprenticedeliverysystem.core.category.dto.CreateCategoryDTO;
 import at.ltb.apprenticedeliverysystem.core.category.dto.UpdateCategoryDTO;
 import org.slf4j.Logger;
@@ -31,13 +30,13 @@ public class AdminModCategoryManagementResourceImpl implements AdminModCategoryM
     }
 
     @Override
-    public ResponseWrapper<CategoryOverviewDTO> loadAllCategories(Integer page, Integer pageSize, Optional<String> searchTerm) {
+    public ResponseWrapper<CategoryDetailDTO> loadAllCategories(Integer page, Integer pageSize, Optional<String> searchTerm) {
         logger.info("API loadAllCategories was called!");
         return adminModUserManagementService.loadAllCategories(page, pageSize, searchTerm);
     }
 
     @Override
-    public ResponseWrapper<CategoryOverviewDTO> loadAllCategoriesWithoutPagination(Optional<String> searchTerm) {
+    public ResponseWrapper<CategoryDetailDTO> loadAllCategoriesWithoutPagination(Optional<String> searchTerm) {
         logger.info("API loadAllCategoriesWithoutPagination was called!");
         return adminModUserManagementService.loadAllCategoriesWithoutPagination(searchTerm);
     }

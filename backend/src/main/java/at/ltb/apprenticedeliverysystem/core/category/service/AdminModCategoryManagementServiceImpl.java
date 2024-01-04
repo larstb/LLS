@@ -9,7 +9,6 @@ import at.ltb.apprenticedeliverysystem.core.category._persistence.CategoryEntity
 import at.ltb.apprenticedeliverysystem.core.category._persistence.CategoryQueryDSLRepository;
 import at.ltb.apprenticedeliverysystem.core.category.api.AdminModCategoryManagementService;
 import at.ltb.apprenticedeliverysystem.core.category.dto.CategoryDetailDTO;
-import at.ltb.apprenticedeliverysystem.core.category.dto.CategoryOverviewDTO;
 import at.ltb.apprenticedeliverysystem.core.category.dto.CreateCategoryDTO;
 import at.ltb.apprenticedeliverysystem.core.category.dto.UpdateCategoryDTO;
 import at.ltb.apprenticedeliverysystem.core.category.exception.CategoryNameNotUniqueException;
@@ -44,21 +43,21 @@ public class AdminModCategoryManagementServiceImpl implements AdminModCategoryMa
     }
 
     @Override
-    public ResponseWrapper<CategoryOverviewDTO> loadAllCategories(Integer page, Integer pageSize,
+    public ResponseWrapper<CategoryDetailDTO> loadAllCategories(Integer page, Integer pageSize,
                                                                   Optional<String> searchTerm) {
         QueryDslOverviewResponse<CategoryEntity> response = categoryQueryDSLRepository
-                .loadCategory(searchTerm, PaginationUtil.getPagination(page, pageSize));
+                .loadCategories(searchTerm, PaginationUtil.getPagination(page, pageSize));
         logger.info("loadAllCategories: count: " + response.getTotalElements());
-        return new ResponseWrapper<>(categoryMapper.mapCategoryEntityToOverview(response.getContent()),
+        return new ResponseWrapper<>(categoryMapper.mapCategoryEntityToDetail(response.getContent()),
                 response.getTotalElements());
     }
 
     @Override
-    public ResponseWrapper<CategoryOverviewDTO> loadAllCategoriesWithoutPagination(Optional<String> searchTerm) {
+    public ResponseWrapper<CategoryDetailDTO> loadAllCategoriesWithoutPagination(Optional<String> searchTerm) {
         QueryDslOverviewResponse<CategoryEntity> response = categoryQueryDSLRepository
-                .loadCategoryWithoutPagination(searchTerm);
+                .loadCategoriesWithoutPagination(searchTerm);
         logger.info("loadAllCategories without pagination: count: " + response.getTotalElements());
-        return new ResponseWrapper<>(categoryMapper.mapCategoryEntityToOverview(response.getContent()),
+        return new ResponseWrapper<>(categoryMapper.mapCategoryEntityToDetail(response.getContent()),
                 response.getTotalElements());
     }
 
