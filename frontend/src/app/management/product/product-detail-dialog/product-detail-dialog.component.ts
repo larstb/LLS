@@ -7,7 +7,7 @@ import {ProductDetailDTO} from "../../../shared/model/productDetailDTO";
 import {ProductManagementService} from "../../../shared/service/product-management/product-management.service";
 import {Select} from "@ngxs/store";
 import {PortalStoreState} from "../../../shared/store/portal-store-states";
-import {CategoryOverviewDTO} from "../../../shared/model/categoryOverviewDTO";
+import {CategoryDetailDTO} from "../../../shared/model/categoryDetailDTO";
 
 @Component({
   selector: 'app-product-detail-dialog',
@@ -17,7 +17,7 @@ import {CategoryOverviewDTO} from "../../../shared/model/categoryOverviewDTO";
 export class ProductDetailDialogComponent implements OnInit {
 
   @Select(PortalStoreState.categories)
-  public categories$?: Observable<CategoryOverviewDTO[]>;
+  public categories$?: Observable<CategoryDetailDTO[]>;
 
   public fg?: FormGroup;
 

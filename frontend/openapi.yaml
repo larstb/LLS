@@ -16,10 +16,14 @@ tags:
   description: Apis for the logged in user
 - name: AdminModProductManagementResource
   description: Apis to manage products / Only for Admin and Mod
+- name: AdminModGroceryWorkingDayManagementResource
+  description: Apis to manage groceryWorkingDays / Only for Admin and Mod
 - name: AdminModUserManagementResource
   description: Apis to manage user / Only for Admin and Mod
 - name: AdminModCategoryManagementResource
   description: Apis to manage categories / Only for Admin and Mod
+- name: UserGroceryWorkingDayManagementResource
+  description: Apis for groceryWorkingDays
 paths:
   /api/user/:
     get:
@@ -201,6 +205,84 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProductDetailDTO'
+  /api/portal/grocery-working-day/:
+    get:
+      tags:
+      - AdminModGroceryWorkingDayManagementResource
+      description: load all grocery working days with pagination and filter
+      operationId: loadAllGroceryWorkingDays
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: pageSize
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: goingUserId
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: payingUserId
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: date
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseWrapperGroceryWorkingDayDetailDTO'
+    put:
+      tags:
+      - AdminModGroceryWorkingDayManagementResource
+      description: update grocery working day
+      operationId: updateGroceryWorkingDay
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateGroceryWorkingDayDTO'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroceryWorkingDayDetailDTO'
+    post:
+      tags:
+      - AdminModGroceryWorkingDayManagementResource
+      description: create new grocery working day
+      operationId: createGroceryWorkingDay
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGroceryWorkingDayDTO'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroceryWorkingDayDetailDTO'
   /api/portal/category/:
     get:
       tags:
@@ -231,7 +313,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ResponseWrapperCategoryOverviewDTO'
+                $ref: '#/components/schemas/ResponseWrapperCategoryDetailDTO'
     put:
       tags:
       - AdminModCategoryManagementResource
@@ -268,6 +350,58 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CategoryDetailDTO'
+  /api/grocery-working-day/remove/paying-users/:
+    post:
+      tags:
+      - UserGroceryWorkingDayManagementResource
+      description: remove current logged in user as paying users
+      operationId: removeCurrentLoggedInUserAsPayingUser
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroceryWorkingDayDetailDTO'
+  /api/grocery-working-day/remove/going-users/:
+    post:
+      tags:
+      - UserGroceryWorkingDayManagementResource
+      description: remove current logged in user to going users
+      operationId: removeLoggedInUserToGoingUsers
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroceryWorkingDayDetailDTO'
+  /api/grocery-working-day/add/paying-users/:
+    post:
+      tags:
+      - UserGroceryWorkingDayManagementResource
+      description: set current logged in user as paying users
+      operationId: setCurrentLoggedInUserAsPayingUser
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroceryWorkingDayDetailDTO'
+  /api/grocery-working-day/add/going-users/:
+    post:
+      tags:
+      - UserGroceryWorkingDayManagementResource
+      description: add current logged in user to going users
+      operationId: addLoggedInUserToGoingUsers
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroceryWorkingDayDetailDTO'
   /api/user/current-user:
     get:
       tags:
@@ -356,7 +490,20 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ResponseWrapperCategoryOverviewDTO'
+                $ref: '#/components/schemas/ResponseWrapperCategoryDetailDTO'
+  /api/grocery-working-day/today:
+    get:
+      tags:
+      - UserGroceryWorkingDayManagementResource
+      description: load grocery working day from today
+      operationId: loadOrCreateGroceryWorkingDayToday
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroceryWorkingDayDetailDTO'
 components:
   schemas:
     UpdateUserDTO:
@@ -525,6 +672,45 @@ components:
           type: boolean
         category:
           $ref: '#/components/schemas/CategoryDetailDTO'
+    UpdateGroceryWorkingDayDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        version:
+          type: integer
+          format: int32
+        goingUserIds:
+          type: array
+          items:
+            type: string
+        payingUserId:
+          type: string
+    GroceryWorkingDayDetailDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        date:
+          type: string
+          format: date
+        goingUsers:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserOverviewDTO'
+        payingUser:
+          $ref: '#/components/schemas/UserOverviewDTO'
+    UserOverviewDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
     UpdateCategoryDTO:
       type: object
       properties:
@@ -591,6 +777,18 @@ components:
           type: boolean
         categoryId:
           type: string
+    CreateGroceryWorkingDayDTO:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        goingUserIds:
+          type: array
+          items:
+            type: string
+        payingUserId:
+          type: string
     CreateCategoryDTO:
       type: object
       properties:
@@ -601,6 +799,8 @@ components:
     PortalUserDTO:
       type: object
       properties:
+        id:
+          type: string
         firstname:
           type: string
         lastname:
@@ -623,17 +823,6 @@ components:
         totalElements:
           type: integer
           format: int64
-    UserOverviewDTO:
-      type: object
-      properties:
-        id:
-          type: string
-        firstname:
-          type: string
-        lastname:
-          type: string
-        email:
-          type: string
     ProductOverviewDTO:
       type: object
       properties:
@@ -660,22 +849,23 @@ components:
         totalElements:
           type: integer
           format: int64
-    CategoryOverviewDTO:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-    ResponseWrapperCategoryOverviewDTO:
+    ResponseWrapperGroceryWorkingDayDetailDTO:
       type: object
       properties:
         content:
           type: array
           items:
-            $ref: '#/components/schemas/CategoryOverviewDTO'
+            $ref: '#/components/schemas/GroceryWorkingDayDetailDTO'
+        totalElements:
+          type: integer
+          format: int64
+    ResponseWrapperCategoryDetailDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryDetailDTO'
         totalElements:
           type: integer
           format: int64

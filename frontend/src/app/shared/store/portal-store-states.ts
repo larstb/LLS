@@ -4,13 +4,13 @@ import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {PortalStoreActions} from "./portal-actions";
 import {UserService} from "../service/user/user.service";
 import {map} from "rxjs/operators";
-import {CategoryOverviewDTO} from "../model/categoryOverviewDTO";
 import {CategoryManagementService} from "../service/category-management/category-management.service";
 import LoadAllCategoriesForProduct = PortalStoreActions.LoadAllCategoriesForProduct;
+import {CategoryDetailDTO} from "../model/categoryDetailDTO";
 
 export interface PortalStoreModel {
   portalUser: PortalUserDTO | null;
-  categories: CategoryOverviewDTO[] | null;
+  categories: CategoryDetailDTO[] | null;
 }
 
 @State<PortalStoreModel>({
@@ -47,7 +47,7 @@ export class PortalStoreState {
   }
 
   @Selector()
-  public static categories(state: PortalStoreModel): CategoryOverviewDTO[] | null {
+  public static categories(state: PortalStoreModel): CategoryDetailDTO[] | null {
     return state.categories;
   }
 
