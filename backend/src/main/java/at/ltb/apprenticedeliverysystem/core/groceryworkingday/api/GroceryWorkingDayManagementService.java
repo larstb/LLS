@@ -20,4 +20,12 @@ public interface GroceryWorkingDayManagementService {
     GroceryWorkingDayDetailDTO createGroceryWorkingDay(CreateGroceryWorkingDayDTO request);
 
     GroceryWorkingDayDetailDTO updateGroceryWorkingDay(UpdateGroceryWorkingDayDTO request);
+
+    GroceryWorkingDayDetailDTO addLoggedInUserToGoingUsers();
+
+    GroceryWorkingDayDetailDTO removeLoggedInUserToGoingUsers();
+
+    GroceryWorkingDayDetailDTO setCurrentLoggedInUserAsPayingUser();
+
+    GroceryWorkingDayDetailDTO removeCurrentLoggedInUserAsPayingUser();
 }

@@ -5,6 +5,7 @@ import at.ltb.apprenticedeliverysystem.core.groceryworkingday.dto.CreateGroceryW
 import at.ltb.apprenticedeliverysystem.core.groceryworkingday.dto.GroceryWorkingDayDetailDTO;
 import at.ltb.apprenticedeliverysystem.core.groceryworkingday.dto.UpdateGroceryWorkingDayDTO;
 import at.ltb.apprenticedeliverysystem.core.user._persistence.UserEntity;
+import at.ltb.apprenticedeliverysystem.core.user.mapper.UserMapper;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -17,7 +18,8 @@ import java.util.List;
 
 @Mapper(componentModel = "spring",
         injectionStrategy = InjectionStrategy.CONSTRUCTOR,
-        unmappedTargetPolicy = ReportingPolicy.ERROR)
+        unmappedTargetPolicy = ReportingPolicy.ERROR,
+        uses = {UserMapper.class})
 public abstract class GroceryWorkingDayMapper {
 
     @Mapping(target = "id", source = "uuid")
