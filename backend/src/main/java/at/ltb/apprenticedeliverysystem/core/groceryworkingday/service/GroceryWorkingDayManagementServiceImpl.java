@@ -61,8 +61,13 @@ public class GroceryWorkingDayManagementServiceImpl implements GroceryWorkingDay
     }
 
     @Override
-    public GroceryWorkingDayDetailDTO loadGroceryWorkingDayToday() {
+    public GroceryWorkingDayDetailDTO loadOrCreateGroceryWorkingDayToday() {
         GroceryWorkingDayEntity groceryWorkingDay = groceryWorkingDayQueryDSLRepository.loadGroceryWorkingDayToday();
+
+        if(Objects.isNull(groceryWorkingDay)) {
+            groceryWorkingDay = groceryWorkingDayCrudRepository.save(new GroceryWorkingDayEntity());
+        }
+
         return groceryWorkingDayMapper.mapGroceryWorkingDayEntityToDetail(groceryWorkingDay);
     }
 

@@ -15,7 +15,7 @@ public interface GroceryWorkingDayManagementService {
                                                                           Optional<String> payingUserId,
                                                                           Optional<LocalDate> date);
 
-    GroceryWorkingDayDetailDTO loadGroceryWorkingDayToday();
+    GroceryWorkingDayDetailDTO loadOrCreateGroceryWorkingDayToday();
 
     GroceryWorkingDayDetailDTO createGroceryWorkingDay(CreateGroceryWorkingDayDTO request);
 
