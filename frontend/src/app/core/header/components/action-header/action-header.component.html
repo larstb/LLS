@@ -1,5 +1,5 @@
 <button mat-raised-button class="green button-container"
-        (click)="showNotImplemented()"
+        [routerLink]="['order']"
         [disabled]="(groceryWorkingDayForTay$ | async)?.status === 'CLOSED'">
   <mat-icon>add</mat-icon> Neue Bestellung erstellen
 </button>
