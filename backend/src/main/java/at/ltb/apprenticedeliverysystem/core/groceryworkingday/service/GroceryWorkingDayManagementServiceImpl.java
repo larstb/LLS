@@ -27,6 +27,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -182,7 +183,7 @@ public class GroceryWorkingDayManagementServiceImpl implements GroceryWorkingDay
                 .getGoingUsers()
                 .stream()
                 .filter(workingDay -> !workingDay.getId().equals(user.getId()))
-                .toList();
+                .collect(Collectors.toList());
 
         groceryWorkingDay.setGoingUsers(newGoingUsers);
 

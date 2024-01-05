@@ -8,8 +8,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,6 +29,7 @@ public class GroceryWorkingDayEntity extends AbstractCrudEntity {
     private LocalDate date = LocalDate.now();
 
     @OneToMany(cascade = CascadeType.MERGE)
+    //@OneToMany(cascade = {CascadeType.MERGE, CascadeType.DETACH})
     @JoinTable(
             name="lls_grocery_working_day_going_user",
             joinColumns = @JoinColumn( name="grocery_working_day_id", referencedColumnName = "id"),
@@ -36,7 +37,8 @@ public class GroceryWorkingDayEntity extends AbstractCrudEntity {
     )
     private List<UserEntity> goingUsers = new ArrayList<>();
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    //@OneToMany(cascade = {CascadeType.MERGE, CascadeType.DETACH})
     @JoinColumn(name = "paying_user_id", referencedColumnName = "id")
     private UserEntity payingUser;
 
