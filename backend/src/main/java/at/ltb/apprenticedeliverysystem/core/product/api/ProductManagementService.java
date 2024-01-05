@@ -14,6 +14,9 @@ public interface ProductManagementService {
                                                         Optional<String> searchTerm, Optional<Boolean> isActive,
                                                         Optional<Boolean> isChecked, Optional<String> categoryId);
 
+    ResponseWrapper<ProductDetailDTO> loadAllProductsForShop(Integer page, Integer pageSize,
+                                                        Optional<String> searchTerm, Optional<String> categoryId);
+
     ProductDetailDTO loadProductById(String uuid);
 
     ProductDetailDTO createProduct(CreateProductDTO request);

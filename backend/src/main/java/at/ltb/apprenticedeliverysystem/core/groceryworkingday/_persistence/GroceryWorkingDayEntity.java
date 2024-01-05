@@ -29,7 +29,6 @@ public class GroceryWorkingDayEntity extends AbstractCrudEntity {
     private LocalDate date = LocalDate.now();
 
     @OneToMany(cascade = CascadeType.MERGE)
-    //@OneToMany(cascade = {CascadeType.MERGE, CascadeType.DETACH})
     @JoinTable(
             name="lls_grocery_working_day_going_user",
             joinColumns = @JoinColumn( name="grocery_working_day_id", referencedColumnName = "id"),
@@ -38,7 +37,6 @@ public class GroceryWorkingDayEntity extends AbstractCrudEntity {
     private List<UserEntity> goingUsers = new ArrayList<>();
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    //@OneToMany(cascade = {CascadeType.MERGE, CascadeType.DETACH})
     @JoinColumn(name = "paying_user_id", referencedColumnName = "id")
     private UserEntity payingUser;
 

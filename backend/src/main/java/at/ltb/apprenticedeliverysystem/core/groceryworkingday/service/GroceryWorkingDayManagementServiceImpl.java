@@ -1,7 +1,6 @@
 package at.ltb.apprenticedeliverysystem.core.groceryworkingday.service;
 
 import at.ltb.apprenticedeliverysystem.core._common.auth.AuthUserHelper;
-import at.ltb.apprenticedeliverysystem.core._common.exception.CustomEntityNotFoundException;
 import at.ltb.apprenticedeliverysystem.core._common.pagination.PaginationUtil;
 import at.ltb.apprenticedeliverysystem.core._common.response.QueryDslOverviewResponse;
 import at.ltb.apprenticedeliverysystem.core._common.response.ResponseWrapper;
@@ -155,7 +154,7 @@ public class GroceryWorkingDayManagementServiceImpl implements GroceryWorkingDay
     @Override
     @Transactional
     public GroceryWorkingDayDetailDTO addLoggedInUserToGoingUsers() {
-        UserEntity user = getCurrentLoggedInUser();
+        UserEntity user = authUserHelper.getCurrentUserEntity();
         GroceryWorkingDayEntity groceryWorkingDay = loadOrCreateEntity();
         groceryWorkingDay.getGoingUsers().add(user);
         groceryWorkingDayCrudRepository.save(groceryWorkingDay);
@@ -166,7 +165,7 @@ public class GroceryWorkingDayManagementServiceImpl implements GroceryWorkingDay
     @Override
     @Transactional
     public GroceryWorkingDayDetailDTO removeLoggedInUserToGoingUsers() {
-        UserEntity user = getCurrentLoggedInUser();
+        UserEntity user = authUserHelper.getCurrentUserEntity();
         GroceryWorkingDayEntity groceryWorkingDay = loadOrCreateEntity();
 
         boolean goingUserContainsCurrentUser = groceryWorkingDay
@@ -195,7 +194,7 @@ public class GroceryWorkingDayManagementServiceImpl implements GroceryWorkingDay
     @Override
     @Transactional
     public GroceryWorkingDayDetailDTO setCurrentLoggedInUserAsPayingUser() {
-        UserEntity user = getCurrentLoggedInUser();
+        UserEntity user = authUserHelper.getCurrentUserEntity();
         GroceryWorkingDayEntity groceryWorkingDay = loadOrCreateEntity();
 
         if(Objects.nonNull(groceryWorkingDay.getPayingUser())) {
@@ -212,7 +211,7 @@ public class GroceryWorkingDayManagementServiceImpl implements GroceryWorkingDay
     @Override
     @Transactional
     public GroceryWorkingDayDetailDTO removeCurrentLoggedInUserAsPayingUser() {
-        UserEntity user = getCurrentLoggedInUser();
+        UserEntity user = authUserHelper.getCurrentUserEntity();
         GroceryWorkingDayEntity groceryWorkingDay = loadOrCreateEntity();
 
         if(Objects.isNull(groceryWorkingDay.getPayingUser())) {
@@ -224,18 +223,6 @@ public class GroceryWorkingDayManagementServiceImpl implements GroceryWorkingDay
         groceryWorkingDayCrudRepository.save(groceryWorkingDay);
         logger.info("removed user - paying user - " + user.getId() + " from groceryWorkingDay " + groceryWorkingDay.getDate());
         return groceryWorkingDayMapper.mapGroceryWorkingDayEntityToDetail(groceryWorkingDay);
-    }
-
-    private UserEntity getCurrentLoggedInUser() {
-        logger.info("Loaded get current logged in user for groceryWorkingDay");
-        UserEntity foundedEntity = userQueryDSLRepository.loadUserByKeyCloakReference(authUserHelper.getCurrentUser());
-
-        if(Objects.isNull(foundedEntity)) {
-            logger.error("current logged in User not found: " + authUserHelper.getCurrentUser());
-            throw new CustomEntityNotFoundException(UserEntity.class.getSimpleName() + " not found");
-        }
-
-        return foundedEntity;
     }
 
     @Transactional

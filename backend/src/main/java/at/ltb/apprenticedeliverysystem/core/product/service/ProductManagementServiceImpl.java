@@ -62,6 +62,18 @@ public class ProductManagementServiceImpl implements ProductManagementService {
     }
 
     @Override
+    public ResponseWrapper<ProductDetailDTO> loadAllProductsForShop(Integer page, Integer pageSize,
+                                                                    Optional<String> searchTerm,
+                                                                    Optional<String> categoryId) {
+        QueryDslOverviewResponse<ProductEntity> response = productQueryDSLRepository
+                .loadProductsOverviewForWebshop(searchTerm, categoryId,
+                        PaginationUtil.getPagination(page, pageSize));
+        logger.info("loadAllProductsForShop: count: " + response.getTotalElements());
+        return new ResponseWrapper<>(productMapper.mapProductEntityToDetail(response.getContent()),
+                response.getTotalElements());
+    }
+
+    @Override
     public ProductDetailDTO loadProductById(String uuid) {
         ProductEntity foundedEntity = productQueryDSLRepository.loadProductByUuid(uuid);
 

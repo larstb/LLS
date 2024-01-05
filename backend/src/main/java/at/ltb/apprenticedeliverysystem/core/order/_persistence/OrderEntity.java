@@ -38,7 +38,7 @@ public class OrderEntity extends AbstractCrudEntity {
             joinColumns = @JoinColumn( name="order_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn( name="order_item_id", referencedColumnName = "id")
     )
-    private List<OrderItemEntity> oderItems = new ArrayList<>();
+    private List<OrderItemEntity> orderItems = new ArrayList<>();
 
     @Nonnull
     @Column(name = "is_payed", nullable = false)
