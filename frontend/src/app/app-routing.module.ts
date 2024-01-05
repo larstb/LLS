@@ -7,6 +7,7 @@ import {adminModGuard} from "./shared/guard/admin-mod/admin-mod.guard";
 import {
   groceryWorkingDayResolver
 } from "./portal/portal-dashboard/components/grocery-working-day-dashboard/resolver/grocery-working-day.resolver";
+import {categoriesFilterResolver} from "./management/product/resolver/categories-filter.resolver";
 
 const routes: Routes = [
   {
@@ -25,7 +26,7 @@ const routes: Routes = [
     path: 'order',
     loadChildren: () => import('./order/order.module').then(m => m.OrderModule),
     canActivate: [authGuard],
-    resolve: [portalUserResolver],
+    resolve: [portalUserResolver, categoriesFilterResolver],
   },
   {
     path: '**',

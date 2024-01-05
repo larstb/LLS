@@ -62,6 +62,9 @@ export abstract class AbstractMatDataSourceService<T> extends DataSource<T>{
     .subscribe((result) => {
       this._dataSubject.next(result?.content || []);
       this._response = result;
+      if(this._paginator) {
+        this._paginator.length = this.response?.totalElements;
+      }
     });
   }
 

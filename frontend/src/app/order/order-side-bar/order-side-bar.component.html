@@ -1,0 +1,9 @@
+  <app-search-term-filter (filterChange)="mergeFilter($event); dataSource.load(filter)"></app-search-term-filter>
+  <mat-form-field class="input-field">
+    <mat-label>Kategorie</mat-label>
+    <mat-select (selectionChange)="mergeFilter({categoryId: $event.value}); dataSource.load(filter)">
+      @for (category of (categories$ | async); track category.id) {
+      <mat-option [value]="category.id">{{category.name}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
