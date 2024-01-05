@@ -6,7 +6,7 @@ import {AppRoutingModule} from "./app-routing.module";
 import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
 import {NgxsModule} from "@ngxs/store";
 import {PortalStoreState} from "./shared/store/portal-store-states";
-import {CommonModule, registerLocaleData} from "@angular/common";
+import {CommonModule, DATE_PIPE_DEFAULT_OPTIONS, DatePipe, registerLocaleData} from "@angular/common";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClientModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
@@ -89,6 +89,11 @@ registerLocaleData(localePt, 'de-De');
       provide: DEFAULT_CURRENCY_CODE,
       useValue: 'EUR'
     },
+    {
+      provide: DATE_PIPE_DEFAULT_OPTIONS,
+      useValue: { dateFormat: 'dd.MM.yyyy' }
+    },
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

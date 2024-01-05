@@ -37,6 +37,12 @@ public class AdminModUserManagementResourceImpl implements AdminModUserManagemen
     }
 
     @Override
+    public ResponseWrapper<UserOverviewDTO> loadAllUsersWithoutPagination(Optional<String> searchTerm) {
+        logger.info("API loadAllUsersWithoutPagination was called!");
+        return userManagementService.loadAllUsersWithoutPagination(searchTerm);
+    }
+
+    @Override
     public UserDetailDTO loadUserById(String id) {
         logger.info("API loadUserById was called!");
         return userManagementService.loadUserById(id);

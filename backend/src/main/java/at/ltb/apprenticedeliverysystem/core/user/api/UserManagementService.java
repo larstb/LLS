@@ -12,6 +12,8 @@ public interface UserManagementService {
     ResponseWrapper<UserOverviewDTO> loadAllUsers(Integer page, Integer pageSize,
                                                   Optional<String> searchTerm);
 
+    ResponseWrapper<UserOverviewDTO> loadAllUsersWithoutPagination(Optional<String> searchTerm);
+
     UserDetailDTO loadUserById(String uuid);
 
     UserDetailDTO createUser(CreateUserDTO request);

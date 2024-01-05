@@ -1,0 +1,9 @@
+<div class="d-flex">
+  <app-grocery-working-day-overview-filter (filterChange)="mergeFilter($event); datasource.load(filter)"></app-grocery-working-day-overview-filter>
+  <div class="ml-auto">
+    <button mat-raised-button class="green" (click)="openCreateDialog()">
+      <mat-icon>add</mat-icon> Tag erstellen
+    </button>
+  </div>
+</div>
+<app-grocery-working-day-overview-table [datasource]="datasource"></app-grocery-working-day-overview-table>

@@ -6,6 +6,10 @@ import at.ltb.apprenticedeliverysystem.core.user.dto.UserOverviewDTO;
 import java.time.LocalDate;
 import java.util.List;
 
-public record GroceryWorkingDayDetailDTO(String id, LocalDate date, List<UserOverviewDTO> goingUsers,
-                                         UserOverviewDTO payingUser) implements BaseResponse
+public record GroceryWorkingDayDetailDTO(
+        String id,
+        Integer version,
+        LocalDate date,
+        List<UserOverviewDTO> goingUsers,
+        UserOverviewDTO payingUser) implements BaseResponse
 { }

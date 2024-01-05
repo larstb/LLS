@@ -9,4 +9,11 @@ export namespace PortalStoreActions {
     constructor(public queryParams?: any) {
     }
   }
+
+  export class LoadAllUsersForGroceryWorkingDay {
+    static readonly type = 'Load All Users for Grocery Working Day'
+
+    constructor(public queryParams?: any) {
+    }
+  }
 }

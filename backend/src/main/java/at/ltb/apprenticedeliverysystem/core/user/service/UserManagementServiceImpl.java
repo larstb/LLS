@@ -55,6 +55,15 @@ public class UserManagementServiceImpl implements UserManagementService {
                 response.getTotalElements());
     }
 
+    @Override
+    public ResponseWrapper<UserOverviewDTO> loadAllUsersWithoutPagination(Optional<String> searchTerm) {
+        QueryDslOverviewResponse<UserEntity> response = userQueryDSLRepository
+                .loadUsersWithoutPagination(searchTerm);
+        logger.info("loadAllUsersWithoutPagination: count: " + response.getTotalElements());
+        return new ResponseWrapper<>(userMapper.mapUserEntityToOverview(response.getContent()),
+                response.getTotalElements());
+    }
+
     public UserDetailDTO loadUserById(String uuid) {
         UserEntity foundedEntity = userQueryDSLRepository.loadUserByUuid(uuid);
 

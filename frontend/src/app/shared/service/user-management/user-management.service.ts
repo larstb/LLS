@@ -16,8 +16,8 @@ export class UserManagementService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public loadAllUsers(queryParams?: any | undefined): Observable<ResponseWrapper<UserOverviewDTO>> {
-    return this.httpClient.get<ResponseWrapper<UserOverviewDTO>>(this._baseUrl, {params: queryParams});
+  public loadAllUsers(withPagination?: boolean, queryParams?: any | undefined): Observable<ResponseWrapper<UserOverviewDTO>> {
+    return this.httpClient.get<ResponseWrapper<UserOverviewDTO>>(this._baseUrl + (withPagination ? '' : 'all'), {params: queryParams});
   }
 
   public loadUserById(id: string | undefined): Observable<UserDetailDTO> {

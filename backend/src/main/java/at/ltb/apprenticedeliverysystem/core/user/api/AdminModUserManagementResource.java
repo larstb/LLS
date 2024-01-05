@@ -25,6 +25,11 @@ public interface AdminModUserManagementResource {
                                                   @RequestParam(value = "pageSize", required = false) Integer pageSize,
                                                   @RequestParam(value = "searchTerm", required = false) Optional<String> searchTerm);
 
+    @Operation(description = "load all users filter")
+    @GetMapping(value = "/all", produces = "application/json")
+    ResponseWrapper<UserOverviewDTO> loadAllUsersWithoutPagination(
+                                                  @RequestParam(value = "searchTerm", required = false) Optional<String> searchTerm);
+
     @Operation(description = "load user by id")
     @GetMapping(value = "/{id}", produces = "application/json")
     UserDetailDTO loadUserById(@PathVariable("id") String id);

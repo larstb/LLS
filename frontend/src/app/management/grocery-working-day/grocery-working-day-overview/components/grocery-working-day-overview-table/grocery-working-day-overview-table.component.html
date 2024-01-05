@@ -1,0 +1,41 @@
+<mat-table #table [dataSource]="datasource">
+
+  <!-- ID Column -->
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+    <mat-cell *matCellDef="let row" >{{ row.id }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="date">
+    <mat-header-cell *matHeaderCellDef>Datum</mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{ row.date | date }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="goingUsers">
+    <mat-header-cell *matHeaderCellDef>angemeldete User</mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{ (row.goingUsers || []).length || 0 }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="payingUser">
+    <mat-header-cell *matHeaderCellDef>bezahlender User</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <mat-icon *ngIf="row.payingUser" color="primary">check</mat-icon>
+      <mat-icon *ngIf="!row.payingUser" color="warn">close</mat-icon>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+    <mat-cell class="no-a-container" *matCellDef="let row">
+      <button (click)="openDetailDialog(row)" mat-icon-button><mat-icon>edit</mat-icon></button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<mat-paginator #paginator
+               [length]="datasource.response?.totalElements"
+               [pageSizeOptions]="[10, 15, 25, 100]">
+</mat-paginator>

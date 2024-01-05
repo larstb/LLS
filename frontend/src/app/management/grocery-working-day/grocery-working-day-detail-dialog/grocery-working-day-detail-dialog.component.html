@@ -1,0 +1,41 @@
+<h2 mat-dialog-title *ngIf="groceryWorkingDay.id">Tag '{{groceryWorkingDay.date | date}}' bearbeiten</h2>
+<h2 mat-dialog-title *ngIf="!groceryWorkingDay.id">Tag anlegen</h2>
+
+<mat-dialog-content *ngIf="(users$ | async) as users">
+  <form *ngIf="fg" [formGroup]="fg">
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>Datum</mat-label>
+      <input matInput [matDatepicker]="picker" [min]="minDate" formControlName="date">
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="fg.get('date')?.hasError('required') && (fg.get('date')?.dirty || fg.get('date')?.touched)">
+        Datum ist ein Pflichtfeld!
+      </mat-error>
+    </mat-form-field>
+    <div class="mb-2">
+      <mat-label>angemeldete User:</mat-label>
+      @for (user of users; track user.id) {
+        <div>
+          <mat-checkbox [checked]="isUserGoingUser(user.id)"
+                        (change)="changeGoingUser(user, $event)"
+                        [value]="user.id || ''">{{user.firstname}} {{user.lastname}}</mat-checkbox>
+        </div>
+      }
+    </div>
+    <div class="mb-2">
+      <mat-label>bezahlender User:</mat-label>
+      @for (user of users; track user.id) {
+        <div>
+          <mat-checkbox [checked]="selectedPayingUser?.id === user.id"
+                        (change)="changePayingUser(user, $event)"
+                        [value]="user.id || ''">{{user.firstname}} {{user.lastname}}</mat-checkbox>
+        </div>
+      }
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Abbrechen</button>
+  <button mat-button [disabled]="fg?.invalid" color="primary" (click)="save()">Speichern</button>
+</mat-dialog-actions>

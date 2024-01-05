@@ -434,6 +434,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserDetailDTO'
+  /api/portal/user/all:
+    get:
+      tags:
+      - AdminModUserManagementResource
+      description: load all users filter
+      operationId: loadAllUsersWithoutPagination
+      parameters:
+      - name: searchTerm
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseWrapperUserOverviewDTO'
   /api/portal/product/{id}:
     get:
       tags:
@@ -691,6 +710,9 @@ components:
       properties:
         id:
           type: string
+        version:
+          type: integer
+          format: int32
         date:
           type: string
           format: date
