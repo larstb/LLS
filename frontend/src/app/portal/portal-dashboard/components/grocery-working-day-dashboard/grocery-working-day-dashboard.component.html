@@ -9,14 +9,14 @@
           mat-raised-button
           color="primary"
           (click)="addGoingUser()"
-          *ngIf="!currentUserIsGoingUser((portalUser$ | async), (groceryWorkingDayForToday$ | async))">
+          *ngIf="!currentUserIsGoingUser((portalUser$ | async), (groceryWorkingDayForToday$ | async)) && (groceryWorkingDayForToday$ | async)?.status === 'OPEN'">
           <mat-icon>card_travel</mat-icon> Mitgehen
         </button>
         <button
           mat-stroked-button
           color="primary"
           (click)="removeGoingUser()"
-          *ngIf="currentUserIsGoingUser((portalUser$ | async), (groceryWorkingDayForToday$ | async))">
+          *ngIf="currentUserIsGoingUser((portalUser$ | async), (groceryWorkingDayForToday$ | async)) && (groceryWorkingDayForToday$ | async)?.status === 'OPEN'">
           <mat-icon>home</mat-icon> Dableiben
         </button>
       </div>
@@ -25,14 +25,14 @@
           mat-raised-button
           color="primary"
           (click)="addPayingUser()"
-          *ngIf="!(groceryWorkingDayForToday$ | async)?.payingUser">
+          *ngIf="!(groceryWorkingDayForToday$ | async)?.payingUser && (groceryWorkingDayForToday$ | async)?.status === 'OPEN'">
           <mat-icon>payment</mat-icon> Zahlen
         </button>
         <button
           mat-stroked-button
           color="primary"
           (click)="removePayingUser()"
-          *ngIf="(groceryWorkingDayForToday$ | async)?.payingUser?.id === (portalUser$ | async)?.id">
+          *ngIf="(groceryWorkingDayForToday$ | async)?.payingUser?.id === (portalUser$ | async)?.id && (groceryWorkingDayForToday$ | async)?.status === 'OPEN'">
           <mat-icon>pan_tool</mat-icon> anderer zahlt
         </button>
       </div>

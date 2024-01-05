@@ -43,6 +43,7 @@ export class GroceryWorkingDayDetailDialogComponent implements OnInit {
       id: [this.groceryWorkingDay.id],
       version: [this.groceryWorkingDay.version],
       date: [new Date(this.groceryWorkingDay.date || new Date()), [Validators.required]],
+      status: [this.groceryWorkingDay.status, [Validators.required]]
     });
 
     if(this.groceryWorkingDay.date) {

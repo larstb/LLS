@@ -822,6 +822,11 @@ components:
             type: string
         payingUserId:
           type: string
+        status:
+          type: string
+          enum:
+          - OPEN
+          - CLOSED
     GroceryWorkingDayDetailDTO:
       type: object
       properties:
@@ -839,6 +844,11 @@ components:
             $ref: '#/components/schemas/UserOverviewDTO'
         payingUser:
           $ref: '#/components/schemas/UserOverviewDTO'
+        status:
+          type: string
+          enum:
+          - OPEN
+          - CLOSED
     UserOverviewDTO:
       type: object
       properties:
@@ -1010,6 +1020,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OrderItemDetailDTO'
+        status:
+          type: string
+          enum:
+          - ORDERED
+          - IN_PROGRESS
+          - READY_TO_PAY
+          - DONE
+          - CANCELLED
     OrderItemDetailDTO:
       type: object
       properties:
@@ -1061,6 +1079,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OrderItemOverviewDTO'
+        status:
+          type: string
+          enum:
+          - ORDERED
+          - IN_PROGRESS
+          - READY_TO_PAY
+          - DONE
+          - CANCELLED
     ResponseWrapperOrderOverviewDTO:
       type: object
       properties:

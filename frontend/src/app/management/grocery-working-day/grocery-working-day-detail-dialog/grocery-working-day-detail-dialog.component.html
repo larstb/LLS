@@ -12,6 +12,17 @@
         Datum ist ein Pflichtfeld!
       </mat-error>
     </mat-form-field>
+    <div class="mb-2" *ngIf="groceryWorkingDay.id">
+      <mat-label>Status:</mat-label>
+      <div>
+        <mat-radio-button [checked]="fg.controls['status'].value === 'OPEN'"
+                      (change)="fg.controls['status'].setValue('OPEN')">Offen</mat-radio-button>
+      </div>
+      <div>
+        <mat-radio-button [checked]="fg.controls['status'].value === 'CLOSED'"
+                      (change)="fg.controls['status'].setValue('CLOSED')">Geschlossen</mat-radio-button>
+      </div>
+    </div>
     <div class="mb-2">
       <mat-label>angemeldete User:</mat-label>
       @for (user of users; track user.id) {
