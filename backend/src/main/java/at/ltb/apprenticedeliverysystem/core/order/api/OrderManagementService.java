@@ -7,6 +7,7 @@ import at.ltb.apprenticedeliverysystem.core.order.dto.OrderDetailDTO;
 import at.ltb.apprenticedeliverysystem.core.order.dto.OrderOverviewDTO;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 public interface OrderManagementService {
@@ -21,5 +22,9 @@ public interface OrderManagementService {
     OrderDetailDTO loadOrderById(String uuid);
 
     OrderDetailDTO createOrder(CreateOrderDTO request);
+
+    ResponseWrapper<OrderDetailDTO> loadAllOrdersForPayingUser(Integer page, Integer pageSize);
+
+    List<OrderDetailDTO> loadTodayOrderForPayingUser();
 
 }

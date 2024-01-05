@@ -15,6 +15,7 @@ import at.ltb.apprenticedeliverysystem.core.order.api.OrderManagementService;
 import at.ltb.apprenticedeliverysystem.core.order.dto.CreateOrderDTO;
 import at.ltb.apprenticedeliverysystem.core.order.dto.OrderDetailDTO;
 import at.ltb.apprenticedeliverysystem.core.order.dto.OrderOverviewDTO;
+import at.ltb.apprenticedeliverysystem.core.order.exception.CurrentUserIsNotPayingUserException;
 import at.ltb.apprenticedeliverysystem.core.order.mapper.OrderMapper;
 import at.ltb.apprenticedeliverysystem.core.orderitem._persistence.OrderItemEntity;
 import at.ltb.apprenticedeliverysystem.core.product._persistence.ProductEntity;
@@ -112,5 +113,28 @@ public class OrderManagementServiceImpl implements OrderManagementService {
         orderCrudRepository.save(orderEntity);
         logger.info("OrderEntity:Create successfully!");
         return orderMapper.mapOrderEntityToDetail(orderEntity);
+    }
+
+    @Override
+    public ResponseWrapper<OrderDetailDTO> loadAllOrdersForPayingUser(Integer page, Integer pageSize) {
+        UserEntity user = authUserHelper.getCurrentUserEntity();
+        QueryDslOverviewResponse<OrderEntity> response = orderQueryDSLRepository
+                .loadOrdersForPayingUser(PaginationUtil.getPagination(page, pageSize), user.getId());
+        logger.info("loadAllOrdersForPayingUser: count: " + response.getTotalElements());
+        return new ResponseWrapper<>(orderMapper.mapOrderEntityToDetail(response.getContent()),
+                response.getTotalElements());
+    }
+
+    @Override
+    public List<OrderDetailDTO> loadTodayOrderForPayingUser() {
+        UserEntity user = authUserHelper.getCurrentUserEntity();
+        GroceryWorkingDayEntity groceryWorkingDay = groceryWorkingDayQueryDSLRepository.loadGroceryWorkingDayToday();
+
+        if(Objects.isNull(groceryWorkingDay.getPayingUser()) || !Objects.equals(groceryWorkingDay.getPayingUser().getId(), user.getId())) {
+            logger.error("current logged in user is not paying user");
+            throw new CurrentUserIsNotPayingUserException("can not load Orders");
+        }
+
+        return orderMapper.mapOrderEntityToDetail(orderQueryDSLRepository.loadTodayOrderForPayingUser(user.getId()));
     }
 }

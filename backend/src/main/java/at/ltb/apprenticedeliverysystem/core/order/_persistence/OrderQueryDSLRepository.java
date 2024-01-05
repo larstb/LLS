@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -46,12 +47,31 @@ public class OrderQueryDSLRepository {
                 .fetch(), buildFactory().selectFrom(qOrder).fetchCount());
     }
 
+    public QueryDslOverviewResponse<OrderEntity> loadOrdersForPayingUser(PageRequest pageRequest, Long payingUserId) {
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        booleanBuilder.and(qOrder.groceryWorkingDay.payingUser.id.eq(payingUserId));
+        return new QueryDslOverviewResponse<>(buildFactory().selectFrom(qOrder)
+                .where(booleanBuilder)
+                .limit(pageRequest.getPageSize())
+                .offset(pageRequest.getOffset())
+                .fetch(), buildFactory().selectFrom(qOrder).fetchCount());
+    }
+
     public OrderEntity loadOrderByUuid(String uuid) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         booleanBuilder.and(qOrder.uuid.eq(uuid));
         return buildFactory().selectFrom(qOrder)
                 .where(booleanBuilder)
                 .fetchOne();
+    }
+
+    public List<OrderEntity> loadTodayOrderForPayingUser(Long payingUserId) {
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        booleanBuilder.and(qOrder.groceryWorkingDay.date.eq(LocalDate.now()));
+        booleanBuilder.and(qOrder.groceryWorkingDay.payingUser.id.eq(payingUserId));
+        return buildFactory().selectFrom(qOrder)
+                .where(booleanBuilder)
+                .fetch();
     }
 
     private JPAQueryFactory buildFactory() {

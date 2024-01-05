@@ -354,6 +354,39 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CategoryDetailDTO'
+  /api/order/today/orders:
+    get:
+      tags:
+      - UserOrderResource
+      description: load all order for the paying user with pagination and filter
+      operationId: loadTodayOrderForPayingUser
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderDetailDTO'
+    post:
+      tags:
+      - UserOrderResource
+      description: create order for the current customer
+      operationId: createOrderForCurrentCustomer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrderDTO'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDetailDTO'
   /api/grocery-working-day/remove/paying-users/:
     post:
       tags:
@@ -591,7 +624,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseWrapperCategoryDetailDTO'
-  /api/order/:
+  /api/order/products:
     get:
       tags:
       - UserOrderResource
@@ -627,6 +660,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseWrapperProductDetailDTO'
+  /api/order/paying-user/orders:
+    get:
+      tags:
+      - UserOrderResource
+      description: load all order for the paying user with pagination and filter
+      operationId: loadAllOrdersForPayingUser
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: pageSize
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseWrapperOrderDetailDTO'
   /api/grocery-working-day/today:
     get:
       tags:
@@ -751,11 +810,20 @@ components:
             - MOD
             - USER
     UpdateProductDTO:
+      required:
+      - categoryId
+      - id
+      - isActive
+      - isChecked
+      - name
+      - producer
+      - quantity
       type: object
       properties:
         id:
           type: string
         version:
+          minimum: 0
           type: integer
           format: int32
         name:
@@ -765,6 +833,7 @@ components:
         quantity:
           type: string
         price:
+          minimum: 0
           type: number
           format: double
         isActive:
@@ -809,11 +878,15 @@ components:
         category:
           $ref: '#/components/schemas/CategoryDetailDTO'
     UpdateGroceryWorkingDayDTO:
+      required:
+      - id
+      - status
       type: object
       properties:
         id:
           type: string
         version:
+          minimum: 0
           type: integer
           format: int32
         goingUserIds:
@@ -861,11 +934,15 @@ components:
         email:
           type: string
     UpdateCategoryDTO:
+      required:
+      - id
+      - name
       type: object
       properties:
         id:
           type: string
         version:
+          minimum: 0
           type: integer
           format: int32
         name:
@@ -909,6 +986,13 @@ components:
             - MOD
             - USER
     CreateProductDTO:
+      required:
+      - categoryId
+      - isActive
+      - isChecked
+      - name
+      - producer
+      - quantity
       type: object
       properties:
         name:
@@ -918,6 +1002,7 @@ components:
         quantity:
           type: string
         price:
+          minimum: 0
           type: number
           format: double
         isActive:
@@ -927,6 +1012,8 @@ components:
         categoryId:
           type: string
     CreateGroceryWorkingDayDTO:
+      required:
+      - date
       type: object
       properties:
         date:
@@ -939,12 +1026,91 @@ components:
         payingUserId:
           type: string
     CreateCategoryDTO:
+      required:
+      - name
       type: object
       properties:
         name:
           type: string
         description:
           type: string
+    CreateOrderDTO:
+      required:
+      - paymentType
+      type: object
+      properties:
+        paymentType:
+          type: string
+          enum:
+          - CASH
+          - PAYPAL
+          - CREDIT_CARD
+          - BANK_TRANSFER
+        orderedItems:
+          maxItems: 2147483647
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateOrderOrderItemDTO'
+    CreateOrderOrderItemDTO:
+      required:
+      - productId
+      type: object
+      properties:
+        productId:
+          type: string
+        orderedQuantity:
+          maximum: 2147483647
+          minimum: 1
+          type: integer
+          format: int32
+        note:
+          type: string
+    OrderDetailDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        user:
+          $ref: '#/components/schemas/UserDetailDTO'
+        isPayed:
+          type: boolean
+        groceryWorkingDay:
+          $ref: '#/components/schemas/GroceryWorkingDayDetailDTO'
+        paymentType:
+          type: string
+          enum:
+          - CASH
+          - PAYPAL
+          - CREDIT_CARD
+          - BANK_TRANSFER
+        orderItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItemDetailDTO'
+        status:
+          type: string
+          enum:
+          - ORDERED
+          - IN_PROGRESS
+          - READY_TO_PAY
+          - DONE
+          - CANCELLED
+    OrderItemDetailDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        orderedQuantity:
+          type: integer
+          format: int32
+        note:
+          type: string
+        oldProductPrice:
+          type: number
+          format: double
+        product:
+          $ref: '#/components/schemas/ProductDetailDTO'
     PortalUserDTO:
       type: object
       properties:
@@ -998,51 +1164,6 @@ components:
         totalElements:
           type: integer
           format: int64
-    OrderDetailDTO:
-      type: object
-      properties:
-        id:
-          type: string
-        user:
-          $ref: '#/components/schemas/UserDetailDTO'
-        isPayed:
-          type: boolean
-        groceryWorkingDay:
-          $ref: '#/components/schemas/GroceryWorkingDayDetailDTO'
-        paymentType:
-          type: string
-          enum:
-          - CASH
-          - PAYPAL
-          - CREDIT_CARD
-          - BANK_TRANSFER
-        orderItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderItemDetailDTO'
-        status:
-          type: string
-          enum:
-          - ORDERED
-          - IN_PROGRESS
-          - READY_TO_PAY
-          - DONE
-          - CANCELLED
-    OrderItemDetailDTO:
-      type: object
-      properties:
-        id:
-          type: string
-        orderedQuantity:
-          type: integer
-          format: int32
-        note:
-          type: string
-        oldProductPrice:
-          type: number
-          format: double
-        product:
-          $ref: '#/components/schemas/ProductDetailDTO'
     OrderItemOverviewDTO:
       type: object
       properties:
@@ -1124,6 +1245,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ProductDetailDTO'
+        totalElements:
+          type: integer
+          format: int64
+    ResponseWrapperOrderDetailDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderDetailDTO'
         totalElements:
           type: integer
           format: int64

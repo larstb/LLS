@@ -37,6 +37,8 @@ public abstract class OrderMapper {
     @Mapping(target = "user", source = "user", qualifiedByName = "userDetail")
     public abstract OrderDetailDTO mapOrderEntityToDetail(OrderEntity order);
 
+    public abstract List<OrderDetailDTO> mapOrderEntityToDetail(List<OrderEntity> orders);
+
     @Named("userOverview")
     protected UserOverviewDTO userOverview(UserEntity user) {
         return userMapper.mapUserEntityToOverview(user);

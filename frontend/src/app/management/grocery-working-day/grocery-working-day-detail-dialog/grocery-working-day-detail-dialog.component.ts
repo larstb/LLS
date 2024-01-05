@@ -78,7 +78,7 @@ export class GroceryWorkingDayDetailDialogComponent implements OnInit {
     const request = { ...this.fg?.getRawValue(),
       date: this.datePipe.transform(this.fg?.getRawValue().date, 'yyyy-MM-dd'),
       payingUserId: this.selectedPayingUser?.id,
-      goingUserIds: this.selectedUsersGoingUser?.map(val => val.id) } as UpdateGroceryWorkingDayDTO;
+      goingUserIds: this.selectedUsersGoingUser?.map(val => val.id) };
 
     if(this.groceryWorkingDay.id) {
       firstValueFrom(this.groceryWorkingDayManagementService.updateGroceryWorkingDay(request))
