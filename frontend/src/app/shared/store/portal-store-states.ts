@@ -10,11 +10,14 @@ import {CategoryDetailDTO} from "../model/categoryDetailDTO";
 import {UserOverviewDTO} from "../model/userOverviewDTO";
 import {UserManagementService} from "../service/user-management/user-management.service";
 import LoadAllUsersForGroceryWorkingDay = PortalStoreActions.LoadAllUsersForGroceryWorkingDay;
+import {GroceryWorkingDayDetailDTO} from "../model/groceryWorkingDayDetailDTO";
+import {GroceryWorkingDayService} from "../service/grocery-working-day/grocery-working-day.service";
 
 export interface PortalStoreModel {
   portalUser: PortalUserDTO | null;
   categories: CategoryDetailDTO[] | null;
   users: UserOverviewDTO[] | null;
+  groceryWorkingDayForToday: GroceryWorkingDayDetailDTO | null;
 }
 
 @State<PortalStoreModel>({
@@ -22,7 +25,8 @@ export interface PortalStoreModel {
   defaults: {
     portalUser: null,
     categories: [],
-    users: []
+    users: [],
+    groceryWorkingDayForToday: null,
   },
 })
 @Injectable()
@@ -30,7 +34,8 @@ export class PortalStoreState {
 
   constructor(private userService: UserService,
               private categoryManagementService: CategoryManagementService,
-              private userManagementService: UserManagementService) {
+              private userManagementService: UserManagementService,
+              private groceryWorkingDayService: GroceryWorkingDayService) {
   }
 
   @Selector()
@@ -63,6 +68,11 @@ export class PortalStoreState {
     return state.users;
   }
 
+  @Selector()
+  public static groceryWorkingDayForToday(state: PortalStoreModel): GroceryWorkingDayDetailDTO | null {
+    return state.groceryWorkingDayForToday;
+  }
+
   @Action(PortalStoreActions.LoadPortalUser)
   public loadPortalUser(ctx: StateContext<PortalStoreModel>) {
     return this.userService.loadLoggedInUser().pipe(map((portalUser) => ctx.patchState({portalUser})));
@@ -78,5 +88,16 @@ export class PortalStoreState {
   public loadAllUsersForGroceryWorkingDay(ctx: StateContext<PortalStoreModel>, action: LoadAllUsersForGroceryWorkingDay) {
     return this.userManagementService.loadAllUsers(false, action.queryParams)
       .pipe(map((users) => ctx.patchState({users: users.content})));
+  }
+
+  @Action(PortalStoreActions.LoadGroceryWorkingDayToday)
+  public loadGroceryWorkingDayToday(ctx: StateContext<PortalStoreModel>) {
+    return this.groceryWorkingDayService.loadOrCreateGroceryWorkingDayToday()
+      .pipe(map((groceryWorkingDayForToday) => ctx.patchState({groceryWorkingDayForToday})));
+  }
+
+  @Action(PortalStoreActions.SetGroceryWorkingDayToday)
+  public setGroceryWorkingDayToday(ctx: StateContext<PortalStoreModel>, action: PortalStoreActions.SetGroceryWorkingDayToday) {
+    return ctx.patchState({groceryWorkingDayForToday: action.groceryWorkingDay});
   }
 }

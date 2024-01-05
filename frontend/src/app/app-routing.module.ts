@@ -4,13 +4,16 @@ import {authGuard} from "./shared/guard/auth/auth.guard";
 import {portalUserResolver} from "./core/header/components/resolver/portal-user.resolver";
 import {PortalDashboardComponent} from "./portal/portal-dashboard/portal-dashboard.component";
 import {adminModGuard} from "./shared/guard/admin-mod/admin-mod.guard";
+import {
+  groceryWorkingDayResolver
+} from "./portal/portal-dashboard/components/grocery-working-day-dashboard/resolver/grocery-working-day.resolver";
 
 const routes: Routes = [
   {
     path: '',
     component: PortalDashboardComponent,
     canActivate: [authGuard],
-    resolve: [portalUserResolver],
+    resolve: [portalUserResolver, groceryWorkingDayResolver],
   },
   {
     path: 'management',

@@ -7,5 +7,5 @@ import LoadAllUsersForGroceryWorkingDay = PortalStoreActions.LoadAllUsersForGroc
 
 export const userFilterResolver: ResolveFn<boolean> = (route, state) => {
   const store = inject(Store)
-  return store.dispatch(new LoadAllUsersForGroceryWorkingDay()).pipe(map(categories => !!categories));
+  return store.dispatch(new LoadAllUsersForGroceryWorkingDay()).pipe(map(filter => !!filter));
 };

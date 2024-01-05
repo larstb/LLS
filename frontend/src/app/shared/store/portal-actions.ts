@@ -1,6 +1,19 @@
+import {GroceryWorkingDayDetailDTO} from "../model/groceryWorkingDayDetailDTO";
+
 export namespace PortalStoreActions {
   export class LoadPortalUser {
     static readonly type = 'Load Portal User'
+  }
+
+  export class LoadGroceryWorkingDayToday {
+    static readonly type = 'Load GroceryWorkingDay for today'
+  }
+
+  export class SetGroceryWorkingDayToday {
+    static readonly type = 'Set GroceryWorkingDay for today'
+
+    constructor(public groceryWorkingDay?: GroceryWorkingDayDetailDTO) {
+    }
   }
 
   export class LoadAllCategoriesForProduct {

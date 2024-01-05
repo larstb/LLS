@@ -13,6 +13,10 @@ import {RouterModule} from "@angular/router";
 import {PortalDashboardComponent} from "./portal/portal-dashboard/portal-dashboard.component";
 import localePt from '@angular/common/locales/pt';
 import {LOCAL_STORAGE_ENGINE, NgxsStoragePluginModule} from "@ngxs/storage-plugin";
+import {
+  GroceryWorkingDayDashboardComponent
+} from "./portal/portal-dashboard/components/grocery-working-day-dashboard/grocery-working-day-dashboard.component";
+import {MaterialModule} from "./shared/materialmodule/material.module";
 
 export function initializeKeycloak(keycloak: KeycloakService) {
   return () => {
@@ -49,6 +53,7 @@ registerLocaleData(localePt, 'de-De');
     CommonModule,
     HeaderModule,
     BrowserAnimationsModule,
+    MaterialModule,
     HttpClientModule,
     RouterModule,
     ToastrModule.forRoot({
@@ -72,7 +77,8 @@ registerLocaleData(localePt, 'de-De');
   ],
   declarations: [
     AppComponent,
-    PortalDashboardComponent
+    PortalDashboardComponent,
+    GroceryWorkingDayDashboardComponent
   ],
   providers: [
     {

@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="title-container">
+    <span class="title">Heute: {{ (groceryWorkingDayForToday$ | async)?.date | date }}</span>
+  </div>
+  <div class="content-container">
+    <div class="d-flex">
+      <div class="d-flex">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="addGoingUser()"
+          *ngIf="!currentUserIsGoingUser((portalUser$ | async), (groceryWorkingDayForToday$ | async))">
+          <mat-icon>card_travel</mat-icon> Mitgehen
+        </button>
+        <button
+          mat-stroked-button
+          color="primary"
+          (click)="removeGoingUser()"
+          *ngIf="currentUserIsGoingUser((portalUser$ | async), (groceryWorkingDayForToday$ | async))">
+          <mat-icon>home</mat-icon> Dableiben
+        </button>
+      </div>
+      <div class="d-flex ml-auto">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="addPayingUser()"
+          *ngIf="!(groceryWorkingDayForToday$ | async)?.payingUser">
+          <mat-icon>payment</mat-icon> Zahlen
+        </button>
+        <button
+          mat-stroked-button
+          color="primary"
+          (click)="removePayingUser()"
+          *ngIf="(groceryWorkingDayForToday$ | async)?.payingUser?.id === (portalUser$ | async)?.id">
+          <mat-icon>pan_tool</mat-icon> anderer zahlt
+        </button>
+      </div>
+    </div>
+    <div class="mt-2">
+      <u>angemeldete User: </u>
+      <div *ngIf="((groceryWorkingDayForToday$ | async)?.goingUsers || []).length > 0; else noGoingUser">
+        <div *ngFor="let user of (groceryWorkingDayForToday$ | async)?.goingUsers">
+          {{user.firstname}} {{user.lastname}}
+        </div>
+      </div>
+      <ng-template #noGoingUser><div>Es haben sich keine User angemeldet!</div></ng-template>
+    </div>
+    <div class="mt-2">
+      <u>bezahlender User:</u>
+      <div *ngIf="(groceryWorkingDayForToday$ | async)?.payingUser; else noPayingUser">
+        {{(groceryWorkingDayForToday$ | async)?.payingUser?.firstname}} {{(groceryWorkingDayForToday$ | async)?.payingUser?.lastname}}
+      </div>
+      <ng-template #noPayingUser><div>Es bezahlt niemand!</div></ng-template>
+    </div>
+  </div>
+</div>
