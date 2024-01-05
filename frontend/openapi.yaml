@@ -12,6 +12,8 @@ servers:
 security:
 - bearerAuth: []
 tags:
+- name: UserOrderResource
+  description: Apis for webshop
 - name: UserResource
   description: Apis for the logged in user
 - name: AdminModProductManagementResource
@@ -20,6 +22,8 @@ tags:
   description: Apis to manage groceryWorkingDays / Only for Admin and Mod
 - name: AdminModUserManagementResource
   description: Apis to manage user / Only for Admin and Mod
+- name: AdminModOrderManagementResource
+  description: Apis to manage orders / Only for Admin and Mod
 - name: AdminModCategoryManagementResource
   description: Apis to manage categories / Only for Admin and Mod
 - name: UserGroceryWorkingDayManagementResource
@@ -472,6 +476,83 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProductDetailDTO'
+  /api/portal/order/{id}:
+    get:
+      tags:
+      - AdminModOrderManagementResource
+      description: load order by id
+      operationId: loadOrderById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDetailDTO'
+  /api/portal/order/:
+    get:
+      tags:
+      - AdminModOrderManagementResource
+      description: load all orders with pagination and filter
+      operationId: loadAllOrders
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: pageSize
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: searchTerm
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: isPayed
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: paymentType
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - CASH
+          - PAYPAL
+          - CREDIT_CARD
+          - BANK_TRANSFER
+      - name: orderDateFrom
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+      - name: orderDateTo
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseWrapperOrderOverviewDTO'
   /api/portal/category/{id}:
     get:
       tags:
@@ -510,6 +591,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseWrapperCategoryDetailDTO'
+  /api/order/:
+    get:
+      tags:
+      - UserOrderResource
+      description: load all products for shop
+      operationId: loadAllProductsForShop
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: pageSize
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: searchTerm
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: categoryId
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseWrapperProductDetailDTO'
   /api/grocery-working-day/today:
     get:
       tags:
@@ -871,6 +988,89 @@ components:
         totalElements:
           type: integer
           format: int64
+    OrderDetailDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        user:
+          $ref: '#/components/schemas/UserDetailDTO'
+        isPayed:
+          type: boolean
+        groceryWorkingDay:
+          $ref: '#/components/schemas/GroceryWorkingDayDetailDTO'
+        paymentType:
+          type: string
+          enum:
+          - CASH
+          - PAYPAL
+          - CREDIT_CARD
+          - BANK_TRANSFER
+        orderItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItemDetailDTO'
+    OrderItemDetailDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        orderedQuantity:
+          type: integer
+          format: int32
+        note:
+          type: string
+        oldProductPrice:
+          type: number
+          format: double
+        product:
+          $ref: '#/components/schemas/ProductDetailDTO'
+    OrderItemOverviewDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        orderedQuantity:
+          type: integer
+          format: int32
+        productName:
+          type: string
+        oldProductPrice:
+          type: number
+          format: double
+    OrderOverviewDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        user:
+          $ref: '#/components/schemas/UserOverviewDTO'
+        isPayed:
+          type: boolean
+        orderDate:
+          type: string
+          format: date
+        paymentType:
+          type: string
+          enum:
+          - CASH
+          - PAYPAL
+          - CREDIT_CARD
+          - BANK_TRANSFER
+        orderItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItemOverviewDTO'
+    ResponseWrapperOrderOverviewDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderOverviewDTO'
+        totalElements:
+          type: integer
+          format: int64
     ResponseWrapperGroceryWorkingDayDetailDTO:
       type: object
       properties:
@@ -888,6 +1088,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CategoryDetailDTO'
+        totalElements:
+          type: integer
+          format: int64
+    ResponseWrapperProductDetailDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductDetailDTO'
         totalElements:
           type: integer
           format: int64
