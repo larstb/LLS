@@ -33,6 +33,17 @@ public class UserQueryDSLRepository {
                 .fetch(), buildFactory().selectFrom(qUser).fetchCount());
     }
 
+    public QueryDslOverviewResponse<UserEntity> loadUsersWithoutPagination(Optional<String> searchTerm) {
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        searchTerm.ifPresent(value ->
+                booleanBuilder.and(qUser.firstname.containsIgnoreCase(value))
+                        .or(qUser.lastname.containsIgnoreCase(value)
+                                .or(qUser.email.containsIgnoreCase(value))));
+        return new QueryDslOverviewResponse<>(buildFactory().selectFrom(qUser)
+                .where(booleanBuilder)
+                .fetch(), buildFactory().selectFrom(qUser).fetchCount());
+    }
+
     public UserEntity loadUserByEmail(String email) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         booleanBuilder.and(qUser.email.containsIgnoreCase(email));

@@ -1,0 +1,24 @@
+<div class="container">
+  <mat-form-field>
+    <mat-label>Datum</mat-label>
+    <input matInput [matDatepicker]="picker" (dateChange)="filterChange.emit({date: $event.value})">
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field class="user-box">
+    <mat-label>angemeldeter User</mat-label>
+    <mat-select (selectionChange)="filterChange.emit({goingUserId: $event.value})">
+      @for (user of (users$ | async); track user.id) {
+        <mat-option [value]="user.id">{{user.firstname}} {{user.lastname}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="user-box">
+    <mat-label>bezahlender User</mat-label>
+    <mat-select (selectionChange)="filterChange.emit({payingUserId: $event.value})">
+      @for (user of (users$ | async); track user.id) {
+        <mat-option [value]="user.id">{{user.firstname}} {{user.lastname}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</div>

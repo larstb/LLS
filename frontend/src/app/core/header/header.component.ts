@@ -4,6 +4,7 @@ import {PortalStoreState} from "../../shared/store/portal-store-states";
 import {Observable} from "rxjs";
 import {PortalUserDTO} from "../../shared/model/portalUserDTO";
 import {ToastrService} from "ngx-toastr";
+import {GroceryWorkingDayDetailDTO} from "../../shared/model/groceryWorkingDayDetailDTO";
 
 @Component({
   selector: 'app-header',
@@ -23,6 +24,9 @@ export class HeaderComponent {
 
   @Select(PortalStoreState.portalUser)
   public portalUser$?: Observable<PortalUserDTO>;
+
+  @Select(PortalStoreState.groceryWorkingDayForToday)
+  public groceryWorkingDayForTay$?: Observable<GroceryWorkingDayDetailDTO>;
 
   constructor(private toastrService: ToastrService) {
   }

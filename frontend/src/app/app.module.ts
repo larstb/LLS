@@ -6,13 +6,17 @@ import {AppRoutingModule} from "./app-routing.module";
 import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
 import {NgxsModule} from "@ngxs/store";
 import {PortalStoreState} from "./shared/store/portal-store-states";
-import {CommonModule, registerLocaleData} from "@angular/common";
+import {CommonModule, DATE_PIPE_DEFAULT_OPTIONS, DatePipe, registerLocaleData} from "@angular/common";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClientModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
 import {PortalDashboardComponent} from "./portal/portal-dashboard/portal-dashboard.component";
 import localePt from '@angular/common/locales/pt';
 import {LOCAL_STORAGE_ENGINE, NgxsStoragePluginModule} from "@ngxs/storage-plugin";
+import {
+  GroceryWorkingDayDashboardComponent
+} from "./portal/portal-dashboard/components/grocery-working-day-dashboard/grocery-working-day-dashboard.component";
+import {MaterialModule} from "./shared/materialmodule/material.module";
 
 export function initializeKeycloak(keycloak: KeycloakService) {
   return () => {
@@ -49,6 +53,7 @@ registerLocaleData(localePt, 'de-De');
     CommonModule,
     HeaderModule,
     BrowserAnimationsModule,
+    MaterialModule,
     HttpClientModule,
     RouterModule,
     ToastrModule.forRoot({
@@ -72,7 +77,8 @@ registerLocaleData(localePt, 'de-De');
   ],
   declarations: [
     AppComponent,
-    PortalDashboardComponent
+    PortalDashboardComponent,
+    GroceryWorkingDayDashboardComponent
   ],
   providers: [
     {
@@ -89,6 +95,11 @@ registerLocaleData(localePt, 'de-De');
       provide: DEFAULT_CURRENCY_CODE,
       useValue: 'EUR'
     },
+    {
+      provide: DATE_PIPE_DEFAULT_OPTIONS,
+      useValue: { dateFormat: 'dd.MM.yyyy' }
+    },
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

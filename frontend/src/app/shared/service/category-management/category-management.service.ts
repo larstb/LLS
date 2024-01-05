@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {ResponseWrapper} from "../../shared-model/responseWrapper";
-import {CategoryOverviewDTO} from "../../model/categoryOverviewDTO";
 import {CategoryDetailDTO} from "../../model/categoryDetailDTO";
 import {CreateCategoryDTO} from "../../model/createCategoryDTO";
 import {UpdateCategoryDTO} from "../../model/updateCategoryDTO";
@@ -16,8 +15,8 @@ export class CategoryManagementService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public loadAllCategories(withPagination?: boolean, queryParams?: any | undefined): Observable<ResponseWrapper<CategoryOverviewDTO>> {
-    return this.httpClient.get<ResponseWrapper<CategoryOverviewDTO>>(this._baseUrl + (withPagination ? '' : 'all'), {params: queryParams});
+  public loadAllCategories(withPagination?: boolean, queryParams?: any | undefined): Observable<ResponseWrapper<CategoryDetailDTO>> {
+    return this.httpClient.get<ResponseWrapper<CategoryDetailDTO>>(this._baseUrl + (withPagination ? '' : 'all'), {params: queryParams});
   }
 
   public loadCategoryById(id: string | undefined): Observable<CategoryDetailDTO> {

@@ -20,7 +20,7 @@ public class CategoryQueryDSLRepository {
 
     private final QCategoryEntity qCategory = QCategoryEntity.categoryEntity;
 
-    public QueryDslOverviewResponse<CategoryEntity> loadCategory(Optional<String> searchTerm, PageRequest pageRequest) {
+    public QueryDslOverviewResponse<CategoryEntity> loadCategories(Optional<String> searchTerm, PageRequest pageRequest) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         searchTerm.ifPresent(value ->
                         booleanBuilder.and(qCategory.name.containsIgnoreCase(value))
@@ -32,7 +32,7 @@ public class CategoryQueryDSLRepository {
                 .fetch(), buildFactory().selectFrom(qCategory).fetchCount());
     }
 
-    public QueryDslOverviewResponse<CategoryEntity> loadCategoryWithoutPagination(Optional<String> searchTerm) {
+    public QueryDslOverviewResponse<CategoryEntity> loadCategoriesWithoutPagination(Optional<String> searchTerm) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         searchTerm.ifPresent(value ->
                 booleanBuilder.and(qCategory.name.containsIgnoreCase(value))

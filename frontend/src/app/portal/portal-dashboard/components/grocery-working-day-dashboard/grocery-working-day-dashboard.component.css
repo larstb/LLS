@@ -1,0 +1,28 @@
+.container {
+  width: 25rem;
+  height: 20rem;
+  background: var(--black-accent);
+  display: block;
+}
+
+.content-container {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  margin-top: 1.5rem;
+  height: 14rem;
+  overflow: auto;
+}
+
+.title {
+  font-size: x-large;
+}
+
+.title-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 1.5rem;
+}
+
+.mt-2 {
+  margin-top: 1rem;
+}

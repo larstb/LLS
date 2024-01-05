@@ -3,9 +3,8 @@ package at.ltb.apprenticedeliverysystem.core.category.controller;
 import at.ltb.apprenticedeliverysystem.configuration.permission.ModeratorOrAdminPermission;
 import at.ltb.apprenticedeliverysystem.core._common.response.ResponseWrapper;
 import at.ltb.apprenticedeliverysystem.core.category.api.AdminModCategoryManagementResource;
-import at.ltb.apprenticedeliverysystem.core.category.api.AdminModCategoryManagementService;
+import at.ltb.apprenticedeliverysystem.core.category.api.CategoryManagementService;
 import at.ltb.apprenticedeliverysystem.core.category.dto.CategoryDetailDTO;
-import at.ltb.apprenticedeliverysystem.core.category.dto.CategoryOverviewDTO;
 import at.ltb.apprenticedeliverysystem.core.category.dto.CreateCategoryDTO;
 import at.ltb.apprenticedeliverysystem.core.category.dto.UpdateCategoryDTO;
 import org.slf4j.Logger;
@@ -24,20 +23,20 @@ public class AdminModCategoryManagementResourceImpl implements AdminModCategoryM
 
     private final Logger logger = LoggerFactory.getLogger(AdminModCategoryManagementResourceImpl.class);
 
-    private final AdminModCategoryManagementService adminModUserManagementService;
+    private final CategoryManagementService adminModUserManagementService;
 
-    public AdminModCategoryManagementResourceImpl(AdminModCategoryManagementService adminModUserManagementService) {
+    public AdminModCategoryManagementResourceImpl(CategoryManagementService adminModUserManagementService) {
         this.adminModUserManagementService = adminModUserManagementService;
     }
 
     @Override
-    public ResponseWrapper<CategoryOverviewDTO> loadAllCategories(Integer page, Integer pageSize, Optional<String> searchTerm) {
+    public ResponseWrapper<CategoryDetailDTO> loadAllCategories(Integer page, Integer pageSize, Optional<String> searchTerm) {
         logger.info("API loadAllCategories was called!");
         return adminModUserManagementService.loadAllCategories(page, pageSize, searchTerm);
     }
 
     @Override
-    public ResponseWrapper<CategoryOverviewDTO> loadAllCategoriesWithoutPagination(Optional<String> searchTerm) {
+    public ResponseWrapper<CategoryDetailDTO> loadAllCategoriesWithoutPagination(Optional<String> searchTerm) {
         logger.info("API loadAllCategoriesWithoutPagination was called!");
         return adminModUserManagementService.loadAllCategoriesWithoutPagination(searchTerm);
     }

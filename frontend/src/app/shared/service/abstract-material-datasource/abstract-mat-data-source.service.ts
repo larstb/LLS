@@ -3,6 +3,7 @@ import {CollectionViewer, DataSource} from "@angular/cdk/collections";
 import {BehaviorSubject, catchError, finalize, Observable, of} from "rxjs";
 import {MatPaginator} from "@angular/material/paginator";
 import {ResponseWrapper} from "../../shared-model/responseWrapper";
+import {DatePipe} from "@angular/common";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export abstract class AbstractMatDataSourceService<T> extends DataSource<T>{
   private _pageSize: number = 10;
   private _filter: any;
 
-  protected constructor() {
+  protected constructor(public datePipe: DatePipe) {
     super();
   }
 
@@ -61,6 +62,9 @@ export abstract class AbstractMatDataSourceService<T> extends DataSource<T>{
     .subscribe((result) => {
       this._dataSubject.next(result?.content || []);
       this._response = result;
+      if(this._paginator) {
+        this._paginator.length = this.response?.totalElements;
+      }
     });
   }
 
@@ -71,6 +75,7 @@ export abstract class AbstractMatDataSourceService<T> extends DataSource<T>{
       Object.entries(filter)
         .filter(([_, v]) => v !== null)
         .filter(([_, v]) => typeof(v) === 'string' ? v.trim() !== '' : true)
+        .map(([_, v]) => v instanceof Date ? [_, this.datePipe.transform(v, 'yyyy-MM-dd')] : [_, v])
     );
   }
 }

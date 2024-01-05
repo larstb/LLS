@@ -13,8 +13,8 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +28,7 @@ import java.util.List;
 @Setter
 public class OrderEntity extends AbstractCrudEntity {
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserEntity user;
 
@@ -38,7 +38,7 @@ public class OrderEntity extends AbstractCrudEntity {
             joinColumns = @JoinColumn( name="order_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn( name="order_item_id", referencedColumnName = "id")
     )
-    private List<OrderItemEntity> oderItems = new ArrayList<>();
+    private List<OrderItemEntity> orderItems = new ArrayList<>();
 
     @Nonnull
     @Column(name = "is_payed", nullable = false)
@@ -48,7 +48,12 @@ public class OrderEntity extends AbstractCrudEntity {
     @Enumerated(value = EnumType.STRING)
     private PaymentTypeEnum paymentType;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @Nonnull
+    @Column(name = "order_status", columnDefinition = "CHAR(30)", nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private OrderStatusEnum status = OrderStatusEnum.ORDERED;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "grocery_working_day_id", referencedColumnName = "id")
     private GroceryWorkingDayEntity groceryWorkingDay;
 }

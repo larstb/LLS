@@ -37,6 +37,5 @@ export class ProductOverviewComponent implements OnInit {
 
   public mergeFilter(filter: ProductOverviewFilter | undefined): void {
     this.filter = Object.assign({}, this.filter, filter);
-    console.log('FILTER: ', this.filter);
   }
 }

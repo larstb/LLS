@@ -40,6 +40,23 @@ public class ProductQueryDSLRepository {
                 .fetch(), buildFactory().selectFrom(qProduct).fetchCount());
     }
 
+    public QueryDslOverviewResponse<ProductEntity> loadProductsOverviewForWebshop(Optional<String> searchTerm,
+                                                                        Optional<String> categoryId,
+                                                                        PageRequest pageRequest) {
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        searchTerm.ifPresent(value ->
+                booleanBuilder.and(qProduct.name.containsIgnoreCase(value))
+                        .or(qProduct.producer.containsIgnoreCase(value))
+                        .or(qProduct.category.name.containsIgnoreCase(value)));
+        categoryId.ifPresent(value -> booleanBuilder.and(qProduct.category.uuid.eq(value)));
+        booleanBuilder.and(qProduct.isChecked.eq(true).and(qProduct.isActive.eq(true)));
+        return new QueryDslOverviewResponse<>(buildFactory().selectFrom(qProduct)
+                .where(booleanBuilder)
+                .limit(pageRequest.getPageSize())
+                .offset(pageRequest.getOffset())
+                .fetch(), buildFactory().selectFrom(qProduct).fetchCount());
+    }
+
     public ProductEntity loadProductByUuid(String uuid) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         booleanBuilder.and(qProduct.uuid.eq(uuid));

@@ -6,17 +6,18 @@ import {
 import {Observable} from "rxjs";
 import {UserManagementService} from "../../../../shared/service/user-management/user-management.service";
 import {ResponseWrapper} from "../../../../shared/shared-model/responseWrapper";
+import {DatePipe} from "@angular/common";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserOverviewTableDataSourceService extends AbstractMatDataSourceService<UserOverviewDTO> {
 
-  constructor(private userManagementService: UserManagementService) {
-    super();
+  constructor(datePipe: DatePipe, private userManagementService: UserManagementService) {
+    super(datePipe);
   }
 
   filter$(queryParams: any): Observable<ResponseWrapper<UserOverviewDTO>> {
-    return this.userManagementService.loadAllUsers(queryParams);
+    return this.userManagementService.loadAllUsers(true, queryParams);
   }
 }

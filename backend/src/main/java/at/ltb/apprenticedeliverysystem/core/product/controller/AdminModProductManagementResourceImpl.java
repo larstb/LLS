@@ -3,7 +3,7 @@ package at.ltb.apprenticedeliverysystem.core.product.controller;
 import at.ltb.apprenticedeliverysystem.configuration.permission.ModeratorOrAdminPermission;
 import at.ltb.apprenticedeliverysystem.core._common.response.ResponseWrapper;
 import at.ltb.apprenticedeliverysystem.core.product.api.AdminModProductManagementResource;
-import at.ltb.apprenticedeliverysystem.core.product.api.AdminModProductManagementService;
+import at.ltb.apprenticedeliverysystem.core.product.api.ProductManagementService;
 import at.ltb.apprenticedeliverysystem.core.product.dto.CreateProductDTO;
 import at.ltb.apprenticedeliverysystem.core.product.dto.ProductDetailDTO;
 import at.ltb.apprenticedeliverysystem.core.product.dto.ProductOverviewDTO;
@@ -24,10 +24,10 @@ public class AdminModProductManagementResourceImpl implements AdminModProductMan
 
     private final Logger logger = LoggerFactory.getLogger(AdminModProductManagementResourceImpl.class);
 
-    private final AdminModProductManagementService adminModProductManagementService;
+    private final ProductManagementService productManagementService;
 
-    public AdminModProductManagementResourceImpl(AdminModProductManagementService adminModProductManagementService) {
-        this.adminModProductManagementService = adminModProductManagementService;
+    public AdminModProductManagementResourceImpl(ProductManagementService productManagementService) {
+        this.productManagementService = productManagementService;
     }
 
     @Override
@@ -35,26 +35,26 @@ public class AdminModProductManagementResourceImpl implements AdminModProductMan
                                                                Optional<Boolean> isActive, Optional<Boolean> isChecked,
                                                                Optional<String> categoryId) {
         logger.info("API loadAllProducts was called!");
-        return adminModProductManagementService.loadAllProducts(page, pageSize, searchTerm, isActive, isChecked, categoryId);
+        return productManagementService.loadAllProducts(page, pageSize, searchTerm, isActive, isChecked, categoryId);
     }
 
     @Override
     public ProductDetailDTO loadProductById(String id) {
         logger.info("API loadProductById was called!");
-        return adminModProductManagementService.loadProductById(id);
+        return productManagementService.loadProductById(id);
     }
 
     @Override
     @Transactional
     public ProductDetailDTO createProduct(CreateProductDTO request) {
         logger.info("API createProduct was called!");
-        return adminModProductManagementService.createProduct(request);
+        return productManagementService.createProduct(request);
     }
 
     @Override
     @Transactional
     public ProductDetailDTO updateProduct(UpdateProductDTO request) {
         logger.info("API updateProduct was called!");
-        return adminModProductManagementService.updateProduct(request);
+        return productManagementService.updateProduct(request);
     }
 }

@@ -7,14 +7,15 @@ import {
   AbstractMatDataSourceService
 } from "../../../../shared/service/abstract-material-datasource/abstract-mat-data-source.service";
 import {ProductOverviewDTO} from "../../../../shared/model/productOverviewDTO";
+import {DatePipe} from "@angular/common";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductOverviewTableDataSourceService extends AbstractMatDataSourceService<ProductOverviewDTO>{
 
-  constructor(private productManagementService: ProductManagementService) {
-    super();
+  constructor(datePipe: DatePipe, private productManagementService: ProductManagementService) {
+    super(datePipe);
   }
 
   filter$(queryParams: any): Observable<ResponseWrapper<UserOverviewDTO>> {

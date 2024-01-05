@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
-import {ToastrService} from "ngx-toastr";
+import {Component} from '@angular/core';
+import {Select} from "@ngxs/store";
+import {PortalStoreState} from "../../../../shared/store/portal-store-states";
+import {Observable} from "rxjs";
+import {GroceryWorkingDayDetailDTO} from "../../../../shared/model/groceryWorkingDayDetailDTO";
 
 @Component({
   selector: 'app-action-header',
@@ -8,10 +11,7 @@ import {ToastrService} from "ngx-toastr";
 })
 export class ActionHeaderComponent {
 
-  constructor(private toastrService: ToastrService) {
-  }
+  @Select(PortalStoreState.groceryWorkingDayForToday)
+  public groceryWorkingDayForTay$?: Observable<GroceryWorkingDayDetailDTO>;
 
-  public showNotImplemented(): void {
-    this.toastrService.warning("this function is currently not implemented!", "NOT IMPLEMENTED")
-  }
 }

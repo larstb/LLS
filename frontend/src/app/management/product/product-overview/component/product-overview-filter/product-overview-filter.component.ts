@@ -6,8 +6,8 @@ import {ProductOverviewDTO} from "../../../../../shared/model/productOverviewDTO
 import {Select} from "@ngxs/store";
 import {PortalStoreState} from "../../../../../shared/store/portal-store-states";
 import {Observable} from "rxjs";
-import {CategoryOverviewDTO} from "../../../../../shared/model/categoryOverviewDTO";
 import {ProductOverviewFilter} from "../../../../../shared/shared-model/filter/product-overview-filter";
+import {CategoryDetailDTO} from "../../../../../shared/model/categoryDetailDTO";
 
 @Component({
   selector: 'app-product-overview-filter',
@@ -17,7 +17,7 @@ import {ProductOverviewFilter} from "../../../../../shared/shared-model/filter/p
 export class ProductOverviewFilterComponent {
 
   @Select(PortalStoreState.categories)
-  public categories$?: Observable<CategoryOverviewDTO[]>;
+  public categories$?: Observable<CategoryDetailDTO[]>;
 
   @Input()
   public datasource!: AbstractMatDataSourceService<ProductOverviewDTO>;

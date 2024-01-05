@@ -5,9 +5,9 @@ import {
 } from "../../../../../shared/service/abstract-material-datasource/abstract-mat-data-source.service";
 import {MatDialog} from "@angular/material/dialog";
 import {firstValueFrom} from "rxjs";
-import {CategoryOverviewDTO} from "../../../../../shared/model/categoryOverviewDTO";
 import {CategoryManagementService} from "../../../../../shared/service/category-management/category-management.service";
 import {CategoryDetailDialogComponent} from "../../../category-detail-dialog/category-detail-dialog.component";
+import {CategoryDetailDTO} from "../../../../../shared/model/categoryDetailDTO";
 
 @Component({
   selector: 'app-category-overview-table',
@@ -20,7 +20,7 @@ export class CategoryOverviewTableComponent implements OnInit {
   public matPaginator!: MatPaginator;
 
   @Input()
-  public datasource!: AbstractMatDataSourceService<CategoryOverviewDTO>;
+  public datasource!: AbstractMatDataSourceService<CategoryDetailDTO>;
 
   public displayedColumns = ['id', 'name', 'description', 'actions'];
 
@@ -31,7 +31,7 @@ export class CategoryOverviewTableComponent implements OnInit {
     this.datasource.paginator = this.matPaginator;
   }
 
-  public openDetailDialog(category: CategoryOverviewDTO): void {
+  public openDetailDialog(category: CategoryDetailDTO): void {
     firstValueFrom(this.categoryManagementService.loadCategoryById(category.id)).then((result) => {
       firstValueFrom(this.matDialog.open(CategoryDetailDialogComponent, {
         data: result,

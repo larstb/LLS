@@ -43,6 +43,7 @@ public abstract class UserMapper {
     public abstract UserDetailDTO mapUserEntityToDetailForUser(UserEntity user);
 
     @Mapping(target = "roles", ignore = true)
+    @Mapping(target = "id", source = "uuid")
     public abstract PortalUserDTO mapUserEntityToPortalUser(UserEntity user);
 
     @Mapping(target = "id", ignore = true)

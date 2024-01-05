@@ -4,26 +4,38 @@ import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {PortalStoreActions} from "./portal-actions";
 import {UserService} from "../service/user/user.service";
 import {map} from "rxjs/operators";
-import {CategoryOverviewDTO} from "../model/categoryOverviewDTO";
 import {CategoryManagementService} from "../service/category-management/category-management.service";
 import LoadAllCategoriesForProduct = PortalStoreActions.LoadAllCategoriesForProduct;
+import {CategoryDetailDTO} from "../model/categoryDetailDTO";
+import {UserOverviewDTO} from "../model/userOverviewDTO";
+import {UserManagementService} from "../service/user-management/user-management.service";
+import LoadAllUsersForGroceryWorkingDay = PortalStoreActions.LoadAllUsersForGroceryWorkingDay;
+import {GroceryWorkingDayDetailDTO} from "../model/groceryWorkingDayDetailDTO";
+import {GroceryWorkingDayService} from "../service/grocery-working-day/grocery-working-day.service";
 
 export interface PortalStoreModel {
   portalUser: PortalUserDTO | null;
-  categories: CategoryOverviewDTO[] | null;
+  categories: CategoryDetailDTO[] | null;
+  users: UserOverviewDTO[] | null;
+  groceryWorkingDayForToday: GroceryWorkingDayDetailDTO | null;
 }
 
 @State<PortalStoreModel>({
   name: 'portalStore',
   defaults: {
     portalUser: null,
-    categories: []
+    categories: [],
+    users: [],
+    groceryWorkingDayForToday: null,
   },
 })
 @Injectable()
 export class PortalStoreState {
 
-  constructor(private userService: UserService, private categoryManagementService: CategoryManagementService) {
+  constructor(private userService: UserService,
+              private categoryManagementService: CategoryManagementService,
+              private userManagementService: UserManagementService,
+              private groceryWorkingDayService: GroceryWorkingDayService) {
   }
 
   @Selector()
@@ -47,8 +59,18 @@ export class PortalStoreState {
   }
 
   @Selector()
-  public static categories(state: PortalStoreModel): CategoryOverviewDTO[] | null {
+  public static categories(state: PortalStoreModel): CategoryDetailDTO[] | null {
     return state.categories;
+  }
+
+  @Selector()
+  public static users(state: PortalStoreModel): UserOverviewDTO[] | null {
+    return state.users;
+  }
+
+  @Selector()
+  public static groceryWorkingDayForToday(state: PortalStoreModel): GroceryWorkingDayDetailDTO | null {
+    return state.groceryWorkingDayForToday;
   }
 
   @Action(PortalStoreActions.LoadPortalUser)
@@ -60,5 +82,22 @@ export class PortalStoreState {
   public loadAllCategoriesForProduct(ctx: StateContext<PortalStoreModel>, action: LoadAllCategoriesForProduct) {
     return this.categoryManagementService.loadAllCategories(false, action.queryParams)
       .pipe(map((categories) => ctx.patchState({categories: categories.content})));
+  }
+
+  @Action(PortalStoreActions.LoadAllUsersForGroceryWorkingDay)
+  public loadAllUsersForGroceryWorkingDay(ctx: StateContext<PortalStoreModel>, action: LoadAllUsersForGroceryWorkingDay) {
+    return this.userManagementService.loadAllUsers(false, action.queryParams)
+      .pipe(map((users) => ctx.patchState({users: users.content})));
+  }
+
+  @Action(PortalStoreActions.LoadGroceryWorkingDayToday)
+  public loadGroceryWorkingDayToday(ctx: StateContext<PortalStoreModel>) {
+    return this.groceryWorkingDayService.loadOrCreateGroceryWorkingDayToday()
+      .pipe(map((groceryWorkingDayForToday) => ctx.patchState({groceryWorkingDayForToday})));
+  }
+
+  @Action(PortalStoreActions.SetGroceryWorkingDayToday)
+  public setGroceryWorkingDayToday(ctx: StateContext<PortalStoreModel>, action: PortalStoreActions.SetGroceryWorkingDayToday) {
+    return ctx.patchState({groceryWorkingDayForToday: action.groceryWorkingDay});
   }
 }

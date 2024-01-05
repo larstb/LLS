@@ -29,6 +29,8 @@ public abstract class ProductMapper {
     @Mapping(target = "id", source = "uuid")
     public abstract ProductDetailDTO mapProductEntityToDetail(ProductEntity product);
 
+    public abstract List<ProductDetailDTO> mapProductEntityToDetail(List<ProductEntity> products);
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "uuid", ignore = true)
     @Mapping(target = "version", ignore = true)

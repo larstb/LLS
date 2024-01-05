@@ -14,6 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 public class PortalUserDTO {
 
+    private String id;
+
     private String firstname;
 
     private String lastname;

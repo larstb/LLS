@@ -7,7 +7,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -46,7 +46,7 @@ public class ProductEntity extends AbstractCrudEntity {
     @Column(name = "is_checked", nullable = false)
     private Boolean isChecked = false;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private CategoryEntity category;
 
