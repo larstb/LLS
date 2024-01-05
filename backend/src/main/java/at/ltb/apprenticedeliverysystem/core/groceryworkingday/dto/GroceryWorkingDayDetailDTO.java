@@ -1,6 +1,7 @@
 package at.ltb.apprenticedeliverysystem.core.groceryworkingday.dto;
 
 import at.ltb.apprenticedeliverysystem.core._common.response.BaseResponse;
+import at.ltb.apprenticedeliverysystem.core.groceryworkingday._persistence.GroceryWorkingDayStatusEnum;
 import at.ltb.apprenticedeliverysystem.core.user.dto.UserOverviewDTO;
 
 import java.time.LocalDate;
@@ -11,5 +12,6 @@ public record GroceryWorkingDayDetailDTO(
         Integer version,
         LocalDate date,
         List<UserOverviewDTO> goingUsers,
-        UserOverviewDTO payingUser) implements BaseResponse
+        UserOverviewDTO payingUser,
+        GroceryWorkingDayStatusEnum status) implements BaseResponse
 { }

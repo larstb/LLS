@@ -36,6 +36,7 @@ public abstract class GroceryWorkingDayMapper {
     @Mapping(target = "modifiedBy", ignore = true)
     @Mapping(target = "goingUsers", ignore = true)
     @Mapping(target = "payingUser", ignore = true)
+    @Mapping(target = "status", ignore = true)
     public abstract GroceryWorkingDayEntity mapCreateGroceryWorkingDayToEntity(CreateGroceryWorkingDayDTO groceryWorkingDay);
 
     @Mapping(target = "id", ignore = true)
