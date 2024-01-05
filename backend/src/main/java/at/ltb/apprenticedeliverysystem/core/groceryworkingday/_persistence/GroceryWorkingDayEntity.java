@@ -6,6 +6,8 @@ import jakarta.annotation.Nonnull;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
@@ -39,5 +41,10 @@ public class GroceryWorkingDayEntity extends AbstractCrudEntity {
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "paying_user_id", referencedColumnName = "id")
     private UserEntity payingUser;
+
+    @Nonnull
+    @Column(name = "day_status", columnDefinition = "CHAR(30)", nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private GroceryWorkingDayStatusEnum status = GroceryWorkingDayStatusEnum.OPEN;
 
 }

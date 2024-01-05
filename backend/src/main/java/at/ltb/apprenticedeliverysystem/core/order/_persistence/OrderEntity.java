@@ -48,6 +48,11 @@ public class OrderEntity extends AbstractCrudEntity {
     @Enumerated(value = EnumType.STRING)
     private PaymentTypeEnum paymentType;
 
+    @Nonnull
+    @Column(name = "order_status", columnDefinition = "CHAR(30)", nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private OrderStatusEnum status = OrderStatusEnum.ORDERED;
+
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "grocery_working_day_id", referencedColumnName = "id")
     private GroceryWorkingDayEntity groceryWorkingDay;
