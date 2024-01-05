@@ -29,7 +29,12 @@
               "node_modules/ngx-toastr/toastr.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "iban",
+              "base64-js",
+              "js-sha256"
+            ]
           },
           "configurations": {
             "production": {

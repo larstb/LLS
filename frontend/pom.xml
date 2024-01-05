@@ -9,6 +9,11 @@
       <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
 
+    <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
     <artifactId>frontend</artifactId>
     <name>LLS Frontend</name>
     <packaging>jar</packaging>
@@ -45,6 +50,7 @@
                 <output>src/app/shared</output>
                 <generateSupportingFiles>false</generateSupportingFiles>
                 <generateApis>false</generateApis>
+                <enablePostProcessFile>false</enablePostProcessFile>
               </configuration>
             </execution>
           </executions>
